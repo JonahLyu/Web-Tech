@@ -3,7 +3,9 @@
 The repositry for our web.
 
 **install**:
+
 ```shell
+cd /web_tech
 npm install
 ```
 
