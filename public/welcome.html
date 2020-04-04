@@ -4,6 +4,9 @@
         <meta charset="utf-8">
         <title>Welcome</title>
         <link rel="stylesheet" type="text/css" href="/stylesheets/login.css" />
+        <link href="bootstrap.min.css" rel="stylesheet">
+        <script src="bootstrap.min.js"></script>
+        <script src="jquery.min.js"></script>
         </head>
     <body>
         <div class="header" id="head">
@@ -18,23 +21,22 @@
         				<p class="p1">Login</p>
         			</div>
         			<!-- 输入框 -->
-                    <form action="login" method="post">
+                    <!-- <form action="users/login" method="post"> -->
                         <div class="lgD">
             				<img src="/images/png/black-user-shape.png" width="20" height="20" alt=""/>
-            				<input type="text" name="username"
+            				<input class="form-control" type="text" id="username" name="username"
             					placeholder="Username" />
             			</div>
             			<div class="lgD">
             				<img src="/images/png/closed.png" width="20" height="20" alt=""/>
-            				<input type="password" name="password"
+            				<input class="form-control" type="password" id="password" name="password"
             					placeholder="Password" />
             			</div>
             			<div class="logC">
-            				<input type="submit" value="Login">
+            				<button id="login_btn" class="btn btn-success">Login</button>
             			</div>
-                    </form>
-
-
+                    <!-- </form> -->
+                    <div id="checkResult" class="text-danger"></div>
 
         		</div>
         </div>
@@ -46,6 +48,28 @@
 
           </div>
       </div>
+
+      <script>
+      $(function(){
+         $("#login_btn").click(function(){
+           var n = $("#username").val();
+           var p = $("#password").val();
+           var page = "users/login";
+           $.post(
+               page,
+               { username: n, password: p },
+               function(result){
+                   if (result != "success"){
+                       $("#checkResult").html(result);
+                   }
+                   else {
+                       window.location.href = "login_success.html";
+                   }
+            });
+
+         });
+      });
+      </script>
 
 
     </body>

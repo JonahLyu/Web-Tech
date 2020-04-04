@@ -12,6 +12,7 @@ contributers: Jonah & Aaron
 cd /Web_Tech
 npm install
 ```
+
 **run locally**
 ```shell
 npm start
@@ -27,6 +28,7 @@ step2: reboot the pm2 service on server panel (in order to reload the nodes)
 
 step3: access web given address
 
+
 **current web address**:
 
 `www.jonahlyu.club:8080`
@@ -34,6 +36,7 @@ step3: access web given address
 port: 8080
 
 port number can be changed in file `/bin/www`
+
 
 **ftp info (for accessing raw files)**
 
