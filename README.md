@@ -2,6 +2,12 @@
 
 The repositry for our web.
 
+**install**:
+```shell
+npm install
+```
+
+
 
 **current web address**:
 
