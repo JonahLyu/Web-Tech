@@ -26,6 +26,7 @@ step3: access web given address
 `www.jonahlyu.club:8080`
 
 port: 8080
+port number can be changed in file `/bin/www`
 
 **ftp info (for accessing raw files)**
 
