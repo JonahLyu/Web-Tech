@@ -33,6 +33,38 @@ router.post('/login', function(req, res, next) {
 
 });
 
+router.post('/register', function(req, res, next) {
+
+  var username = req.body.username;
+  var password = req.body.password;
+  let sql = `select * from users where username = ?`;
+  console.log("Want to reg");
+
+  db.all(sql, [username], (err, results) => {
+    if (err) {
+      console.log("1");
+      throw err;
+    }
+    if (results.length != 0) {
+        console.log("2");
+        res.send('Username in use');
+    }
+    else {
+        sql = `insert into users values (?, ?)`
+        db.run(sql, [username, password], (err, results) => {
+          if (err) {
+            console.log("3");
+            throw err;
+          } else {
+            res.send("success");
+          }
+        });
+
+    }
+  });
+
+});
+
 router.get('/test', function(req, res, next) {
   res.send('hello');
 });

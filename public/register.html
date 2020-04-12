@@ -2,7 +2,7 @@
 <html lang="en" dir="ltr">
     <head>
         <meta charset="utf-8">
-        <title>Welcome</title>
+        <title>Register Account</title>
         <link rel="stylesheet" type="text/css" href="/stylesheets/login.css" />
         <link href="bootstrap.min.css" rel="stylesheet">
         <script src="bootstrap.min.js"></script>
@@ -18,11 +18,11 @@
         	<div class="logGet">
         			<!-- 头部提示信息 -->
         			<div class="logD logDtip">
-        				<p class="p1">Login</p>
+        				<p class="p1">Register Account</p>
         			</div>
         			<!-- 输入框 -->
                     <!-- <form action="users/login" method="post"> -->
-                        <div class="lgD">
+                  <div class="lgD">
             				<img src="/images/png/black-user-shape.png" width="20" height="20" alt=""/>
             				<input class="form-control" type="text" id="username" name="username"
             					placeholder="Username" />
@@ -33,13 +33,10 @@
             					placeholder="Password" />
             			</div>
             			<div class="logC">
-            				<button id="login_btn" class="btn btn-success">Login</button>
-                  </div>
-                  <div class="logC">
             				<button id="register_btn" class="btn btn-success">Register</button>
-            			</div>
-                    <!-- </form> -->
-                    <div id="checkResult" class="text-danger"></div>
+                  </div>
+                  <!-- </form> -->
+                  <div id="checkResult" class="text-danger"></div>
 
         		</div>
         </div>
@@ -54,26 +51,23 @@
 
       <script>
       $(function(){
-         $("#login_btn").click(function(){
+         $("#register_btn").click(function(){
            var n = $("#username").val();
            var p = $("#password").val();
-           var page = "users/login";
+           var page = "users/register";
+           console.log("Yo");
            $.post(
                page,
                { username: n, password: p },
                function(result){
                    if (result != "success"){
-                       $("#checkResult").html(result);
+                       $("#checkResult").html(result); //Change this to adding warnings about username or password inue, too short/long etc.
                    }
                    else {
-                       window.location.href = "login_success.html";
+                       window.location.href = "welcome.html";
                    }
             });
 
-         });
-
-         $("#register_btn").click(function(){
-          window.location.href = "register.html";
          });
 
       });
