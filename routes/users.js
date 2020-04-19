@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 var path = require('path');
 var sqlite3 = require(path.join(__dirname , '../node_modules/sqlite3')).verbose();
-var db = new sqlite3.Database(path.join(__dirname , '../database/user.sqlite3'));
+var db = new sqlite3.Database(path.join(__dirname , '../database/user.db'));
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
@@ -37,6 +37,9 @@ router.post('/register', function(req, res, next) {
 
   var username = req.body.username;
   var password = req.body.password;
+  var birthday = null;
+  var gender = null;
+  var email = null;
   let sql = `select * from users where username = ?`;
   console.log("Want to reg");
 
@@ -50,8 +53,8 @@ router.post('/register', function(req, res, next) {
         res.send('Username in use');
     }
     else {
-        sql = `insert into users values (?, ?)`
-        db.run(sql, [username, password], (err, results) => {
+        sql = `insert into users values (?, ?, ?, ?, ?, ?)`
+        db.run(sql, [null, username, password, birthday, gender, email], (err, results) => {
           if (err) {
             console.log("3");
             throw err;

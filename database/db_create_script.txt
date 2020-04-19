@@ -1,0 +1,17 @@
+CREATE TABLE "users" (
+   "UserID" INTEGER NOT NULL PRIMARY KEY ASC AUTOINCREMENT
+ , "username" TEXT NOT NULL
+ , "password" TEXT NOT NULL
+ , "birthday" TEXT
+ , "gender" TEXT DEFAULT('M')
+ , "email" TEXT
+);
+
+CREATE TABLE "posts" (
+   "PostID" INTEGER NOT NULL PRIMARY KEY ASC
+ , "UserID" INTEGER NOT NULL
+ , "Content" TEXT
+ , FOREIGN KEY("UserID") REFERENCES "users"("UserID")
+   ON DELETE CASCADE
+   ON UPDATE NO ACTION
+);
