@@ -45,3 +45,15 @@ ftp link: `ftp://18.191.141.206:21`
 username: `node`
 
 password: `12345678`
+
+**IMPORTANT**
+
+Had to make major changes to current structure to get user authentication working. Pushed to new branch. More details at bottom of readme.
+
+Make sure to run:
+
+npm i pug
+
+npm i -D browser-sync
+
+To install used packages
