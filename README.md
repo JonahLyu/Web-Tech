@@ -14,10 +14,17 @@ npm install
 ```
 
 **run locally**
+
+Open two terminals.
+
 ```shell
-npm start
+npm run dev
 ```
-Open web browser and goto `http://localhost:8080`
+
+```shell
+npm run ui 
+```
+Visit `localhost:3000` to see updates in real time.
 
 
 **run remotely**
@@ -46,25 +53,20 @@ username: `node`
 
 password: `12345678`
 
+
 **New Info**:
 
-Open two terminals.
-
-npm run dev in one
-npm run ui in other
-
-visit localhost:3000 to see updates in real time.
-
 Changes to code following these tutorials:
+
 // This tutorial for design: https://auth0.com/blog/create-a-simple-and-stylish-node-express-app/
+
 // This one for authorisation: https://auth0.com/blog/create-a-simple-and-secure-node-express-app/#Setting-Up-the-Project
 
 Auth0 site login:
 
 My uni e-mail num is 17092
+
 pass: MagicForum12
 
-**Aside**
 
-Can't seem to contact on whatsapp, should I contact on skype or something instead?
 
