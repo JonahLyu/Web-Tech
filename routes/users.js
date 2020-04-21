@@ -32,14 +32,15 @@ router.get("/info", secured, (req, res) => {
             throw err;
         }
         if (results.length == 0) {
-            res.send('No user info');
+          res.render("setting", {title: "Setting", userProfile: userProfile});
         }
         else {
             results.forEach((result) => {
                 res.render("user", {title: "Profile",
                                     userProfile: userProfile,
                                     username: result.Username,
-                                    gender: result.Gender});
+                                    gender: result.Gender,
+                                    birthday: result.Birthday});
             });
 
         }
@@ -76,7 +77,7 @@ router.post('/save_setting', secured, function(req, res, next) {
   var id = req.body.id;
   var username = req.body.username;
   var gender = req.body.gender;
-  var birthday = null;
+  var birthday = req.body.birthday;
   var phone = null;
   let sql = `select * from users where UserID = ?`;
 
@@ -86,7 +87,7 @@ router.post('/save_setting', secured, function(req, res, next) {
     }
     if (results.length == 0) {
         sql = `insert into users values (?, ?, ?, ?, ?)`
-        db.run(sql, [id, username, birthday,gender, phone], (err, results) => {
+        db.run(sql, [id, username, birthday ,gender, phone], (err, results) => {
           if (err) {
             throw err;
           } else {

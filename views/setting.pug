@@ -28,6 +28,9 @@ html(lang='en', dir='ltr')
                                 option Male
                                 option Female
                                 option Prefer not to say
+                        .lgD
+                            img(src='/images/png/black-user-shape.png', width='20', height='20', alt='')
+                            input#date_of_birth.form-control(type='date' name='date_of_birth' value='')
                         .logC
                             button#register_btn.btn.btn-success Save
                         #checkResult.text-danger
@@ -43,6 +46,9 @@ html(lang='en', dir='ltr')
                         var n = $("#username").val();
                         var userId = $("#userId")["0"].innerText;
                         var g = $("#gender").val();
+                        var dob = $("#date_of_birth").val();
+                        //Need to add way to validate phone number
+                        //General validation needed
                         if (n == "") {
                             $("#nameWarn").html("Display name can not be empty");
                         }
@@ -50,7 +56,7 @@ html(lang='en', dir='ltr')
                             var page = "/users/save_setting";
                             $.post(
                             page,
-                            { id: userId, username: n, gender: g },
+                            { id: userId, username: n, gender: g, birthday: dob },
                             function(result){
                                 $("#checkResult").html(result);
                             });
