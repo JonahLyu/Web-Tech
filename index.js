@@ -13,9 +13,15 @@ const expressSession = require("express-session");
 const passport = require("passport");
 const Auth0Strategy = require("passport-auth0");
 
+var cookieParser = require('cookie-parser');
+var logger = require('morgan');
+
 require("dotenv").config();
 
 const authRouter = require("./auth");
+
+var indexRouter = require('./routes/index');
+var usersRouter = require('./routes/users');
 
 /**
  * App Variables
@@ -34,7 +40,7 @@ const session = {
     resave: false,
     saveUninitialized: false
 };
-  
+
 if (app.get("env") === "production") {
     // Serve secure cookies, requires HTTPS
     session.cookie.secure = true;
@@ -71,7 +77,14 @@ const strategy = new Auth0Strategy(
 
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "pug");
+app.use(logger('dev'));
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
+app.use(express.static(__dirname + '/node_modules/jquery/dist/'));
+app.use(express.static(__dirname + '/node_modules/bootstrap/dist/css'));
+app.use(express.static(__dirname + '/node_modules/bootstrap/dist/js'));
 
 app.use(expressSession(session));
 
@@ -82,7 +95,7 @@ app.use(passport.session());
 passport.serializeUser((user, done) => {
     done(null, user);
 });
-  
+
 passport.deserializeUser((user, done) => {
     done(null, user);
 });
@@ -112,10 +125,18 @@ app.use("/", authRouter);
      res.render("index", {title: "Home"});
  });
 
- app.get("/user", secured, (req, res) => {
-    const { _raw, _json, ...userProfile } = req.user;
-    res.render("user", {title: "Profile", userProfile: userProfile});
- })
+app.use('/users', usersRouter);
+
+// error handler
+app.use(function(err, req, res, next) {
+  // set locals, only providing error in development
+  res.locals.message = err.message;
+  res.locals.error = req.app.get('env') === 'development' ? err : {};
+
+  // render the error page
+  res.status(err.status || 500);
+  res.render('error');
+});
 
 /**
  * Server Activation

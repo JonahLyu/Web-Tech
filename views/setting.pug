@@ -1,0 +1,59 @@
+doctype html
+html(lang='en', dir='ltr')
+    head
+        meta(charset='utf-8')
+        title #{title} | Magic Forum
+        link(rel='stylesheet', type='text/css', href='/stylesheets/setting.css')
+        script(src='../jquery.min.js')
+        link(href='../bootstrap.min.css', rel='stylesheet')
+        script(src='../bootstrap.min.js')
+    body
+        
+            #head.header
+                .title Magic Forum
+            div.SettingView
+                #wrap.wrap
+                    .logGet
+                        .logD.logDtip
+                            p.p1 Account Setting
+                            p user: #{userProfile.nickname}
+                        .lgD
+                            #nameWarn.text-danger
+                            img(src='/images/png/cut-triangle-flag.png', width='20', height='20', alt='')
+                            input#username.form-control(type='text', name='username', placeholder='Display name')
+                            
+                        .lgD
+                            img(src='/images/png/black-user-shape.png', width='20', height='20', alt='')
+                            select.form-control(id='gender')
+                                option Male
+                                option Female
+                                option Prefer not to say
+                        .logC
+                            button#register_btn.btn.btn-success Save
+                        #checkResult.text-danger
+                        p(hidden='', id="userId", type=hide) #{userProfile.id}
+            #foot.footer
+                .copyright
+                    p Designer: Jonah & Aaron
+                    
+                    
+            script.
+                $(function(){
+                    $("#register_btn").click(function(){
+                        var n = $("#username").val();
+                        var userId = $("#userId")["0"].innerText;
+                        var g = $("#gender").val();
+                        if (n == "") {
+                            $("#nameWarn").html("Display name can not be empty");
+                        }
+                        else{
+                            var page = "/users/save_setting";
+                            $.post(
+                            page,
+                            { id: userId, username: n, gender: g },
+                            function(result){
+                                $("#checkResult").html(result);
+                            });
+                        }    
+                    });
+                });
