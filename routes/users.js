@@ -40,7 +40,8 @@ router.get("/info", secured, (req, res) => {
                                     userProfile: userProfile,
                                     username: result.Username,
                                     gender: result.Gender,
-                                    birthday: result.Birthday});
+                                    birthday: result.Birthday,
+                                    phone: result.Phone});
             });
 
         }
@@ -74,11 +75,12 @@ router.get("/info", secured, (req, res) => {
 // });
 
 router.post('/save_setting', secured, function(req, res, next) {
-  var id = req.body.id;
+    const { _raw, _json, ...userProfile } = req.user;
+  var id = userProfile.id;
   var username = req.body.username;
   var gender = req.body.gender;
   var birthday = req.body.birthday;
-  var phone = null;
+  var phone = req.body.phonenumber;
   let sql = `select * from users where UserID = ?`;
 
   db.all(sql, [id], (err, results) => {
