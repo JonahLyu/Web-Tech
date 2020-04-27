@@ -2,7 +2,8 @@ extends layout
 
 block layout-content
     div.View.WelcomeView
-        h1.Banner Howdy, #{userProfile.nickname}!
+        h1.Banner Howdy, #{username}!
+        
         div.Message
             div.Title
                 h3 your forum info
@@ -10,10 +11,15 @@ block layout-content
             p Gender: #{gender}
             p D.O.B.: #{birthday}
             p Phone: #{phone}
-            //- pre.Details=JSON.stringify(userProfile, null, 2)
             div.NavButtons
                 a(href="/users/setting")
                     div.NavButton Edit
+            br
+            div.NavButtons
+                a(href="/users/newpost")
+                    div.NavButton New Post
+                
+                        
         div.NavButtons
             a(href="/logout")
                 div.NavButton Log out

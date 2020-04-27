@@ -110,9 +110,11 @@ router.post('/save_setting', secured, function(req, res, next) {
   });
 });
 
-router.get('/test',secured, function(req, res, next) {
-  res.send('hello');
+router.get('/newpost',secured, function(req, res, next) {
+    const { _raw, _json, ...userProfile } = req.user;
+    res.render("post", {title: "NewPost", userProfile: userProfile});
 });
+
 
 
 module.exports = router;

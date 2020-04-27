@@ -22,6 +22,7 @@ const authRouter = require("./auth");
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+var forumRouter = require('./routes/forum');
 
 /**
  * App Variables
@@ -126,6 +127,7 @@ app.use("/", authRouter);
  });
 
 app.use('/users', usersRouter);
+app.use('/forum', forumRouter);
 
 // error handler
 app.use(function(err, req, res, next) {
