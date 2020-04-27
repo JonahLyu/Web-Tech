@@ -8,19 +8,34 @@ contributers: Jonah & Aaron
 
 **install**:
 
+Locate your work directory
+
 ```shell
 cd /Web_Tech
+```
+
+Install essential modules first
+
+
+```shell
 npm install
 ```
 
 **run locally**
+
+Open two terminals.
+
 ```shell
-npm start
+npm run dev
 ```
-Open web browser and goto `http://localhost:8080`
+
+```shell
+npm run ui 
+```
+Visit `localhost:3000` to see updates in real time.
 
 
-**run remotely**
+**run remotely (not available now)**
 
 step1: submit all files using ftp
 
@@ -29,7 +44,7 @@ step2: reboot the pm2 service on server panel (in order to reload the nodes)
 step3: access web given address
 
 
-**current web address**:
+**current web address (not available now)**
 
 `www.jonahlyu.club:8080`
 
@@ -46,14 +61,19 @@ username: `node`
 
 password: `12345678`
 
-**IMPORTANT**
 
-Had to make major changes to current structure to get user authentication working. Pushed to new branch. More details at bottom of readme.
+**New Info**:
 
-Make sure to run:
+Changes to code following these tutorials:
 
-npm i pug
+// This tutorial for design: https://auth0.com/blog/create-a-simple-and-stylish-node-express-app/
 
-npm i -D browser-sync
+// This one for authorisation: https://auth0.com/blog/create-a-simple-and-secure-node-express-app/#Setting-Up-the-Project
 
-To install used packages
+
+**Auth0 site login**:
+
+My uni e-mail num is 17092
+
+pass: MagicForum12
+

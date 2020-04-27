@@ -1,0 +1,25 @@
+extends layout
+
+block layout-content
+    div.View.WelcomeView
+        h1.Banner Howdy, #{username}!
+        
+        div.Message
+            div.Title
+                h3 your forum info
+            p User Name: #{username}
+            p Gender: #{gender}
+            p D.O.B.: #{birthday}
+            p Phone: #{phone}
+            div.NavButtons
+                a(href="/users/setting")
+                    div.NavButton Edit
+            br
+            div.NavButtons
+                a(href="/users/newpost")
+                    div.NavButton New Post
+                
+                        
+        div.NavButtons
+            a(href="/logout")
+                div.NavButton Log out

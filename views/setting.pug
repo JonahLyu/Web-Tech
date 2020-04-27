@@ -1,0 +1,80 @@
+doctype html
+html(lang='en', dir='ltr')
+    head
+        meta(charset='utf-8')
+        title #{title} | Magic Forum
+        link(rel='stylesheet', type='text/css', href='/stylesheets/setting.css')
+        script(src='../jquery.min.js')
+        link(href='../bootstrap.min.css', rel='stylesheet')
+        script(src='../bootstrap.min.js')
+    body
+            #head.header
+                .title 
+                    a.head(href='/users/info') Magic Forum
+                
+            div.SettingView
+                #wrap.wrap
+                    .logGet
+                        .logD.logDtip
+                            p.p1 Account Setting
+                            p user: #{userProfile.nickname}
+                        .lgD
+                            img(src='/images/png/cut-triangle-flag.png', width='20', height='20', alt='')
+                            input#username.form-control(type='text', name='username', placeholder='Display name')
+                            
+                        .lgD
+                            img(src='/images/png/black-user-shape.png', width='20', height='20', alt='')
+                            select.form-control(id='gender')
+                                option Male
+                                option Female
+                                option Prefer not to say
+                        .lgD
+                            img(src='/images/png/visitor-identification.png', width='20', height='20', alt='')
+                            input#date_of_birth.form-control(type='date' name='date_of_birth' value='')
+                        .lgD
+                            img(src='/images/png/tablet-screen.png', width='20', height='20', alt='')
+                            input#phoneNumber.form-control(type='text', name='phoneNumber', placeholder='Phone number')
+                        .logC
+                            button#save_btn.btn.btn-primary Save
+                            #checkResult.text-success
+
+            #foot.footer
+                .copyright
+                    p Designer: Jonah & Aaron
+                    
+                    
+            script.
+                $(function(){
+                    $("#save_btn").click(function(){
+                        var n = $("#username").val();
+                        var g = $("#gender").val();
+                        var dob = $("#date_of_birth").val();
+                        var p = $("#phoneNumber").val();
+                        //Need to add way to validate phone number
+                        //General validation needed
+                        if (n == "" || dob == "") {
+                            $("#save_btn").attr("class","btn btn-danger") ;
+                            if (dob == "") {
+                                $("#save_btn").html("Date is wrong");
+                                $("#date_of_birth").css("background-color","pink");
+                                }
+                            if (n == "") {
+                                $("#save_btn").html("Display name can not be empty");
+                                $("#username").css("background-color","pink");
+                                }
+                            
+                        }
+                        else{
+                            var page = "/users/save_setting";
+                            $.post(
+                            page,
+                            {username: n, gender: g, birthday: dob , phonenumber: p},
+                            function(result){
+                                $("#save_btn").attr("class","btn btn-success") ;
+                                $("#save_btn").html("success!") ;
+                                $("#username").css("background-color","white");
+                                $("#date_of_birth").css("background-color","white");
+                            });
+                        }    
+                    });
+                });

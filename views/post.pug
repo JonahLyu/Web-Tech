@@ -1,0 +1,16 @@
+extends layout
+
+block layout-content
+    div.View.WelcomeView
+        h1.Banner Howdy, #{userProfile.nickname}!
+        div.Message
+            div.Title
+                h3 New post
+            form(action="/forum/post" method="POST")
+                textarea#content.form-control(name="content", rows='5', cols='20', placeholder='your content')
+                br
+                button#post.btn.btn-primary(type="submit" name="submit") post
+        div.NavButtons
+            a(href="/logout")
+                div.NavButton Log out
+        
