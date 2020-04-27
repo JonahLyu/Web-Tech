@@ -8,8 +8,16 @@ contributers: Jonah & Aaron
 
 **install**:
 
+Locate your work directory
+
 ```shell
 cd /Web_Tech
+```
+
+Install essential modules first
+
+
+```shell
 npm install
 ```
 
@@ -27,7 +35,7 @@ npm run ui
 Visit `localhost:3000` to see updates in real time.
 
 
-**run remotely**
+**run remotely (not available now)**
 
 step1: submit all files using ftp
 
@@ -36,7 +44,7 @@ step2: reboot the pm2 service on server panel (in order to reload the nodes)
 step3: access web given address
 
 
-**current web address**:
+**current web address (not available now)**
 
 `www.jonahlyu.club:8080`
 
@@ -62,7 +70,8 @@ Changes to code following these tutorials:
 
 // This one for authorisation: https://auth0.com/blog/create-a-simple-and-secure-node-express-app/#Setting-Up-the-Project
 
-Auth0 site login:
+
+**Auth0 site login**:
 
 My uni e-mail num is 17092
 
