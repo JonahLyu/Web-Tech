@@ -6,10 +6,15 @@ block layout-content
         div.Message
             div.Title
                 h3 New post
-            form(action="/forum/post" method="POST")
+            form(action="/forum/createPost" method="POST")
                 textarea#content.form-control(name="content", rows='5', cols='20', placeholder='your content')
                 br
                 button#post.btn.btn-primary(type="submit" name="submit") post
+                
+            div.NavButtons
+                a(href="/users/listPosts")
+                    div.NavButton Show Posts
+                    
         div.NavButtons
             a(href="/logout")
                 div.NavButton Log out

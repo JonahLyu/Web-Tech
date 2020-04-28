@@ -1,0 +1,26 @@
+extends layout
+
+block layout-content
+    div.View.WelcomeView
+        h1.Banner Howdy, #{userProfile.nickname}!
+        div.Message
+            table
+                each post in posts
+                    tr
+                        form(action="/forum/deletePost" method="POST")
+                            td
+                                input#postid(name="postid", value=post.PostID, readonly)
+                            td
+                                input#content(name="content", value=post.Content, readonly)
+                            td
+                                input#date(name="date", value=post.Date, readonly)
+                            td
+                                button#post.btn.btn-danger(type="submit" name="submit") delete
+                    
+            div.NavButtons
+                a(href="/users/newpost")
+                    div.NavButton new post
+        
+        div.NavButtons
+            a(href="/logout")
+                div.NavButton Log out

@@ -50,30 +50,6 @@ router.get("/info", secured, (req, res) => {
 })
 
 
-// router.post('/login', secured, function(req, res, next) {
-//     var username = req.body.username;
-//     var password = req.body.password;
-//     let sql = `select * from users where username = ? and password = ?`;
-//
-//     db.all(sql, [username, password], (err, results) => {
-//       if (err) {
-//         throw err;
-//       }
-//       if (results.length == 0) {
-//           res.send('wrong username or password');
-//       }
-//       else {
-//           res.send("success");
-//           // res.redirect('/public/login_successs.html');
-//           results.forEach((result) => {
-//             console.log(result.username + ' ' + result.password);
-//           });
-//
-//       }
-//     });
-//
-// });
-
 router.post('/save_setting', secured, function(req, res, next) {
     const { _raw, _json, ...userProfile } = req.user;
   var id = userProfile.id;
@@ -115,6 +91,19 @@ router.get('/newpost',secured, function(req, res, next) {
     res.render("post", {title: "NewPost", userProfile: userProfile});
 });
 
+router.get('/listPosts',secured, function(req, res, next) {
+    let sql = `select * from posts where UserID = ?`;
+    const { _raw, _json, ...userProfile } = req.user
+    var id = userProfile.id
+    db.all(sql, [id], (err, results) => {
+        if (err) {
+            throw err;
+        }
+        else {
+            res.render("listpost", {title: "AllPost", userProfile: userProfile, posts: results})
+        }
+    });
+});
 
 
 module.exports = router;
