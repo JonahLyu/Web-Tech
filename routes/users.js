@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+var userDAO = require('../dao/userDAO')
 var path = require('path');
 var sqlite3 = require(path.join(__dirname , '../node_modules/sqlite3')).verbose();
 var db = new sqlite3.Database(path.join(__dirname , '../database/user.db'));
@@ -20,33 +21,37 @@ router.get('/', secured, function(req, res, next) {
 
 router.get('/setting', secured, function(req, res, next) {
     const { _raw, _json, ...userProfile } = req.user;
-    res.render("setting", {title: "Setting", userProfile: userProfile});
+    userDAO.getUser(userProfile.id, (result) => {
+      if (!result) {
+        res.render("setting", {title: "Setting",
+          userProfile: userProfile});
+      } else {
+        res.render("setting", {title: "Setting",
+          userProfile: userProfile,
+          username: result.Username,
+          gender: result.Gender,
+          birthday: result.Birthday,
+          phone: result.Phone});
+      }
+    });
+    // res.render("setting", {title: "Setting", userProfile: userProfile});
 });
 
 
 router.get("/info", secured, (req, res) => {
     const { _raw, _json, ...userProfile } = req.user;
-    let sql = `select * from users where UserID = ?`;
-    db.all(sql, [userProfile.id], (err, results) => {
-        if (err) {
-            throw err;
-        }
-        if (results.length == 0) {
-          res.render("setting", {title: "Setting", userProfile: userProfile});
-        }
-        else {
-            results.forEach((result) => {
-                res.render("user", {title: "Profile",
-                                    userProfile: userProfile,
-                                    username: result.Username,
-                                    gender: result.Gender,
-                                    birthday: result.Birthday,
-                                    phone: result.Phone});
-            });
-
-        }
+    userDAO.getUser(userProfile.id, (result) => {
+      if (!result) { //No user found for logged in user, we need to save details
+        res.redirect('/users/setting')
+      } else {
+        res.render("user", {title: "Profile",
+          userProfile: userProfile,
+          username: result.Username,
+          gender: result.Gender,
+          birthday: result.Birthday,
+          phone: result.Phone});
+      }
     });
-
 })
 
 
@@ -69,7 +74,8 @@ router.post('/save_setting', secured, function(req, res, next) {
           if (err) {
             throw err;
           } else {
-            res.send("success!");
+            // res.send("success!");
+            res.redirect('/users/info');
           }
         });
     }
@@ -79,7 +85,8 @@ router.post('/save_setting', secured, function(req, res, next) {
           if (err) {
             throw err;
           } else {
-            res.send("success!");
+            // res.send("success!");
+            res.redirect('/users/info');
           }
         });
     }
@@ -88,7 +95,12 @@ router.post('/save_setting', secured, function(req, res, next) {
 
 router.get('/newpost',secured, function(req, res, next) {
     const { _raw, _json, ...userProfile } = req.user;
-    res.render("post", {title: "NewPost", userProfile: userProfile});
+    res.render("post", {title: "New Post", userProfile: userProfile});
+});
+
+router.get('/newcat',secured, function(req, res, next) {
+  const { _raw, _json, ...userProfile } = req.user;
+  res.render("category", {title: "New Category", userProfile: userProfile});
 });
 
 router.get('/listPosts',secured, function(req, res, next) {

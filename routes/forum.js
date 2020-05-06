@@ -14,7 +14,7 @@ const secured = (req, res, next) => {
 
 
 //create a new post entry in database
-router.post('/createPost', secured, function(req, res, next) {
+router.post('/createPost', secured, function(req, res, next) { //We'll want to add a title for posts that aren't replies or just treat them differently
     const { _raw, _json, ...userProfile } = req.user
     var content = req.body.content
     var time = moment().format("MMM Do YY, h:mm:ss a")

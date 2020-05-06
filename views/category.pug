@@ -1,0 +1,17 @@
+extends layout
+
+block layout-content
+    div.View.WelcomeView
+        h1.Banner Howdy, #{userProfile.nickname}!
+        div.Message
+            div.Title
+                h3 New Category
+            form(action="/forum/createCategory" method="POST")
+                input#title.form-control(type='text', name='cat-name', placeholder='category name')
+                br
+                button#create.btn.btn-primary(type="submit" name="submit") create
+                    
+        div.NavButtons
+            a(href="/logout")
+                div.NavButton Log out
+        

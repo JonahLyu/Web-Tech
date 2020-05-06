@@ -7,6 +7,8 @@ block layout-content
             div.Title
                 h3 New post
             form(action="/forum/createPost" method="POST")
+                input#title.form-control(type='text', name='title', placeholder='your title')
+                br
                 textarea#content.form-control(name="content", rows='5', cols='20', placeholder='your content')
                 br
                 button#post.btn.btn-primary(type="submit" name="submit") post

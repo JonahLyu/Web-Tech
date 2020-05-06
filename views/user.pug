@@ -15,9 +15,17 @@ block layout-content
                 a(href="/users/setting")
                     div.NavButton Edit
             br
+            //-These buttons are placeholders, and shouldn't be on this page
             div.NavButtons
+                a(href="/users/newcat")
+                    div.NavButton New Category
                 a(href="/users/newpost")
                     div.NavButton New Post
+            //-They belong on the forum browsing page
+            br
+            div.NavButtons
+                a(href="/users/listPosts")
+                    div.NavButton Show Posts
                         
         div.NavButtons
             a(href="/logout")

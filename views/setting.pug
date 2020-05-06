@@ -20,20 +20,20 @@ html(lang='en', dir='ltr')
                             p user: #{userProfile.nickname}
                         .lgD
                             img(src='/images/png/cut-triangle-flag.png', width='20', height='20', alt='')
-                            input#username.form-control(type='text', name='username', placeholder='Display name')
-                            
+                            input#username.form-control(type='text', name='username', value=username, placeholder='Display name')
                         .lgD
                             img(src='/images/png/black-user-shape.png', width='20', height='20', alt='')
                             select.form-control(id='gender')
-                                option Male
-                                option Female
-                                option Prefer not to say
+                                option(value='0', selected= true) -- Select --
+                                option(value = 'Male', selected = (gender === 'Male')) Male
+                                option(value = 'Female', selected = (gender === 'Female')) Female
+                                option(value = 'Prefer not to say', selected = (gender === 'Prefer not to say')) Prefer not to say
                         .lgD
                             img(src='/images/png/visitor-identification.png', width='20', height='20', alt='')
-                            input#date_of_birth.form-control(type='date' name='date_of_birth' value='')
+                            input#date_of_birth.form-control(type='date' name='date_of_birth' value=birthday, placeholder='')
                         .lgD
                             img(src='/images/png/tablet-screen.png', width='20', height='20', alt='')
-                            input#phoneNumber.form-control(type='text', name='phoneNumber', placeholder='Phone number')
+                            input#phoneNumber.form-control(type='text', name='phoneNumber', value=phone, placeholder='Phone number')
                         .logC
                             button#save_btn.btn.btn-primary Save
                             #checkResult.text-success
