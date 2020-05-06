@@ -56,7 +56,7 @@ router.get("/info", secured, (req, res) => {
 
 
 router.post('/save_setting', secured, function(req, res, next) {
-    const { _raw, _json, ...userProfile } = req.user;
+  const { _raw, _json, ...userProfile } = req.user;
   var id = userProfile.id;
   var username = req.body.username;
   var gender = req.body.gender;
@@ -74,8 +74,7 @@ router.post('/save_setting', secured, function(req, res, next) {
           if (err) {
             throw err;
           } else {
-            // res.send("success!");
-            res.redirect('/users/info');
+            res.send("success!");
           }
         });
     }
@@ -85,8 +84,7 @@ router.post('/save_setting', secured, function(req, res, next) {
           if (err) {
             throw err;
           } else {
-            // res.send("success!");
-            res.redirect('/users/info');
+            res.send("success!");
           }
         });
     }
