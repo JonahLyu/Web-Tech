@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var postDAO = require('../dao/postDAO')
+var catDAO = require('../dao/catDAO')
 var moment = require('moment')
 
 
@@ -27,6 +28,14 @@ router.post('/deletePost', secured, function(req, res, next) {
     var postID = req.body.postid
     postDAO.deletePost(postID)
     res.redirect('/users/listPosts')
+});
+
+//create a category in database
+router.post('/createCategory', secured, function(req, res, next) {
+    var title = req.body.title
+    var description = req.body.description
+    catDAO.createCat(title, description)
+    res.send("success!");
 });
 
 module.exports = router;
