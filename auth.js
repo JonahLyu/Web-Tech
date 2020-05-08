@@ -5,7 +5,10 @@
  * Required External Modules
  */
 
+// const {app, session, redis, redisStore, client, bodyParser} = require("./index.js");
+
 const express = require("express");
+// const expressSession = require("express-session");
 const router = express.Router();
 const passport = require("passport");
 const util = require("util");
@@ -42,6 +45,8 @@ router.get("/callback", (req, res, next) => {
             }
             const returnTo = req.session.returnTo;
             delete req.session.returnTo;
+            const { _raw, _json, ...userProfile } = req.user;
+            req.session.user = userProfile.id;
             res.redirect(returnTo || "/");
         });
     })(req, res, next);

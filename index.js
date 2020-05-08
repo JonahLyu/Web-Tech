@@ -13,6 +13,12 @@ const expressSession = require("express-session");
 const passport = require("passport");
 const Auth0Strategy = require("passport-auth0");
 
+const redis = require('redis');
+const redisStore = require('connect-redis')(expressSession);
+const client = redis.createClient();
+
+const bodyParser = require('body-parser');
+
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
@@ -38,6 +44,7 @@ const port = process.env.PORT || "8000";
 const session = {
     secret: "LoxodontaElephasMammuthusPalaeoloxodonPrimelephas",
     cookie: {},
+    store: new redisStore({host:'localhost', port:6379, client:client, ttl:260}),
     resave: false,
     saveUninitialized: false
 };
@@ -75,6 +82,10 @@ const strategy = new Auth0Strategy(
 /**
  *  App Configuration
  */
+
+
+app.use(bodyParser.json());      
+app.use(bodyParser.urlencoded({extended: true}));
 
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "pug");
@@ -147,3 +158,12 @@ app.use(function(err, req, res, next) {
  app.listen(port, () => {
      console.log(`Listening to requests on http://localhost:${port}`);
  });
+
+ module.exports = {
+     app,
+     session,
+     redis,
+     redisStore,
+     client,
+     bodyParser
+ }

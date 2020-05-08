@@ -21,6 +21,8 @@ router.get('/', secured, function(req, res, next) {
 
 router.get('/setting', secured, function(req, res, next) {
     const { _raw, _json, ...userProfile } = req.user;
+    console.log(req);
+    console.log(res);
     userDAO.getUser(userProfile.id, (result) => {
       if (!result) {
         res.render("setting", {title: "Setting",
@@ -39,6 +41,7 @@ router.get('/setting', secured, function(req, res, next) {
 
 
 router.get("/info", secured, (req, res) => {
+    // req.session.user == userProfile.id now
     const { _raw, _json, ...userProfile } = req.user;
     userDAO.getUser(userProfile.id, (result) => {
       if (!result) { //No user found for logged in user, we need to save details
