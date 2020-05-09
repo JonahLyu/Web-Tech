@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var userDAO = require('../dao/userDAO')
+var catDAO = require('../dao/catDAO')
 var path = require('path');
 var sqlite3 = require(path.join(__dirname , '../node_modules/sqlite3')).verbose();
 var db = new sqlite3.Database(path.join(__dirname , '../database/user.db'));
@@ -96,7 +97,11 @@ router.post('/save_setting', secured, function(req, res, next) {
 
 router.get('/newpost',secured, function(req, res, next) {
     const { _raw, _json, ...userProfile } = req.user;
-    res.render("post", {title: "New Post", userProfile: userProfile});
+    var data =
+    catDAO.getAllCat((result) => {
+        res.render("post", {title: "New Post", userProfile: userProfile, categories: result});
+    })
+
 });
 
 router.get('/newcat',secured, function(req, res, next) {

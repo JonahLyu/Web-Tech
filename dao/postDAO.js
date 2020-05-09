@@ -11,11 +11,11 @@ function Post(id, content, date){
 }
 
 //create a new post entry in database
-function createPost(id, content, date){
+function createPost(id, catID, title, content, date){
     var postID = null;
-    let sql = `insert into ` + table + ` values (?, ?, ?, ?)`;
+    let sql = `insert into ` + table + ` values (?, ?, ?, ?, ?, ?)`;
 
-    db.all(sql, [postID, id, content, date], (err, results) => {
+    db.all(sql, [postID, id, content, date, title, catID], (err, results) => {
         if (err) {
             throw err;
         }

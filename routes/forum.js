@@ -17,9 +17,11 @@ const secured = (req, res, next) => {
 //create a new post entry in database
 router.post('/createPost', secured, function(req, res, next) { //We'll want to add a title for posts that aren't replies or just treat them differently
     const { _raw, _json, ...userProfile } = req.user
+    var catID = req.body.category
     var content = req.body.content
+    var title = req.body.title
     var time = moment().format("MMM Do YY, h:mm:ss a")
-    postDAO.createPost(userProfile.id, content, time)
+    postDAO.createPost(userProfile.id, catID, title, content, time)
     res.redirect('/users/newpost')
 });
 
@@ -36,6 +38,17 @@ router.post('/createCategory', secured, function(req, res, next) {
     var description = req.body.description
     catDAO.createCat(title, description)
     res.send("success!");
+});
+
+//get all categories in database
+router.post('/getCategory', secured, function(req, res, next) {
+    catDAO.getAllCat((result) => {
+        if (!result) {
+          res.send('empty')
+        } else {
+          res.send(result)
+        }
+    })
 });
 
 module.exports = router;

@@ -39,9 +39,25 @@ function deleteCat(catID){
     });
 }
 
+//delete a Category in database by CatID
+async function getAllCat(getCallback) { //Needs the callback to allow proper execution, otherwise function doesn't have time to execute
+    var sql = db.prepare(`select * from ` + table);
+    sql.all((err, row) => {
+        if (err) {
+            sql.finalize();
+            throw err;
+        } else {
+            sql.finalize();
+            getCallback(row);
+        }
+    });
+}
+
+
 var catDAO = {
     createCat: createCat,
-    deleteCat: deleteCat
+    deleteCat: deleteCat,
+    getAllCat: getAllCat
 }
 
 
