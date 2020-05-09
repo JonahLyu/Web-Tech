@@ -5,13 +5,16 @@ block layout-content
         h1.Banner Howdy, #{userProfile.nickname}!
         div.Message
             table
+                th PostID
                 th CatID
                 th Title
                 th Content
                 th Date
                 each post in posts
                     tr  
-                        form(action="/forum/deletePost" method="POST")
+                        form.form-inline(action="/forum/deletePost" method="POST")
+                            td
+                                input#postid(name="postid", value=post.PostID, readonly)
                             td
                                 input#title(name="title", value=post.CatID, readonly)
                             td
