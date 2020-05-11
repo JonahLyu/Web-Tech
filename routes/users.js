@@ -95,14 +95,6 @@ router.post('/save_setting', secured, function(req, res, next) {
   });
 });
 
-router.get('/newpost',secured, function(req, res, next) {
-    const { _raw, _json, ...userProfile } = req.user;
-    var data =
-    catDAO.getAllCat((result) => {
-        res.render("post", {title: "New Post", userProfile: userProfile, categories: result});
-    })
-
-});
 
 router.get('/newcat',secured, function(req, res, next) {
   const { _raw, _json, ...userProfile } = req.user;
@@ -110,7 +102,7 @@ router.get('/newcat',secured, function(req, res, next) {
 });
 
 router.get('/listPosts',secured, function(req, res, next) {
-    let sql = `select * from posts where UserID = ?`;
+    let sql = `select * from posts where UserID = ? order by PostID desc`;
     const { _raw, _json, ...userProfile } = req.user
     var id = userProfile.id
     db.all(sql, [id], (err, results) => {
@@ -118,10 +110,11 @@ router.get('/listPosts',secured, function(req, res, next) {
             throw err;
         }
         else {
-            res.render("listpost", {title: "AllPost", userProfile: userProfile, posts: results})
+            res.render("listpost", {title: "AllPost",
+                                    userProfile: userProfile,
+                                    posts: results})
         }
     });
 });
-
 
 module.exports = router;

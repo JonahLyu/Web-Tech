@@ -1,35 +1,104 @@
-extends layout
-
-block layout-content
-    div.View.WelcomeView
-        h1.Banner Howdy, #{userProfile.nickname}!
-        div.Message
-            table
-                th PostID
-                th CatID
-                th Title
-                th Content
-                th Date
-                each post in posts
-                    tr  
+doctype html
+html
+  head
+    meta(charset="utf-8")
+    link(rel="shortcut icon", href="/favicon.ico")
+    meta(name="viewport", content="width=device-width, initial-scale=1, shrink-to-fit=no")
+    meta(name="theme-color", content="#000000")
+    title #{title} | Magic Forum
+    script(src='../jquery.min.js')
+    script(src='../jquery.cookie.js')
+    link#bootstrap-css-css(rel="stylesheet" href="../css/bootstrap5152.css?ver=1.0" type="text/css" media="all")
+    link#responsive-css-css(rel="stylesheet" href="../css/responsive5152.css?ver=1.0" type="text/css" media="all")
+    link#pretty-photo-css-css(rel="stylesheet" href="../js/prettyphoto/prettyPhotoaeb9.css?ver=3.1.4" type="text/css" media="all")
+    link#main-css-css(rel="stylesheet" href="../css/main5152.css?ver=1.0" type="text/css" media="all")
+    link#custom-css-css(rel="stylesheet" href="../css/custom5152.html?ver=1.0" type="text/css" media="all")
+  body
+    .header-wrapper
+        header
+          .container
+            .logo-container
+              //- Website Logo
+              a(href="/" title="Home")
+                img(src="../favicon.ico" alt="Home")
+              span.tag-line Magic Forum
+            nav.main-nav
+              .menu-top-menu-container
+                ul#menu-top-menu.clearfix
+                  li
+                    a(href="index-2.html") Home
+                  li
+                    a(href="/users/setting") Account
+    .search-area-wrapper
+      .search-area.container
+        h3.search-header Howdy, #{userProfile.nickname}!
+        p.search-tag-line Welcome back to your magic forum!
+    .page-container
+        .container
+            .row
+                .span8.main-listing
+                    each post in posts
+                        article.format-standard.type-post.hentry.clearfix
+                          header.clearfix
+                            h3.post-title
+                              a(href="single.html") #{post.Title}
+                            .post-meta.clearfix
+                              span.date #{post.Date}
+                              span.category
+                                a(href="#" title="View all posts in Server & Database") #{post.CatID}
+                              span.comments
+                                a(href="#" title="Comment on Integrating WordPress with Your Website") #{post.CommentCount} Comments
+                              span.like-count #{post.LikeCount}
+                          p
+                            | #{post.Content} 
+                            a.readmore-link(href="/") Read more
                         form.form-inline(action="/forum/deletePost" method="POST")
-                            td
-                                input#postid(name="postid", value=post.PostID, readonly)
-                            td
-                                input#title(name="title", value=post.CatID, readonly)
-                            td
-                                input#title(name="title", value=post.Title, readonly)
-                            td
-                                input#content(name="content", value=post.Content, readonly)
-                            td
-                                input#date(name="date", value=post.Date, readonly)
-                            td
-                                button#post.btn.btn-danger(type="submit" name="submit") delete
+                            input#postid(name="postid", value=post.PostID, type="hidden")
+                            button#post.btn.btn-danger(type="submit" name="submit") delete
+                      
                     
-            div.NavButtons
-                a(href="/users/newpost")
-                    div.NavButton new post
+                aside.span4.page-sidebar
+                    section.widget
+                        .support-widget
+                            h3.title New Post
+                            form(action="/forum/createPost" method="POST")
+                                select#selectCat.form-control(name='category')
+                                    option(value='0', selected= true) -- Select Category --
+                                br
+                                input#title.form-control(type='text', name='title', placeholder='your title')
+                                br
+                                textarea#content.form-control(name="content", rows='5', cols='20', placeholder='your content')
+                                br
+                                button#post.btn.btn-primary(type="submit" name="submit") post
+                            a.btn(href="/logout")
+                                div.NavButton Log out
+                    section.widget
+                      h3.title Categories
+                      ul
+                        li
+                          a(href="#" title="Lorem ipsum dolor sit amet,") Advanced Techniques
+                        li
+                          a(href="#" title="Lorem ipsum dolor sit amet,") Designing in WordPress
+                        li
+                          a(href="#" title="Lorem ipsum dolor sit amet,") Server &amp; Database
+                        li
+                          a(href="#" title="Lorem ipsum dolor sit amet, ") Theme Development
+                        li
+                          a(href="#" title="Lorem ipsum dolor sit amet,") Website Dev
+                        li
+                          a(href="#" title="Lorem ipsum dolor sit amet,") WordPress for Beginners
+                        li
+                          a(href="#" title="Lorem ipsum dolor sit amet, ") WordPress Plugins
+            #message1
+                        
+    
+        script.
+            $(document).ready(function(){
+                var value = $.cookie('categories');
+                var categories = JSON.parse(value)
+                for (var i=0;i<categories.length;i++){ 
+                    $("#selectCat").append("<option value='"+categories[i].CatID+"'>"+categories[i].Title+"</option>");
+                }
+            });   
         
-        div.NavButtons
-            a(href="/logout")
-                div.NavButton Log out
+            

@@ -26,7 +26,6 @@ require("dotenv").config();
 
 const authRouter = require("./auth");
 
-var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var forumRouter = require('./routes/forum');
 
@@ -84,7 +83,7 @@ const strategy = new Auth0Strategy(
  */
 
 
-app.use(bodyParser.json());      
+app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
 app.set("views", path.join(__dirname, "views"));
@@ -95,6 +94,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 app.use(express.static(__dirname + '/node_modules/jquery/dist/'));
+app.use(express.static(__dirname + '/node_modules/jquery.cookie'));
 app.use(express.static(__dirname + '/node_modules/bootstrap/dist/css'));
 app.use(express.static(__dirname + '/node_modules/bootstrap/dist/js'));
 

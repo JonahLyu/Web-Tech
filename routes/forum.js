@@ -22,7 +22,7 @@ router.post('/createPost', secured, function(req, res, next) { //We'll want to a
     var title = req.body.title
     var time = moment().format("MMM Do YY, h:mm:ss a")
     postDAO.createPost(userProfile.id, catID, title, content, time)
-    res.redirect('/users/newpost')
+    res.redirect('/users/listPosts')
 });
 
 //delete a post in database
@@ -37,7 +37,9 @@ router.post('/createCategory', secured, function(req, res, next) {
     var title = req.body.title
     var description = req.body.description
     catDAO.createCat(title, description)
-    res.send("success!");
+    catDAO.getAllCat((result) => {
+       res.cookie('categories', JSON.stringify(result))
+    })
 });
 
 //get all categories in database
@@ -46,7 +48,7 @@ router.post('/getCategory', secured, function(req, res, next) {
         if (!result) {
           res.send('empty')
         } else {
-          res.send(result)
+          res.cookie('categories', JSON.stringify(result))
         }
     })
 });
