@@ -134,7 +134,7 @@ app.use("/", authRouter);
  };
 
  app.get("/", (req, res) => {
-     res.render("index", {title: "Home"});
+     res.redirect("/users/listPosts");
  });
 
 app.use('/users', usersRouter);

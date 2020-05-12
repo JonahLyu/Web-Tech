@@ -10,7 +10,6 @@ html
     script(src='../jquery.cookie.js')
     link#bootstrap-css-css(rel="stylesheet" href="../css/bootstrap5152.css?ver=1.0" type="text/css" media="all")
     link#responsive-css-css(rel="stylesheet" href="../css/responsive5152.css?ver=1.0" type="text/css" media="all")
-    link#pretty-photo-css-css(rel="stylesheet" href="../js/prettyphoto/prettyPhotoaeb9.css?ver=3.1.4" type="text/css" media="all")
     link#main-css-css(rel="stylesheet" href="../css/main5152.css?ver=1.0" type="text/css" media="all")
     link#custom-css-css(rel="stylesheet" href="../css/custom5152.html?ver=1.0" type="text/css" media="all")
   body
@@ -26,12 +25,12 @@ html
               .menu-top-menu-container
                 ul#menu-top-menu.clearfix
                   li
-                    a(href="index-2.html") Home
+                    a(href="/") Home
                   li
                     a(href="/users/setting") Account
     .search-area-wrapper
       .search-area.container
-        h3.search-header Howdy, #{userProfile.nickname}!
+        h3#greeting.search-header Howdy, #{userProfile.nickname}!
         p.search-tag-line Welcome back to your magic forum!
     .page-container
         .container
@@ -45,19 +44,37 @@ html
                             .post-meta.clearfix
                               span.date #{post.Date}
                               span.category
-                                a(href="#" title="View all posts in Server & Database") #{post.CatID}
+                                a(href="#" title="View all posts in " + post.CatID) #{post.CatID}
                               span.comments
-                                a(href="#" title="Comment on Integrating WordPress with Your Website") #{post.CommentCount} Comments
+                                a(href="#" title="Comment") #{post.CommentCount} Comments
                               span.like-count #{post.LikeCount}
+                              span 
+                                  form.form-inline(action="/forum/deletePost" method="POST")
+                                      input#postid(name="postid", value=post.PostID, type="hidden")
+                                      button#post.btn.btn-small(type="submit" name="submit") delete
                           p
                             | #{post.Content} 
                             a.readmore-link(href="/") Read more
-                        form.form-inline(action="/forum/deletePost" method="POST")
-                            input#postid(name="postid", value=post.PostID, type="hidden")
-                            button#post.btn.btn-danger(type="submit" name="submit") delete
                       
                     
                 aside.span4.page-sidebar
+                    
+                    section.widget
+                        .info-widget
+                            div.Title
+                                h3 Your info
+                            .username-wrap
+                                b Username: 
+                                span#username 
+                            .gender-wrap
+                                b Gender: 
+                                span#gender 
+                            .birthday-wrap
+                                b Birthday: 
+                                span#birthday 
+                            .phone-wrap
+                                b Phone: 
+                                span#phone 
                     section.widget
                         .support-widget
                             h3.title New Post
@@ -89,16 +106,32 @@ html
                           a(href="#" title="Lorem ipsum dolor sit amet,") WordPress for Beginners
                         li
                           a(href="#" title="Lorem ipsum dolor sit amet, ") WordPress Plugins
-            #message1
+            #footer
+                p Jonah | Aaron
                         
     
         script.
             $(document).ready(function(){
-                var value = $.cookie('categories');
-                var categories = JSON.parse(value)
-                for (var i=0;i<categories.length;i++){ 
-                    $("#selectCat").append("<option value='"+categories[i].CatID+"'>"+categories[i].Title+"</option>");
-                }
+                $.post(
+                    "/users/info",
+                    function(data) {
+                        $("#greeting").html("Howdy, " + data.Username + "!");
+                        $("#username").html(data.Username);
+                        $("#birthday").html(data.Birthday);
+                        $("#gender").html(data.Gender);
+                        $("#phone").html(data.Phone);
+                    }
+                );
+                
+                $.getJSON(
+                    "/forum/getCategory",
+                    function(data) {
+                        for (var i=0;i<data.length;i++){ 
+                            $("#selectCat").append("<option value='"+data[i].CatID+"'>"+data[i].Title+"</option>");
+                        }
+                    }
+                ); 
+                   
             });   
         
             

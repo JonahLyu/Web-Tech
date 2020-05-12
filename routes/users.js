@@ -41,20 +41,11 @@ router.get('/setting', secured, function(req, res, next) {
 });
 
 
-router.get("/info", secured, (req, res) => {
+router.post("/info", secured, (req, res) => {
     // req.session.user == userProfile.id now
     const { _raw, _json, ...userProfile } = req.user;
     userDAO.getUser(userProfile.id, (result) => {
-      if (!result) { //No user found for logged in user, we need to save details
-        res.redirect('/users/setting')
-      } else {
-        res.render("user", {title: "Profile",
-          userProfile: userProfile,
-          username: result.Username,
-          gender: result.Gender,
-          birthday: result.Birthday,
-          phone: result.Phone});
-      }
+      res.send(result)
     });
 })
 

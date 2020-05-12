@@ -43,12 +43,12 @@ router.post('/createCategory', secured, function(req, res, next) {
 });
 
 //get all categories in database
-router.post('/getCategory', secured, function(req, res, next) {
+router.get('/getCategory', secured, function(req, res, next) {
     catDAO.getAllCat((result) => {
         if (!result) {
           res.send('empty')
         } else {
-          res.cookie('categories', JSON.stringify(result))
+          res.json(result)
         }
     })
 });

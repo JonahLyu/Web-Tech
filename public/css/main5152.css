@@ -444,12 +444,19 @@ li.comment > article .avatar {
 .support-widget {
   border: 1px solid #e9e6c4;
   padding: 10px 100px 10px 20px;
-  background: #fefbdc url("../images/support.png") no-repeat 95% 20px;
+  background: #fefbdc;
   margin-bottom: 20px;
 }
 .support-widget h3 {
   margin: 0;
   padding: 0;
+}
+
+.info-widget {
+  border: 1px solid #e9e6c4;
+  padding: 10px 100px 10px 20px;
+  background: #FFFCEC url("../images/support.png") no-repeat 95% 20px;
+  margin-bottom: 20px;
 }
 
 .quick-links-widget {
