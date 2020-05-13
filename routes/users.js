@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+var postDAO = require('../dao/postDAO')
 var userDAO = require('../dao/userDAO')
 var catDAO = require('../dao/catDAO')
 var path = require('path');
@@ -93,19 +94,28 @@ router.get('/newcat',secured, function(req, res, next) {
 });
 
 router.get('/listPosts',secured, function(req, res, next) {
-    let sql = `select * from posts where UserID = ? order by PostID desc`;
+    // let sql = `select * from posts where UserID = ? order by PostID desc`;
     const { _raw, _json, ...userProfile } = req.user
     var id = userProfile.id
-    db.all(sql, [id], (err, results) => {
-        if (err) {
-            throw err;
-        }
-        else {
-            res.render("listpost", {title: "AllPost",
-                                    userProfile: userProfile,
-                                    posts: results})
-        }
+    postDAO.getAllPosts(id, (userPosts) => {
+      catDAO.getAllCat((allCats) => {
+        console.log(allCats[0]);
+        res.render("listpost", {title: "AllPost",
+                                userProfile: userProfile,
+                                posts: userPosts,
+                                cats: allCats})
+      });
     });
+    // db.all(sql, [id], (err, results) => {
+    //     if (err) {
+    //         throw err;
+    //     }
+    //     else {
+    //         res.render("listpost", {title: "AllPost",
+    //                                 userProfile: userProfile,
+    //                                 posts: results})
+    //     }
+    // });
 });
 
 module.exports = router;

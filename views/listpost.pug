@@ -35,30 +35,50 @@ html
     .page-container
         .container
             .row
-                .span8.main-listing
-                    each post in posts
-                        article.format-standard.type-post.hentry.clearfix
-                          header.clearfix
-                            h3.post-title
-                              a(href="single.html") #{post.Title}
-                            .post-meta.clearfix
-                              span.date #{post.Date}
-                              span.category
-                                a(href="#" title="View all posts in " + post.CatID) #{post.CatID}
-                              span.comments
-                                a(href="#" title="Comment") #{post.CommentCount} Comments
-                              span.like-count #{post.LikeCount}
-                              span 
-                                  form.form-inline(action="/forum/deletePost" method="POST")
-                                      input#postid(name="postid", value=post.PostID, type="hidden")
-                                      button#post.btn.btn-small(type="submit" name="submit") delete
-                          p
-                            | #{post.Content} 
-                            a.readmore-link(href="/") Read more
+                //- .span8.main-listing
+                //-     each post in posts
+                //-         article.format-standard.type-post.hentry.clearfix
+                //-           header.clearfix
+                //-             h3.post-title
+                //-               a(href="single.html") #{post.Title}
+                //-             .post-meta.clearfix
+                //-               span.date #{post.Date}
+                //-               span.category
+                //-                 a(href="#" title="View all posts in " + post.CatID) #{post.CatID}
+                //-               span.comments
+                //-                 a(href="#" title="Comment") #{post.CommentCount} Comments
+                //-               span.like-count #{post.LikeCount}
+                //-               span 
+                //-                   form.form-inline(action="/forum/deletePost" method="POST")
+                //-                       input#postid(name="postid", value=post.PostID, type="hidden")
+                //-                       button#post.btn.btn-small(type="submit" name="submit") delete
+                //-           p
+                //-             | #{post.Content} 
+                //-             a.readmore-link(href="/") Read more
                       
                     
-                aside.span4.page-sidebar
-                    
+                //- aside.span4.page-sidebar
+                .span8
+                  h3.title Categories
+                    ul
+                      each cat in cats
+                        li
+                          a(href="/forum/loadCategory?id="+cat.CatID) #{cat.Title}
+                      //- li
+                      //-   a(href="#" title="Lorem ipsum dolor sit amet,") Advanced Techniques
+                      //- li
+                      //-   a(href="#" title="Lorem ipsum dolor sit amet,") Designing in WordPress
+                      //- li
+                      //-   a(href="#" title="Lorem ipsum dolor sit amet,") Server &amp; Database
+                      //- li
+                      //-   a(href="#" title="Lorem ipsum dolor sit amet, ") Theme Development
+                      //- li
+                      //-   a(href="#" title="Lorem ipsum dolor sit amet,") Website Dev
+                      //- li
+                      //-   a(href="#" title="Lorem ipsum dolor sit amet,") WordPress for Beginners
+                      //- li
+                      //-   a(href="#" title="Lorem ipsum dolor sit amet, ") WordPress Plugins
+                .span4
                     section.widget
                         .info-widget
                             div.Title
@@ -80,7 +100,9 @@ html
                             h3.title New Post
                             form(action="/forum/createPost" method="POST")
                                 select#selectCat.form-control(name='category')
-                                    option(value='0', selected= true) -- Select Category --
+                                    option(value='-1', selected= true) -- Select Category --
+                                    each cat,index in cats
+                                      option(value=cat.CatID,selected=false) #{cat.Title}
                                 br
                                 input#title.form-control(type='text', name='title', placeholder='your title')
                                 br
@@ -89,27 +111,10 @@ html
                                 button#post.btn.btn-primary(type="submit" name="submit") post
                             a.btn(href="/logout")
                                 div.NavButton Log out
-                    section.widget
-                      h3.title Categories
-                      ul
-                        li
-                          a(href="#" title="Lorem ipsum dolor sit amet,") Advanced Techniques
-                        li
-                          a(href="#" title="Lorem ipsum dolor sit amet,") Designing in WordPress
-                        li
-                          a(href="#" title="Lorem ipsum dolor sit amet,") Server &amp; Database
-                        li
-                          a(href="#" title="Lorem ipsum dolor sit amet, ") Theme Development
-                        li
-                          a(href="#" title="Lorem ipsum dolor sit amet,") Website Dev
-                        li
-                          a(href="#" title="Lorem ipsum dolor sit amet,") WordPress for Beginners
-                        li
-                          a(href="#" title="Lorem ipsum dolor sit amet, ") WordPress Plugins
             #footer
                 p Jonah | Aaron
                         
-    
+        script(src="../scripts/test.js")
         script.
             $(document).ready(function(){
                 $.post(
@@ -123,14 +128,14 @@ html
                     }
                 );
                 
-                $.getJSON(
-                    "/forum/getCategory",
-                    function(data) {
-                        for (var i=0;i<data.length;i++){ 
-                            $("#selectCat").append("<option value='"+data[i].CatID+"'>"+data[i].Title+"</option>");
-                        }
-                    }
-                ); 
+                //- $.getJSON(
+                //-     "/forum/getCategory",
+                //-     function(data) {
+                //-         for (var i=0;i<data.length;i++){ 
+                //-             $("#selectCat").append("<option value='"+data[i].CatID+"'>"+data[i].Title+"</option>");
+                //-         }
+                //-     }
+                //- ); 
                    
             });   
         

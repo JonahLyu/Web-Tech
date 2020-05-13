@@ -41,9 +41,23 @@ function deletePost(postID){
 
 }
 
+function getAllPosts(userID, callback) {
+    var stmt = db.prepare(`select * from posts where UserID = ? order by PostID desc`);
+    stmt.get(userID, (err, row) => {
+        if (err) {
+            stmt.finalize();
+            throw err;
+        } else {
+            stmt.finalize();
+            callback(row);
+        }
+    });
+}
+
 var postDAO = {
     createPost: createPost,
-    deletePost: deletePost
+    deletePost: deletePost,
+    getAllPosts: getAllPosts
 }
 
 

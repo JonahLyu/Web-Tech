@@ -53,4 +53,8 @@ router.get('/getCategory', secured, function(req, res, next) {
     })
 });
 
+router.get('/loadCategory', secured, function(req, res, next) {
+    console.log(req.query.id)
+});
+
 module.exports = router;
