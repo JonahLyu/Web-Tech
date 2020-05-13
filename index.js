@@ -134,7 +134,7 @@ app.use("/", authRouter);
  };
 
  app.get("/", (req, res) => {
-     res.redirect("/users/listPosts");
+     res.redirect("/users/home");
  });
 
 app.use('/users', usersRouter);

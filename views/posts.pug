@@ -28,56 +28,22 @@ html
                     a(href="/") Home
                   li
                     a(href="/users/setting") Account
+                  li
+                    a(href="/logout") Log out
     .search-area-wrapper
       .search-area.container
-        h3#greeting.search-header Howdy, #{userProfile.nickname}!
+        h3#greeting.search-header
+        //- h3#greeting.search-header Howdy, #{userProfile.nickname}!
         p.search-tag-line Welcome back to your magic forum!
     .page-container
         .container
             .row
-                //- .span8.main-listing
-                //-     each post in posts
-                //-         article.format-standard.type-post.hentry.clearfix
-                //-           header.clearfix
-                //-             h3.post-title
-                //-               a(href="single.html") #{post.Title}
-                //-             .post-meta.clearfix
-                //-               span.date #{post.Date}
-                //-               span.category
-                //-                 a(href="#" title="View all posts in " + post.CatID) #{post.CatID}
-                //-               span.comments
-                //-                 a(href="#" title="Comment") #{post.CommentCount} Comments
-                //-               span.like-count #{post.LikeCount}
-                //-               span 
-                //-                   form.form-inline(action="/forum/deletePost" method="POST")
-                //-                       input#postid(name="postid", value=post.PostID, type="hidden")
-                //-                       button#post.btn.btn-small(type="submit" name="submit") delete
-                //-           p
-                //-             | #{post.Content} 
-                //-             a.readmore-link(href="/") Read more
-                      
-                    
-                //- aside.span4.page-sidebar
                 .span8
-                  h3.title Categories
+                  h3.title Posts
                     ul
-                      each cat in cats
+                      each post in posts
                         li
-                          a(href="/forum/loadCategory?id="+cat.CatID) #{cat.Title}
-                      //- li
-                      //-   a(href="#" title="Lorem ipsum dolor sit amet,") Advanced Techniques
-                      //- li
-                      //-   a(href="#" title="Lorem ipsum dolor sit amet,") Designing in WordPress
-                      //- li
-                      //-   a(href="#" title="Lorem ipsum dolor sit amet,") Server &amp; Database
-                      //- li
-                      //-   a(href="#" title="Lorem ipsum dolor sit amet, ") Theme Development
-                      //- li
-                      //-   a(href="#" title="Lorem ipsum dolor sit amet,") Website Dev
-                      //- li
-                      //-   a(href="#" title="Lorem ipsum dolor sit amet,") WordPress for Beginners
-                      //- li
-                      //-   a(href="#" title="Lorem ipsum dolor sit amet, ") WordPress Plugins
+                          a(href="/forum/loadPost?id="+post.PostID) #{post.Title}
                 .span4
                     section.widget
                         .info-widget
@@ -100,17 +66,15 @@ html
                             h3.title New Post
                             form(action="/forum/createPost" method="POST")
                                 select#selectCat.form-control(name='category')
-                                    option(value='-1', selected= true) -- Select Category --
-                                    each cat,index in cats
-                                      option(value=cat.CatID,selected=false) #{cat.Title}
+                                    option(value=cat.id, selected= true) #{cat.title}
                                 br
                                 input#title.form-control(type='text', name='title', placeholder='your title')
                                 br
                                 textarea#content.form-control(name="content", rows='5', cols='20', placeholder='your content')
                                 br
                                 button#post.btn.btn-primary(type="submit" name="submit") post
-                            a.btn(href="/logout")
-                                div.NavButton Log out
+                            //- a.btn(href="/logout")
+                            //-     div.NavButton Log out
             #footer
                 p Jonah | Aaron
                         
@@ -127,16 +91,5 @@ html
                         $("#phone").html(data.Phone);
                     }
                 );
-                
-                //- $.getJSON(
-                //-     "/forum/getCategory",
-                //-     function(data) {
-                //-         for (var i=0;i<data.length;i++){ 
-                //-             $("#selectCat").append("<option value='"+data[i].CatID+"'>"+data[i].Title+"</option>");
-                //-         }
-                //-     }
-                //- ); 
                    
-            });   
-        
-            
+            });  

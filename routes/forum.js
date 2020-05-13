@@ -22,14 +22,15 @@ router.post('/createPost', secured, function(req, res, next) { //We'll want to a
     var title = req.body.title
     var time = moment().format("MMM Do YY, h:mm:ss a")
     postDAO.createPost(userProfile.id, catID, title, content, time)
-    res.redirect('/users/listPosts')
+    // res.redirect('/users/home')
+    res.redirect('back');
 });
 
 //delete a post in database
 router.post('/deletePost', secured, function(req, res, next) {
     var postID = req.body.postid
     postDAO.deletePost(postID)
-    res.redirect('/users/listPosts')
+    res.redirect('/users/home')
 });
 
 //create a category in database
@@ -54,7 +55,19 @@ router.get('/getCategory', secured, function(req, res, next) {
 });
 
 router.get('/loadCategory', secured, function(req, res, next) {
-    console.log(req.query.id)
+    // console.log(req.query)
+    // console.log(req.session.user);
+    postDAO.getAllPostsByCat(req.query.id, (posts) => {
+        res.render("posts", {title: req.query.title,
+                                userProfile: req.session.user,
+                                posts: posts,
+                                cat: req.query})
+    })
+});
+
+router.get('/loadPost', secured, function(req, res, next) {
+    console.log(req.query);
+    console.log(req.hostname);
 });
 
 module.exports = router;

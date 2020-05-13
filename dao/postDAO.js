@@ -41,9 +41,22 @@ function deletePost(postID){
 
 }
 
-function getAllPosts(userID, callback) {
+function getAllPostsByUser(userID, callback) {
     var stmt = db.prepare(`select * from posts where UserID = ? order by PostID desc`);
-    stmt.get(userID, (err, row) => {
+    stmt.all(userID, (err, row) => {
+        if (err) {
+            stmt.finalize();
+            throw err;
+        } else {
+            stmt.finalize();
+            callback(row);
+        }
+    });
+}
+
+function getAllPostsByCat(catID, callback) {
+    var stmt = db.prepare(`select * from posts where CatID = ? order by PostID desc`);
+    stmt.all(catID, (err, row) => {
         if (err) {
             stmt.finalize();
             throw err;
@@ -57,7 +70,8 @@ function getAllPosts(userID, callback) {
 var postDAO = {
     createPost: createPost,
     deletePost: deletePost,
-    getAllPosts: getAllPosts
+    getAllPostsByUser: getAllPostsByUser,
+    getAllPostsByCat: getAllPostsByCat
 }
 
 

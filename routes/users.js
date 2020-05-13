@@ -93,14 +93,14 @@ router.get('/newcat',secured, function(req, res, next) {
   res.render("category", {title: "New Category", userProfile: userProfile});
 });
 
-router.get('/listPosts',secured, function(req, res, next) {
+router.get('/home',secured, function(req, res, next) {
     // let sql = `select * from posts where UserID = ? order by PostID desc`;
     const { _raw, _json, ...userProfile } = req.user
     var id = userProfile.id
-    postDAO.getAllPosts(id, (userPosts) => {
+    postDAO.getAllPostsByUser(id, (userPosts) => {
       catDAO.getAllCat((allCats) => {
         console.log(allCats[0]);
-        res.render("listpost", {title: "AllPost",
+        res.render("home", {title: "Home",
                                 userProfile: userProfile,
                                 posts: userPosts,
                                 cats: allCats})
