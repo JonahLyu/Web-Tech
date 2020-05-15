@@ -66,8 +66,16 @@ router.get('/loadCategory', secured, function(req, res, next) {
 });
 
 router.get('/loadPost', secured, function(req, res, next) {
-    console.log(req.query);
-    console.log(req.hostname);
+    postDAO.getPostByID(req.query.id, (post) => {
+        catDAO.getCatByID(post.CatID, (cat) => {
+            console.log("load post id = " + req.query.id);
+            console.log(post);
+            res.render("single", {title: req.query.title,
+                                    userProfile: req.session.user,
+                                    post: post,
+                                    cat: cat})
+        })
+    })
 });
 
 module.exports = router;

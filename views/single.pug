@@ -39,25 +39,22 @@ html
         .container
             .row
                 .span8.main-listing
-                    each post in posts
-                        article.format-standard.type-post.hentry.clearfix
-                          header.clearfix
+                    article.format-standard.type-post.hentry.clearfix
+                        header.clearfix
                             h3.post-title
-                              a(href="/forum/loadPost?id="+post.PostID) #{post.Title}
+                                a(href="#") #{post.Title}
                             .post-meta.clearfix
-                              span.date #{post.Date}
-                              span.category
-                                a(href="#" title="View all posts in " + post.CatID) #{cat.title}
-                              span.comments
-                                a(href="#" title="Comment") #{post.CommentCount} Comments
-                              span.like-count #{post.LikeCount}
-                              span 
-                                  form.form-inline(action="/forum/deletePost" method="POST")
-                                      input#postid(name="postid", value=post.PostID, type="hidden")
-                                      button#post.btn.btn-small(type="submit" name="submit") delete
-                          p
-                            | #{post.Content} 
-                            a.readmore-link(href="/forum/loadPost?id="+post.PostID) Read more
+                                span.date #{post.Date}
+                                span.category
+                                    a(href="#" title="View all posts in " + post.CatID) #{cat.Title}
+                                span.comments
+                                    a(href="#" title="Comment") #{post.CommentCount} Comments
+                                span.like-count post.LikeCount
+                                span 
+                                    form.form-inline(action="/forum/deletePost" method="POST")
+                                        input#postid(name="postid", value=post.PostID, type="hidden")
+                                        button#post.btn.btn-small(type="submit" name="submit") delete
+                        p #{post.Content}
                 .span4
                     section.widget
                         .info-widget
@@ -75,20 +72,8 @@ html
                             .phone-wrap
                                 b Phone: 
                                 span#phone 
-                    section.widget
-                        .support-widget
-                            h3.title New Post
-                            form(action="/forum/createPost" method="POST")
-                                select#selectCat.form-control(name='category')
-                                    option(value=cat.id, selected= true) #{cat.title}
-                                br
-                                input#title.form-control(type='text', name='title', placeholder='your title')
-                                br
-                                textarea#content.form-control(name="content", rows='5', cols='20', placeholder='your content')
-                                br
-                                button#post.btn.btn-primary(type="submit" name="submit") post
-                            //- a.btn(href="/logout")
-                            //-     div.NavButton Log out
+                    
+
             #footer
                 p Jonah | Aaron
                         

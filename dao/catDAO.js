@@ -27,7 +27,7 @@ function createCat(title, description){
 
 //delete a Category in database by CatID
 function deleteCat(catID){
-    let sql = `delete from ` + table + ` where catID = ?`;
+    let sql = `delete from ` + table + ` where CatID = ?`;
 
     db.all(sql, [catID], (err, results) => {
         if (err) {
@@ -53,11 +53,26 @@ async function getAllCat(getCallback) { //Needs the callback to allow proper exe
     });
 }
 
+//select a Category in database by CatID
+async function getCatByID(catID, getCallback) { //Needs the callback to allow proper execution, otherwise function doesn't have time to execute
+    let sql = `select * from ` + table + ` where CatID = ?`;
+    db.get(sql, [catID], (err, results) => {
+        if (err) {
+            throw err;
+        }
+        else {
+            console.log("category loaded: " + results.Title);
+            getCallback(results)
+        }
+    });
+}
+
 
 var catDAO = {
     createCat: createCat,
     deleteCat: deleteCat,
-    getAllCat: getAllCat
+    getAllCat: getAllCat,
+    getCatByID: getCatByID
 }
 
 

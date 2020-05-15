@@ -67,11 +67,25 @@ function getAllPostsByCat(catID, callback) {
     });
 }
 
+function getPostByID(postID, callback) {
+    var stmt = db.prepare(`select * from posts where PostID = ?`);
+    stmt.get(postID, (err, row) => {
+        if (err) {
+            stmt.finalize();
+            throw err;
+        } else {
+            stmt.finalize();
+            callback(row);
+        }
+    });
+}
+
 var postDAO = {
     createPost: createPost,
     deletePost: deletePost,
     getAllPostsByUser: getAllPostsByUser,
-    getAllPostsByCat: getAllPostsByCat
+    getAllPostsByCat: getAllPostsByCat,
+    getPostByID: getPostByID
 }
 
 
