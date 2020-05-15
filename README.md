@@ -8,10 +8,23 @@ contributers: Jonah & Aaron
 
 **install**:
 
-Locate your work directory
+Locate your work directory 
 
 ```shell
 cd /Web_Tech
+```
+
+Add `.env` in the root directory
+
+```shell
+vim .env
+```
+
+IMPORTANT: Adding below settings in `.env` (confidential)
+```shell
+AUTH0_CLIENT_ID=Se8kcHf2KF6j50wqDYlK8ks7PYP9gWVU
+AUTH0_DOMAIN=dev-qz3j4rvi.eu.auth0.com
+AUTH0_CLIENT_SECRET=TwkoZh_mO4zYHFAbBCzzTRcNl3yVSAOdsauM7-rxyGwXCiA5O8H9kWo8KQ7qoyEW
 ```
 
 Install essential modules first
