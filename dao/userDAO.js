@@ -54,9 +54,23 @@ async function getUser(userID, getCallback) { //Needs the callback to allow prop
     });
 }
 
+async function getMultiUser(userIDs, getCallback) { //Needs the callback to allow proper execution, otherwise function doesn't have time to execute
+    var stmt = db.prepare(`select * from users where UserID in (?)`);
+    stmt.all(userIDs, (err, rows) => {
+        if (err) {
+            stmt.finalize();
+            throw err;
+        } else {
+            stmt.finalize();
+            getCallback(rows);
+        }
+    });
+}
+
 var userDAO = {
     createUser: createUser,
-    getUser: getUser
+    getUser: getUser,
+    getMultiUser: getMultiUser
     // deleteUser: deleteUser
 }
 

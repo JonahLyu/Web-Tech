@@ -47,15 +47,17 @@ html
                             .post-meta.clearfix
                               span.date #{post.Date}
                               span.category
-                                a(href="#" title="View all posts in " + post.CatID) #{cat.title}
+                                a(href="#" title="View all posts in " + post.Category) #{cat.title}
                               span.comments
                                 a(href="#" title="Comment") #{post.CommentCount} Comments
                               span.like-count #{post.LikeCount}
+                              span.author
+                                a(href="#" tile="View " + post.Author + "'s profile'") #{post.Author}
                               span 
                                   form.form-inline(action="/forum/deletePost" method="POST")
                                       input#postid(name="postid", value=post.PostID, type="hidden")
                                       button#post.btn.btn-small(type="submit" name="submit") delete
-                          p
+                          p(class="post-preview")
                             | #{post.Content} 
                             a.readmore-link(href="/forum/loadPost?id="+post.PostID) Read more
                 .span4
@@ -92,7 +94,7 @@ html
             #footer
                 p Jonah | Aaron
                         
-        script(src="../scripts/test.js")
+        script(src="../scripts/posts.js")
         script.
             $(document).ready(function(){
                 $.post(
