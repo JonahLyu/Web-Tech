@@ -80,7 +80,7 @@ router.get('/getCategory', secured, function(req, res, next) {
 router.get('/loadCategory', secured, function(req, res, next) {
     joinDAO.getPostsWithDetailsByCatID(req.query.id, (posts) => {
         forumHelpers.truncPosts(posts, 200);
-        console.log(posts);
+        // console.log(posts);
         res.render("posts", {title: req.query.title,
                                 userProfile: req.session.user,
                                 posts: posts,
@@ -98,6 +98,14 @@ router.get('/loadPost', secured, function(req, res, next) {
                                     post: post,
                                     cat: cat})
         })
+    })
+});
+
+router.post('/addPostLike', secured, function(req, res, next) {
+    var postID = req.body.postid
+    postDAO.addPostLike(postID)
+    postDAO.getPostByID(postID, (post) => {
+        res.json({likeCount: post.LikeCount})
     })
 });
 

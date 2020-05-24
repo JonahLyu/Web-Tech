@@ -13,9 +13,10 @@ function Post(id, content, date){
 //create a new post entry in database
 function createPost(id, catID, title, content, date){
     var postID = null;
-    let sql = `insert into ` + table + ` values (?, ?, ?, ?, ?, ?)`;
+    var likeCount = 0;
+    let sql = `insert into ` + table + ` values (?, ?, ?, ?, ?, ?, ?)`;
 
-    db.all(sql, [postID, id, content, date, title, catID], (err, results) => {
+    db.all(sql, [postID, id, content, date, title, catID, likeCount], (err, results) => {
         if (err) {
             throw err;
         }
@@ -80,12 +81,26 @@ function getPostByID(postID, callback) {
     });
 }
 
+function addPostLike(postID) {
+    var stmt = db.prepare(`update posts set LikeCount = LikeCount + 1 where PostID = ?`);
+    stmt.get(postID, (err, row) => {
+        if (err) {
+            stmt.finalize();
+            throw err;
+        } else {
+            stmt.finalize();
+            console.log("add post like: " + postID);
+        }
+    });
+}
+
 var postDAO = {
     createPost: createPost,
     deletePost: deletePost,
     getAllPostsByUser: getAllPostsByUser,
     getAllPostsByCat: getAllPostsByCat,
-    getPostByID: getPostByID
+    getPostByID: getPostByID,
+    addPostLike: addPostLike
 }
 
 

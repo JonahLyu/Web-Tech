@@ -50,7 +50,7 @@ html
                                 a(href="#" title="View all posts in " + post.Category) #{cat.title}
                               span.comments
                                 a(href="#" title="Comment") #{post.CommentCount} Comments
-                              span.like-count #{post.LikeCount}
+                              span.like-count(value=post.PostID) #{post.LikeCount}
                               span.author
                                 a(href="#" tile="View " + post.Author + "'s profile'") #{post.Author}
                               span 
@@ -89,8 +89,7 @@ html
                                 textarea#content.form-control(name="content", rows='5', cols='20', placeholder='your content')
                                 br
                                 button#post.btn.btn-primary(type="submit" name="submit") post
-                            //- a.btn(href="/logout")
-                            //-     div.NavButton Log out
+
             #footer
                 p Jonah | Aaron
                         
@@ -107,5 +106,18 @@ html
                         $("#phone").html(data.Phone);
                     }
                 );
-                   
+                
+                $("span.like-count").click(function(){
+                    var doc = $(this)
+                    var postID = doc.attr("value")
+                    $.post(
+                        "/forum/addPostLike",
+                        {postid: postID},
+                        function(data) {
+                            doc.html(data.likeCount);
+                        }
+                    );
+                }); 
+
             });  
+             

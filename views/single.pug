@@ -49,7 +49,7 @@ html
                                     a(href="#" title="View all posts in " + post.CatID) #{cat.Title}
                                 span.comments
                                     a(href="#" title="Comment") #{post.CommentCount} Comments
-                                span.like-count post.LikeCount
+                                span.like-count(value=post.PostID) #{post.LikeCount}
                                 span 
                                     form.form-inline(action="/forum/deletePost" method="POST")
                                         input#postid(name="postid", value=post.PostID, type="hidden")
@@ -90,5 +90,16 @@ html
                         $("#phone").html(data.Phone);
                     }
                 );
-                   
+                
+                $("span.like-count").click(function(){
+                    var doc = $(this)
+                    var postID = doc.attr("value")
+                    $.post(
+                        "/forum/addPostLike",
+                        {postid: postID},
+                        function(data) {
+                            doc.html(data.likeCount);
+                        }
+                    );
+                }); 
             });  
