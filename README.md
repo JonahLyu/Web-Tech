@@ -90,3 +90,6 @@ My uni e-mail num is 17092
 
 pass: MagicForum12
 
+**Start server command**:
+bash start_server.sh
+
