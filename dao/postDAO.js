@@ -94,13 +94,27 @@ function addPostLike(postID) {
     });
 }
 
+function validateCreator(postID, userID, callback) {
+    var stmt = db.prepare(`select UserID from posts where PostID = ?`);
+    stmt.get(postID, (err, user) => {
+        if (err) {
+            stmt.finalize();
+            throw err;
+        } else {
+            stmt.finalize();
+            callback(postID, user.UserID, (user.UserID === userID));
+        }
+    });
+}
+
 var postDAO = {
     createPost: createPost,
     deletePost: deletePost,
     getAllPostsByUser: getAllPostsByUser,
     getAllPostsByCat: getAllPostsByCat,
     getPostByID: getPostByID,
-    addPostLike: addPostLike
+    addPostLike: addPostLike,
+    validateCreator: validateCreator
 }
 
 

@@ -30,9 +30,14 @@ router.post('/createPost', secured, function(req, res, next) { //We'll want to a
 
 //delete a post in database
 router.post('/deletePost', secured, function(req, res, next) {
-    var postID = req.body.postid
-    postDAO.deletePost(postID)
-    res.redirect('/users/home')
+    var postID = req.body.postid;
+    var userID = req.session.user.id;
+    postDAO.validateCreator(postID, userID, (post, user, bool) => {
+        if (bool) {
+            postDAO.deletePost(post);
+        }
+        res.redirect('back');
+    })
 });
 
 //create a category in database
@@ -78,6 +83,7 @@ router.get('/getCategory', secured, function(req, res, next) {
 // });
 
 router.get('/loadCategory', secured, function(req, res, next) {
+    // console.log(req.session.user);
     joinDAO.getPostsWithDetailsByCatID(req.query.id, (posts) => {
         forumHelpers.truncPosts(posts, 200);
         // console.log(posts);

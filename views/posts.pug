@@ -53,10 +53,11 @@ html
                               span.like-count(value=post.PostID) #{post.LikeCount}
                               span.author
                                 a(href="#" tile="View " + post.Author + "'s profile'") #{post.Author}
-                              span 
-                                  form.form-inline(action="/forum/deletePost" method="POST")
-                                      input#postid(name="postid", value=post.PostID, type="hidden")
-                                      button#post.btn.btn-small(type="submit" name="submit") delete
+                              if userProfile.user_id == post.UserID
+                                span 
+                                    form.form-inline(action="/forum/deletePost" method="POST")
+                                        input#postid(name="postid", value=post.PostID, type="hidden")
+                                        button#post.btn.btn-small(type="submit" name="submit") delete
                           p(class="post-preview")
                             | #{post.Content} 
                             a.readmore-link(href="/forum/loadPost?id="+post.PostID) Read more
