@@ -56,7 +56,7 @@ router.post('/deleteCategory', secured, function(req, res, next) {
     //Add in admin validation check here,
     catDAO.clearCat(catID);
     catDAO.deleteCat(catID, () => {
-        res.redirect('back');
+        res.send(req.get('referer'));
     });
 });
 

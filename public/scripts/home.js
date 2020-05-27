@@ -5,6 +5,10 @@ function confirmDelete(catID) {
             "/forum/deleteCategory",
             {
                 cat_id: catID
+            },
+            function(data) {
+                // console.log(data);
+                window.location.href = data;
             }
         );
     } else {
