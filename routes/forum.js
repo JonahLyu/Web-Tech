@@ -8,7 +8,7 @@ var moment = require('moment')
 
 
 const secured = (req, res, next) => {
-    if (req.user) {
+    if (req.session.user) {
         return next();
     }
     req.session.returnTo = req.originalUrl;
@@ -18,12 +18,13 @@ const secured = (req, res, next) => {
 
 //create a new post entry in database
 router.post('/createPost', secured, function(req, res, next) { //We'll want to add a title for posts that aren't replies or just treat them differently
-    const { _raw, _json, ...userProfile } = req.user
+    // const { _raw, _json, ...userProfile } = req.user
+    var userID = req.session.user.id;
     var catID = req.body.category
     var content = req.body.content
     var title = req.body.title
     var time = moment().format("MMM Do YY, h:mm:ss a")
-    postDAO.createPost(userProfile.id, catID, title, content, time)
+    postDAO.createPost(userID, catID, title, content, time)
     // res.redirect('/users/home')
     res.redirect('back');
 });

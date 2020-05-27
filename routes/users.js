@@ -9,7 +9,7 @@ var db = new sqlite3.Database(path.join(__dirname , '../database/user.db'));
 
 
 const secured = (req, res, next) => {
-    if (req.user) {
+    if (req.session.user) {
         return next();
     }
     req.session.returnTo = req.originalUrl;
@@ -23,9 +23,10 @@ router.get('/', secured, function(req, res, next) {
 
 router.get('/setting', secured, function(req, res, next) {
     const { _raw, _json, ...userProfile } = req.user;
+    var userID = req.session.user.id;
     console.log(req);
     console.log(res);
-    userDAO.getUser(userProfile.id, (result) => {
+    userDAO.getUser(userID, (result) => {
       if (!result) {
         res.render("setting", {title: "Setting",
           userProfile: userProfile});
@@ -45,7 +46,8 @@ router.get('/setting', secured, function(req, res, next) {
 router.post("/info", secured, (req, res) => {
     // req.session.user == userProfile.id now
     const { _raw, _json, ...userProfile } = req.user;
-    userDAO.getUser(userProfile.id, (result) => {
+    var userID = req.session.user.id;
+    userDAO.getUser(userID, (result) => {
       res.send(result)
     });
 })
@@ -53,7 +55,7 @@ router.post("/info", secured, (req, res) => {
 
 router.post('/save_setting', secured, function(req, res, next) {
   const { _raw, _json, ...userProfile } = req.user;
-  var id = userProfile.id;
+  var id = req.session.user.id;
   var username = req.body.username;
   var gender = req.body.gender;
   var birthday = req.body.birthday;
@@ -96,7 +98,7 @@ router.get('/newcat',secured, function(req, res, next) {
 router.get('/home',secured, function(req, res, next) {
     // let sql = `select * from posts where UserID = ? order by PostID desc`;
     const { _raw, _json, ...userProfile } = req.user
-    var id = userProfile.id
+    var id = req.session.user.id;
     postDAO.getAllPostsByUser(id, (userPosts) => {
       catDAO.getAllCat((allCats) => {
         console.log(allCats[0]);
