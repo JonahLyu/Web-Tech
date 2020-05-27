@@ -39,7 +39,21 @@ function deleteCat(catID){
     });
 }
 
-//delete a Category in database by CatID
+function clearCat(catID){
+    let sql = `delete from posts where CatID = ?`;
+
+    db.all(sql, [postID], (err, results) => {
+        if (err) {
+            throw err;
+        }
+        else {
+            console.log("category cleared deleted " + postID);
+        }
+    });
+
+}
+
+
 async function getAllCat(getCallback) { //Needs the callback to allow proper execution, otherwise function doesn't have time to execute
     var sql = db.prepare(`select * from ` + table);
     sql.all((err, row) => {
@@ -71,6 +85,7 @@ async function getCatByID(catID, getCallback) { //Needs the callback to allow pr
 var catDAO = {
     createCat: createCat,
     deleteCat: deleteCat,
+    clearCat: clearCat,
     getAllCat: getAllCat,
     getCatByID: getCatByID
 }
