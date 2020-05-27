@@ -50,6 +50,10 @@ router.post('/createCategory', secured, function(req, res, next) {
     })
 });
 
+router.post('/deleteCategory', secured, function(req, res, next) {
+    console.log(req.body.cat_id);
+});
+
 //get all categories in database
 router.get('/getCategory', secured, function(req, res, next) {
     catDAO.getAllCat((result) => {
