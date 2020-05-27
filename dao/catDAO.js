@@ -26,7 +26,7 @@ function createCat(title, description){
 }
 
 //delete a Category in database by CatID
-function deleteCat(catID){
+function deleteCat(catID, callback){
     let sql = `delete from ` + table + ` where CatID = ?`;
 
     db.all(sql, [catID], (err, results) => {
@@ -35,6 +35,7 @@ function deleteCat(catID){
         }
         else {
             console.log("Category deleted " + catID);
+            callback();
         }
     });
 }
