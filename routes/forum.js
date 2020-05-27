@@ -51,9 +51,10 @@ router.post('/createCategory', secured, function(req, res, next) {
 });
 
 router.post('/deleteCategory', secured, function(req, res, next) {
+    var catID = req.body.cat_id;
     // console.log(req.body.cat_id);
     //Add in admin validation check here,
-    catDAO.clearCat(req.body.cat_id);
+    catDAO.clearCat(catID);
 });
 
 //get all categories in database

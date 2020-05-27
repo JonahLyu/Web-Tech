@@ -42,12 +42,12 @@ function deleteCat(catID){
 function clearCat(catID){
     let sql = `delete from posts where CatID = ?`;
 
-    db.all(sql, [postID], (err, results) => {
+    db.all(sql, catID, (err, results) => {
         if (err) {
             throw err;
         }
         else {
-            console.log("category cleared deleted " + postID);
+            console.log("category cleared deleted " + catID);
         }
     });
 
