@@ -72,27 +72,6 @@ router.get('/getCategory', secured, function(req, res, next) {
     })
 });
 
-// router.get('/loadCategory', secured, function(req, res, next) {
-//     postDAO.getAllPostsByCat(req.query.id, (posts) => {
-//         forumHelpers.truncPosts(posts, 200);
-
-//         forumHelpers.addPostDetails(posts,() => {}); //Want to also add the relevant user data and category data to post
-//         // forumHelpers.addPostAuthorandCategory(posts, (detailPosts) => {
-//         //     forumHelpers.truncPosts(detailPosts, 200);
-//         //     res.render("posts", {title: req.query.title,
-//         //         userProfile: req.session.user,
-//         //         posts: detailPosts,
-//         //         cat: req.query})
-//         // });
-//         // console.log(posts);
-
-//         res.render("posts", {title: req.query.title,
-//                                 userProfile: req.session.user,
-//                                 posts: posts,
-//                                 cat: req.query})
-//     })
-// });
-
 router.get('/loadCategory', secured, function(req, res, next) {
     // console.log(req.session.user);
     joinDAO.getPostsWithDetailsByCatID(req.query.id, (posts) => {
