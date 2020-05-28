@@ -11,45 +11,38 @@ let table = `users`
 // }
 
 //create a user entry in database
-function createUser(id, content, date){
-    // var postID = null;
-    let sql = `insert into ` + table + ` values (?, ?, ?, ?)`;
-
-    db.all(sql, [postID, id, content, date], (err, results) => {
+function createUser(id, username, birthday ,gender, phone, level){
+    sql = `insert into users values (?, ?, ?, ?, ?, ?)`
+    db.run(sql, [id, username, birthday ,gender, phone, level], (err, results) => {
         if (err) {
             throw err;
-        }
-        else {
-            console.log("user created " + date);
+        } else {
+            console.log("user " + id + " info created!");
         }
     });
 
 }
+function updateUser(id, username, birthday ,gender, phone){
+    sql = `update users set Username = ?, Birthday = ?, Gender = ?, Phone = ? where UserID = ?`
+    db.run(sql, [username, birthday, gender, phone, id], (err, results) => {
+        if (err) {
+            throw err;
+        } else {
+            console.log("user " + id + " info updated!");
+        }
+    });
+}
 
-// //delete a user entry in database
-// function deleteUser(userID){
-//     let sql = `delete from ` + table + ` where UserID = ?`;
-
-//     db.all(sql, [postID], (err, results) => {
-//         if (err) {
-//             throw err;
-//         }
-//         else {
-//             console.log("user deleted " + postID);
-//         }
-//     });
-
-// }
 
 async function getUser(userID, getCallback) { //Needs the callback to allow proper execution, otherwise function doesn't have time to execute
     var stmt = db.prepare(`select * from users where UserID = ?`);
     stmt.get(userID, (err, row) => {
         if (err) {
-            stmt.finalize();
-            throw err;
+            stmt.finalize()
+            throw err
         } else {
-            stmt.finalize();
-            getCallback(row);
+            stmt.finalize()
+            getCallback(row)
         }
     });
 }
@@ -58,21 +51,20 @@ async function getMultiUser(userIDs, getCallback) { //Needs the callback to allo
     var stmt = db.prepare(`select * from users where UserID in (?)`);
     stmt.all(userIDs, (err, rows) => {
         if (err) {
-            stmt.finalize();
+            stmt.finalize()
             throw err;
         } else {
-            stmt.finalize();
-            getCallback(rows);
+            stmt.finalize()
+            getCallback(rows)
         }
     });
 }
 
 var userDAO = {
     createUser: createUser,
+    updateUser: updateUser,
     getUser: getUser,
     getMultiUser: getMultiUser
-    // deleteUser: deleteUser
 }
-
 
 module.exports = userDAO

@@ -133,7 +133,7 @@ app.use("/", authRouter);
      res.redirect("/login");
  };
 
- app.get("/", (req, res) => {
+ app.get("/", secured, (req, res) => {
      res.redirect("/users/home");
  });
 

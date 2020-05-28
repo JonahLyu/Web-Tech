@@ -24,8 +24,6 @@ router.get('/', secured, function(req, res, next) {
 router.get('/setting', secured, function(req, res, next) {
     const { _raw, _json, ...userProfile } = req.user;
     var userID = req.session.user.id;
-    console.log(req);
-    console.log(res);
     userDAO.getUser(userID, (result) => {
       if (!result) {
         res.render("setting", {title: "Setting",
@@ -60,6 +58,7 @@ router.post('/save_setting', secured, function(req, res, next) {
   var gender = req.body.gender;
   var birthday = req.body.birthday;
   var phone = req.body.phonenumber;
+  var level = 1; //default user lever is 1
   let sql = `select * from users where UserID = ?`;
 
   db.all(sql, [id], (err, results) => {
@@ -67,24 +66,12 @@ router.post('/save_setting', secured, function(req, res, next) {
       throw err;
     }
     if (results.length == 0) {
-        sql = `insert into users values (?, ?, ?, ?, ?)`
-        db.run(sql, [id, username, birthday ,gender, phone], (err, results) => {
-          if (err) {
-            throw err;
-          } else {
-            res.send("success!");
-          }
-        });
+        userDAO.createUser(id, username, birthday ,gender, phone, level)
+        res.send("success!")
     }
     else {
-        sql = `update users set Username = ?, Birthday = ?, Gender = ?, Phone = ? where UserID = ?`
-        db.run(sql, [username, birthday,gender, phone, id], (err, results) => {
-          if (err) {
-            throw err;
-          } else {
-            res.send("success!");
-          }
-        });
+        userDAO.updateUser(id, username, birthday ,gender, phone)
+        res.send("success!")
     }
   });
 });
