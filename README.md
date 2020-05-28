@@ -7,13 +7,13 @@ Using Express framework. The database is using `sqlite3`.
 contributers: Jonah & Aaron
 
 
-**Install**:
+## Install
 
-IMPORTANT: The running requires confidential configurations in `.env` 
+IMPORTANT: The running requires confidential configurations in `.env`
 
 Please contact any contributor to get access.
 
-Locate your work directory 
+Locate your work directory
 
 ```shell
 cd /Web_Tech
@@ -25,13 +25,13 @@ Add `.env` in the root directory
 vim .env
 ```
 
-**Quick Start**:
+## Quick Start
 ```shell
 bash start_server.sh
 ```
 
 
-**Run locally step by step**
+## Run locally step by step
 
 Install essential modules first
 
@@ -53,7 +53,7 @@ npm run dev
 
 2.run the client
 ```shell
-npm run ui 
+npm run ui
 ```
 Visit `localhost:3000` to see updates in real time.
 
@@ -63,4 +63,3 @@ Visit `localhost:3000` to see updates in real time.
 My uni e-mail num is 17092
 
 pass: MagicForum12
-
