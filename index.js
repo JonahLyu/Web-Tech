@@ -63,7 +63,7 @@ const strategy = new Auth0Strategy(
       clientID: process.env.AUTH0_CLIENT_ID,
       clientSecret: process.env.AUTH0_CLIENT_SECRET,
       callbackURL:
-        process.env.AUTH0_CALLBACK_URL || "http://localhost:3000/callback"
+        process.env.AUTH0_CALLBACK_URL || "http://localhost:3000/callback" || "https://localhost:3000/callback"
     },
     function(accessToken, refreshToken, extraParams, profile, done) {
       /**
@@ -155,9 +155,20 @@ app.use(function(err, req, res, next) {
  * Server Activation
  */
 
- app.listen(port, () => {
-     console.log(`Listening to requests on http://localhost:${port}`);
- });
+app.listen(port, () => {
+    console.log(`Listening to requests on http://localhost:${port}`);
+});
+
+var fs = require('fs')
+var https = require('https')
+
+https.createServer({
+  key: fs.readFileSync('cert/server.key'),
+  cert: fs.readFileSync('cert/server.cert')
+}, app)
+.listen(8443, function () {
+  console.log('Example app listening on port 8443! Go to https://localhost:8443/')
+})
 
  module.exports = {
      app,
