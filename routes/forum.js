@@ -46,9 +46,7 @@ router.post('/createCategory', secured, function(req, res, next) {
     var title = req.body.title
     var description = req.body.description
     catDAO.createCat(title, description)
-    catDAO.getAllCat((result) => {
-       res.cookie('categories', JSON.stringify(result))
-    })
+    res.send("success!")
 });
 
 router.post('/deleteCategory', secured, function(req, res, next) {
@@ -61,16 +59,6 @@ router.post('/deleteCategory', secured, function(req, res, next) {
     });
 });
 
-//get all categories in database
-router.get('/getCategory', secured, function(req, res, next) {
-    catDAO.getAllCat((result) => {
-        if (!result) {
-          res.send('empty')
-        } else {
-          res.json(result)
-        }
-    })
-});
 
 router.get('/loadCategory', secured, function(req, res, next) {
     // console.log(req.session.user);

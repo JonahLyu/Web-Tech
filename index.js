@@ -1,13 +1,11 @@
-// index.js
-// This tutorial for design: https://auth0.com/blog/create-a-simple-and-stylish-node-express-app/
-// This one for authorisation: https://auth0.com/blog/create-a-simple-and-secure-node-express-app/#Setting-Up-the-Project
-
 /**
  * Required External Modules
  */
 
 const express = require("express");
 const path = require("path");
+var fs = require('fs')
+var https = require('https')
 
 const expressSession = require("express-session");
 const passport = require("passport");
@@ -35,6 +33,7 @@ var forumRouter = require('./routes/forum');
 
 const app = express();
 const port = process.env.PORT || "8000";
+const httpsPort = "8443"
 
 /**
  * Session Configuration
@@ -156,18 +155,15 @@ app.use(function(err, req, res, next) {
  */
 
 app.listen(port, () => {
-    console.log(`Listening to requests on http://localhost:${port}`);
+    console.log(`Http server listening to requests on http://localhost:${port}`);
 });
-
-var fs = require('fs')
-var https = require('https')
 
 https.createServer({
   key: fs.readFileSync('cert/server.key'),
   cert: fs.readFileSync('cert/server.cert')
 }, app)
-.listen(8443, function () {
-  console.log('Example app listening on port 8443! Go to https://localhost:8443/')
+.listen(httpsPort, function () {
+  console.log(`Https server listening to requests on https://localhost:${httpsPort}`)
 })
 
  module.exports = {
