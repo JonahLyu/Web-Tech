@@ -26,6 +26,7 @@ vim .env
 ```
 ## Docker Start
 ```shell
+docker build -t lvjike/magicforum .
 docker-compose up
 ```
 
