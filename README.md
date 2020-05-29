@@ -24,6 +24,10 @@ Add `.env` in the root directory
 ```shell
 vim .env
 ```
+## Docker Start
+```shell
+docker-compose up
+```
 
 ## Quick Start
 ```shell
