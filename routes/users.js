@@ -3,6 +3,7 @@ var router = express.Router();
 var postDAO = require('../dao/postDAO')
 var userDAO = require('../dao/userDAO')
 var catDAO = require('../dao/catDAO')
+var forumHelpers = require('../helpers/forumHelpers')
 var path = require('path');
 var sqlite3 = require(path.join(__dirname , '../node_modules/sqlite3')).verbose();
 var db = new sqlite3.Database(path.join(__dirname , '../database/user.db'));
@@ -88,23 +89,20 @@ router.get('/home',secured, function(req, res, next) {
     var id = req.session.user.id;
     postDAO.getAllPostsByUser(id, (userPosts) => {
       catDAO.getAllCat((allCats) => {
-        console.log(allCats[0]);
-        res.render("home", {title: "Home",
-                                userProfile: userProfile,
-                                posts: userPosts,
-                                cats: allCats})
+        forumHelpers.postCount(allCats, (detailCats) => {
+          console.log(detailCats);
+          res.render("home", {title: "Home",
+                                  userProfile: userProfile,
+                                  posts: userPosts,
+                                  cats: detailCats})
+        });
+        // console.log(allCats);
+        // res.render("home", {title: "Home",
+        //                         userProfile: userProfile,
+        //                         posts: userPosts,
+        //                         cats: allCats})
       });
     });
-    // db.all(sql, [id], (err, results) => {
-    //     if (err) {
-    //         throw err;
-    //     }
-    //     else {
-    //         res.render("listpost", {title: "AllPost",
-    //                                 userProfile: userProfile,
-    //                                 posts: results})
-    //     }
-    // });
 });
 
 module.exports = router;

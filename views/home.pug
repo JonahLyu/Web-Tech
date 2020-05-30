@@ -43,6 +43,8 @@ html
                           header.clearfix
                             h3.post-title
                               a(href="/forum/loadCategory?id="+cat.CatID+"&title="+cat.Title) #{cat.Title}
+                          span.comments
+                            a(href="#" title="Posts") #{cat.PostCount} Posts
                           span 
                               button#post.btn.btn-small(onclick="confirmDelete("+cat.CatID+")") delete
                           p(class="post-preview")
