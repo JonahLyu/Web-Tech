@@ -1,0 +1,77 @@
+var express = require('express');
+var path = require('path');
+var sqlite3 = require(path.join(__dirname , '../node_modules/sqlite3')).verbose();
+var db = new sqlite3.Database(path.join(__dirname , '../database/user.db'));
+let table = `comments`
+
+//create a new comment entry in database
+function createCom(postID, content, userID, date){
+    var comID = null;
+    var likeCount = 0;
+    let sql = `insert into ` + table + ` values (?, ?, ?, ?, ?, ?)`;
+
+    db.all(sql, [comID, postID, content, userID, likeCount, date], (err, results) => {
+        if (err) {
+            throw err;
+        }
+        else {
+            console.log("comDAO: comment for " + postID +" created " + date);
+        }
+    });
+
+}
+
+//delete a new post entry in database
+function deleteCom(comID){
+    let sql = `delete from ` + table + ` where CommentID = ?`;
+
+    db.all(sql, [comID], (err, results) => {
+        if (err) {
+            throw err;
+        }
+        else {
+            console.log("comDAO: comment deleted " + comID);
+        }
+    });
+
+}
+
+function getComByPostID(postID, callback) {
+    let sql = `select * from ` + table + ` where PostID = ?`;
+    var stmt = db.prepare(sql);
+    stmt.all(postID, (err, row) => {
+        if (err) {
+            stmt.finalize();
+            throw err;
+        } else {
+            stmt.finalize();
+            console.log("comDAO: get comments of post " + postID);
+            callback(row);
+        }
+    });
+}
+
+function addComLike(comID) {
+    let sql = `update ` + table + ` set LikeCount = LikeCount + 1 where CommentID = ?`;
+    var stmt = db.prepare(sql);
+    stmt.get(comID, (err, row) => {
+        if (err) {
+            stmt.finalize();
+            throw err;
+        } else {
+            stmt.finalize();
+            console.log("comDAO: add comment like: " + comID);
+        }
+    });
+}
+
+
+var comDAO = {
+    createCom: createCom,
+    deleteCom: deleteCom,
+    getComByPostID: getComByPostID,
+    addComLike: addComLike,
+}
+
+
+module.exports = comDAO
