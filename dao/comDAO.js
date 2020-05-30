@@ -21,19 +21,33 @@ function createCom(postID, content, userID, date){
 
 }
 
-//delete a new post entry in database
-function deleteCom(comID){
-    let sql = `delete from ` + table + ` where CommentID = ?`;
+//delete a new comment in database with user validation
+function deleteCom(comID, userID){
+    let sql = `select UserID from ` + table + ` where CommentID = ?`;
 
-    db.all(sql, [comID], (err, results) => {
+    db.get(sql, [comID], (err, result) => {
         if (err) {
             throw err;
         }
+        else if (result == null) {
+            console.log("comDAO: cannot find " + comID);
+        }
+        else if (result.UserID === userID){
+            let sql = `delete from ` + table + ` where CommentID = ?`;
+
+            db.all(sql, [comID], (err, results) => {
+                if (err) {
+                    throw err;
+                }
+                else {
+                    console.log("comDAO: comment deleted " + comID);
+                }
+            });
+        }
         else {
-            console.log("comDAO: comment deleted " + comID);
+            console.log("comDAO: no access to delete comment " + comID);
         }
     });
-
 }
 
 function getComByPostID(postID, callback) {
@@ -65,12 +79,27 @@ function addComLike(comID) {
     });
 }
 
+function getComLikeByID(comID, callback) {
+    let sql = `select LikeCount from ` + table + ` where CommentID = ?`;
+    var stmt = db.prepare(sql);
+    stmt.get(comID, (err, result) => {
+        if (err) {
+            stmt.finalize();
+            throw err;
+        } else {
+            stmt.finalize();
+            console.log("comDAO: get comment " + comID + " like count" );
+            callback(result);
+        }
+    });
+}
 
 var comDAO = {
     createCom: createCom,
     deleteCom: deleteCom,
     getComByPostID: getComByPostID,
     addComLike: addComLike,
+    getComLikeByID: getComLikeByID
 }
 
 

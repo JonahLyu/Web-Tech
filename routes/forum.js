@@ -3,6 +3,7 @@ var router = express.Router();
 var postDAO = require('../dao/postDAO')
 var catDAO = require('../dao/catDAO')
 var joinDAO = require('../dao/joinDAO')
+var comDAO = require('../dao/comDAO')
 var forumHelpers = require('../helpers/forumHelpers')
 var moment = require('moment')
 
@@ -92,5 +93,39 @@ router.post('/addPostLike', secured, function(req, res, next) {
         res.json({likeCount: post.LikeCount})
     })
 });
+
+//comment routes
+router.post('/addComLike', secured, function(req, res, next) {
+    var comID = req.body.comID
+    comDAO.addPostLike(comID)
+    comDAO.getComLikeByID(comID, (result) => {
+        res.json({likeCount: result.LikeCount})
+    })
+});
+
+router.post('/createCom', secured, function(req, res, next) {
+    var userID = req.session.user.id;
+    var postID = req.body.postID
+    var content = req.body.content
+    var date = moment().format("MMM Do YY, h:mm:ss a")
+    comDAO.createCom(postID, content, userID, date)
+    res.redirect('back');
+});
+
+router.post('/deleteCom', secured, function(req, res, next) {
+    var comID = req.body.comID
+    var userID = req.session.user.id
+    comDAO.deleteCom(comID, userID)
+    res.redirect('back');
+});
+
+router.post('/getComByPostID', secured, function(req, res, next) {
+    var postID = req.body.postID
+    var userID = req.session.user.id
+    comDAO.getComByPostID(postID, (comments)=>{
+        res.send(comments)
+    })
+});
+
 
 module.exports = router;
