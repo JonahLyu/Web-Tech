@@ -61,7 +61,7 @@ html
                         span.like-it(value=post.PostID) #{post.LikeCount}
                         
                     section#comments
-                        h3#comments-title (3) Comments
+                        h3#comments-title () Comments
                         ol.commentlist
                         //- start of respond
                         #respond
@@ -74,7 +74,7 @@ html
                                     textarea#comment.span8(name="content" cols="58" rows="5")
                                 div
                                     input(type="hidden" name="postID" value=post.PostID)
-                                    input#submit.btn(name="submit" type="submit")
+                                    button#submit.btn(name="submit" type="submit") Post Comment
                         //- end of respond
                 .span4
                     section.widget

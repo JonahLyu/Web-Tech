@@ -7,6 +7,7 @@ $.post(
     {postID: postID},
     function(data) {
         // console.log(data);
+        $("#comments-title").html("("+data.length+") Comments");
         data.forEach((comment) => {
             let hash = md5(comment.UserID)
             let avatarLink = "https://www.gravatar.com/avatar/" + hash + "?d=monsterid"
