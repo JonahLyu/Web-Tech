@@ -455,7 +455,7 @@ li.comment > article .avatar {
 .info-widget {
   border: 1px solid #e9e6c4;
   padding: 10px 100px 10px 20px;
-  background: #FFFCEC url("../images/support.png") no-repeat 95% 20px;
+  background: #FFFCEC;
   margin-bottom: 20px;
 }
 

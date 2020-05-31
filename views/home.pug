@@ -58,6 +58,8 @@ html
                 .span4
                     section.widget
                         .info-widget
+                            .avatar-wrap
+                                img#userAvatar.avatar.avatar-60.photo(alt="" src="/images/support.png" height="60" width="60")
                             div.Title
                                 h3 Your info
                             .username-wrap
@@ -92,11 +94,15 @@ html
                 p Jonah | Aaron
                         
         script(src="../scripts/home.js")
+        script(src="https://cdn.bootcdn.net/ajax/libs/blueimp-md5/2.15.0/js/md5.min.js")
         script.
             $(document).ready(function(){
                 $.post(
                     "/users/info",
                     function(data) {
+                        let hash = md5(data.UserID)
+                        let avatarLink = "https://www.gravatar.com/avatar/" + hash + "?d=monsterid"
+                        $("#userAvatar").attr("src", avatarLink);
                         $("#greeting").html("Howdy, " + data.Username + "!");
                         $("#username").html(data.Username);
                         $("#birthday").html(data.Birthday);

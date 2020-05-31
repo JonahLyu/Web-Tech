@@ -51,7 +51,9 @@ function deleteCom(comID, userID){
 }
 
 function getComByPostID(postID, callback) {
-    let sql = `select * from ` + table + ` where PostID = ?`;
+    let sql = `select comments.*, Username from ${table}
+                inner join users on users.UserID = comments.UserID
+                where comments.PostID = ?`
     var stmt = db.prepare(sql);
     stmt.all(postID, (err, row) => {
         if (err) {
