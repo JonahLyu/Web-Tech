@@ -47,9 +47,9 @@ html
                             .post-meta.clearfix
                               span.date #{post.Date}
                               span.category
-                                a(href="#" title="View all posts in " + post.Category) #{cat.title}
+                                a(href="/forum/loadCategory?id="+cat.id+"&title="+cat.title title="View all posts in " + post.Category) #{cat.title}
                               span.comments
-                                a(href="#" title="Comment") #{post.CommentCount} Comments
+                                a(href="/forum/loadPost?id="+post.PostID title="Comment") #{post.CommentCount} Comments
                               span.like-count(value=post.PostID) #{post.LikeCount}
                               span.author
                                 a(href="#" tile="View " + post.Author + "'s profile'") #{post.Author}
