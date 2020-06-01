@@ -87,22 +87,44 @@ router.get('/home',secured, function(req, res, next) {
     // let sql = `select * from posts where UserID = ? order by PostID desc`;
     const { _raw, _json, ...userProfile } = req.user
     var id = req.session.user.id;
-    postDAO.getAllPostsByUser(id, (userPosts) => {
-      catDAO.getAllCat((allCats) => {
-        forumHelpers.postCount(allCats, (detailCats) => {
-          console.log(detailCats);
-          res.render("home", {title: "Home",
-                                  userProfile: userProfile,
-                                  posts: userPosts,
-                                  cats: detailCats})
+    userDAO.getUser(id, (result) => {
+      if (result) {
+        postDAO.getAllPostsByUser(id, (userPosts) => {
+          catDAO.getAllCat((allCats) => {
+            forumHelpers.postCount(allCats, (detailCats) => {
+              console.log(detailCats);
+              res.render("home", {title: "Home",
+                                      userProfile: userProfile,
+                                      posts: userPosts,
+                                      cats: detailCats})
+            });
+            // console.log(allCats);
+            // res.render("home", {title: "Home",
+            //                         userProfile: userProfile,
+            //                         posts: userPosts,
+            //                         cats: allCats})
+          });
         });
-        // console.log(allCats);
-        // res.render("home", {title: "Home",
-        //                         userProfile: userProfile,
-        //                         posts: userPosts,
-        //                         cats: allCats})
-      });
+      } else {
+        res.redirect('/users/setting')
+      }
     });
+    // postDAO.getAllPostsByUser(id, (userPosts) => {
+    //   catDAO.getAllCat((allCats) => {
+    //     forumHelpers.postCount(allCats, (detailCats) => {
+    //       console.log(detailCats);
+    //       res.render("home", {title: "Home",
+    //                               userProfile: userProfile,
+    //                               posts: userPosts,
+    //                               cats: detailCats})
+    //     });
+    //     // console.log(allCats);
+    //     // res.render("home", {title: "Home",
+    //     //                         userProfile: userProfile,
+    //     //                         posts: userPosts,
+    //     //                         cats: allCats})
+    //   });
+    // });
 });
 
 router.post("/userInfo", secured, (req, res) => {
