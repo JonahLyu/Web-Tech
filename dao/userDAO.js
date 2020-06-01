@@ -22,15 +22,29 @@ function createUser(id, username, birthday ,gender, phone, level){
     });
 
 }
-function updateUser(id, username, birthday ,gender, phone){
-    sql = `update users set Username = ?, Birthday = ?, Gender = ?, Phone = ? where UserID = ?`
-    db.run(sql, [username, birthday, gender, phone, id], (err, results) => {
+function updateUser(id, username, birthday ,gender, phone, level){
+    sql = `update users set Username = ?, Birthday = ?, Gender = ?, Phone = ?, Level = ? where UserID = ?`
+    db.run(sql, [username, birthday, gender, phone, level, id], (err, results) => {
         if (err) {
             throw err;
         } else {
             console.log("user " + id + " info updated!");
         }
     });
+}
+
+function getAccessLevel(userID, callback) {
+    var stmt = db.prepare(`select Level from users where UserID = ?`);
+    stmt.get(userID, (err, level) => {
+        if (err) {
+            stmt.finalize();
+            throw err;
+        } else {
+            stmt.finalize();
+            if (level) callback(level);
+            else callback(1);
+        }
+    })
 }
 
 
@@ -76,6 +90,7 @@ async function getOtherUser(userID, getCallback) { //Needs the callback to allow
 var userDAO = {
     createUser: createUser,
     updateUser: updateUser,
+    getAccessLevel: getAccessLevel,
     getUser: getUser,
     getMultiUser: getMultiUser,
     getOtherUser: getOtherUser

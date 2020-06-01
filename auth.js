@@ -14,6 +14,7 @@ const passport = require("passport");
 const util = require("util");
 const url = require("url");
 const querystring = require("querystring");
+const userDAO = require("./dao/userDAO");
 
 require("dotenv").config();
 
@@ -47,7 +48,11 @@ router.get("/callback", (req, res, next) => {
             delete req.session.returnTo;
             const { _raw, _json, ...userProfile } = req.user;
             req.session.user = userProfile;
-            res.redirect(returnTo || "/");
+            userDAO.getAccessLevel(req.session.user.id, (level) => {
+                req.session.user.level = level.Level;
+                res.redirect(returnTo || "/");
+            });
+            // res.redirect(returnTo || "/");
         });
     })(req, res, next);
 });

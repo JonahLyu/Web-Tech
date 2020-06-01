@@ -60,9 +60,10 @@ router.post('/save_setting', secured, function(req, res, next) {
   var gender = req.body.gender;
   var birthday = req.body.birthday;
   var phone = req.body.phonenumber;
-  var level = 1; //default user lever is 1
+  console.log(req.session.user.level);
+  var level = (req.session.user.level) ? req.session.user.level : 1; //default user lever is 1
   let sql = `select * from users where UserID = ?`;
-
+  req.session.user.level = level;
   db.all(sql, [id], (err, results) => {
     if (err) {
       throw err;
@@ -72,7 +73,7 @@ router.post('/save_setting', secured, function(req, res, next) {
         res.send("success!")
     }
     else {
-        userDAO.updateUser(id, username, birthday ,gender, phone)
+        userDAO.updateUser(id, username, birthday ,gender, phone, level)
         res.send("success!")
     }
   });
@@ -93,7 +94,8 @@ router.get('/home',secured, function(req, res, next) {
         joinDAO.getPopularPostsWithDetails((popularPosts) => {
           catDAO.getAllCat((allCats) => {
             forumHelpers.truncPosts(popularPosts, 200);
-            console.log(popularPosts);
+            console.log(result);
+            console.log(req.session.user.level);
             res.render("home", {title: "Home",
                                     userProfile: userProfile,
                                     posts: popularPosts,
