@@ -22,7 +22,7 @@ function createCom(postID, content, userID, date){
 }
 
 //delete a new comment in database with user validation
-function deleteCom(comID, userID){
+function deleteCom(comID, userID, modBypass){
     let sql = `select UserID from ` + table + ` where CommentID = ?`;
 
     db.get(sql, [comID], (err, result) => {
@@ -32,7 +32,7 @@ function deleteCom(comID, userID){
         else if (result == null) {
             console.log("comDAO: cannot find " + comID);
         }
-        else if (result.UserID === userID){
+        else if (result.UserID === userID || modBypass){
             let sql = `delete from ` + table + ` where CommentID = ?`;
 
             db.all(sql, [comID], (err, results) => {

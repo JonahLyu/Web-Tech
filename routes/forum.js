@@ -35,7 +35,7 @@ router.post('/deletePost', secured, function(req, res, next) {
     var postID = req.body.postid;
     var userID = req.session.user.id;
     postDAO.validateCreator(postID, userID, (post, user, bool) => {
-        if (bool) {
+        if (bool || (req.session.user.level === 3)) { //Allow creator or admin to delete post
             postDAO.deletePost(post);
         }
         res.redirect('back');
@@ -54,10 +54,12 @@ router.post('/deleteCategory', secured, function(req, res, next) {
     var catID = req.body.cat_id;
     // console.log(req.body.cat_id);
     //Add in admin validation check here,
-    catDAO.clearCat(catID);
-    catDAO.deleteCat(catID, () => {
-        res.send(req.get('referer'));
-    });
+    if (req.session.user.level === 3) {
+        catDAO.clearCat(catID);
+        catDAO.deleteCat(catID, () => {
+            res.send(req.get('referer'));
+        });
+    }
 });
 
 
@@ -118,7 +120,8 @@ router.post('/createCom', secured, function(req, res, next) {
 router.post('/deleteCom', secured, function(req, res, next) {
     var comID = req.body.comID
     var userID = req.session.user.id
-    comDAO.deleteCom(comID, userID)
+    var bypass = (req.session.user.level >= 2);
+    comDAO.deleteCom(comID, userID, bypass);
     res.redirect('back');
 });
 
