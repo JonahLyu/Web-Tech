@@ -10,3 +10,4 @@ Moderator (2):
 
 User (1):
 -Can post normally
+-Can delete own posts

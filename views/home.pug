@@ -58,7 +58,7 @@ html
                               span.like-count(value=post.PostID) #{post.LikeCount}
                               span.author
                                 a(href="/forum/loadUser?id="+post.UserID tile="View " + post.Author + "'s profile'") #{post.Author}
-                              if userProfile.user_id == post.UserID
+                              if userProfile.user_id == post.UserID || level > 2
                                 span 
                                     form.form-inline(action="/forum/deletePost" method="POST")
                                         input#postid(name="postid", value=post.PostID, type="hidden")
@@ -74,8 +74,9 @@ html
                               a(href="/forum/loadCategory?id="+cat.CatID+"&title="+cat.Title) #{cat.Title}
                           span.comments
                             a(href="#" title="Posts") #{cat.PostCount} Posts
-                          span 
-                              button#post.btn.btn-small(onclick="confirmDelete("+cat.CatID+")") delete
+                          if level > 2
+                            span 
+                                button#post.btn.btn-small(onclick="confirmDelete("+cat.CatID+")") delete
                           p(class="post-preview")
                             | #{cat.Description} 
                 //- .span8

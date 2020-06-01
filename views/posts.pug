@@ -57,7 +57,7 @@ html
                               span.like-count(value=post.PostID) #{post.LikeCount}
                               span.author
                                 a(href="/forum/loadUser?id="+post.UserID tile="View " + post.Author + "'s profile'") #{post.Author}
-                              if userProfile.user_id == post.UserID
+                              if userProfile.user_id == post.UserID || level > 2
                                 span 
                                     form.form-inline(action="/forum/deletePost" method="POST")
                                         input#postid(name="postid", value=post.PostID, type="hidden")

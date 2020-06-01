@@ -69,6 +69,7 @@ router.get('/loadCategory', secured, function(req, res, next) {
         console.log(req.session.user);
         res.render("posts", {title: req.query.title,
                                 userProfile: req.session.user,
+                                level: req.session.user.level, //Included seperately to specify we want the elvel from the session
                                 posts: posts,
                                 cat: req.query})
     })

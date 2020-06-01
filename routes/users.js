@@ -98,6 +98,7 @@ router.get('/home',secured, function(req, res, next) {
             console.log(req.session.user.level);
             res.render("home", {title: "Home",
                                     userProfile: userProfile,
+                                    level: req.session.user.level,
                                     posts: popularPosts,
                                     cats: allCats})
           });
