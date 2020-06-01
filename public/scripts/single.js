@@ -14,13 +14,13 @@ $.post(
             var oLi = document.createElement("li")
             oLi.className = `comment even thread-even depth-1`
             oLi.innerHTML = `<article id="comment-2">
-                    <a href="#">
+                    <a href="/forum/loadUser?id=${comment.UserID}">
                         <img alt="" src=${avatarLink} class="avatar avatar-60 photo" height="60" width="60">
                     </a>
                     <div class="comment-meta">
                             <h5 class="author">
                                 <cite class="fn">
-                                    <a href="#" class="url">${comment.Username}</a>
+                                    <a href="/forum/loadUser?id=${comment.UserID}" class="url">${comment.Username}</a>
                             </h5>
                             <p class="date">
                                 <time datetime="2013-02-26T13:18:47+00:00">${comment.Date}</time>

@@ -47,12 +47,12 @@ html
                             .post-meta.clearfix
                               span.date #{post.Date}
                               span.category
-                                a(href="/forum/loadCategory?id="+cat.id+"&title="+cat.title title="View all posts in " + post.Category) #{cat.title}
+                                a(href="/forum/loadCategory?id="+post.CatID+"&title="+post.Category title="View all posts in " + post.Category) #{post.Category}
                               span.comments
                                 a(href="/forum/loadPost?id="+post.PostID title="Comment") #{post.CommentCount} Comments
                               span.like-count(value=post.PostID) #{post.LikeCount}
                               span.author
-                                a(href="#" tile="View " + post.Author + "'s profile'") #{post.Author}
+                                a(href="/forum/loadUser?id="+post.UserID tile="View " + post.Author + "'s profile'") #{post.Author}
                               if userProfile.user_id == post.UserID
                                 span 
                                     form.form-inline(action="/forum/deletePost" method="POST")

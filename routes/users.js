@@ -105,4 +105,11 @@ router.get('/home',secured, function(req, res, next) {
     });
 });
 
+router.post("/userInfo", secured, (req, res) => {
+    var userID = req.body.userID;
+    userDAO.getOtherUser(userID, (result) => {
+      res.send(result)
+    });
+})
+
 module.exports = router;

@@ -60,11 +60,25 @@ async function getMultiUser(userIDs, getCallback) { //Needs the callback to allo
     });
 }
 
+async function getOtherUser(userID, getCallback) { //Needs the callback to allow proper execution, otherwise function doesn't have time to execute
+    var stmt = db.prepare(`select UserID, Username, Gender from users where UserID = ?`);
+    stmt.get(userID, (err, row) => {
+        if (err) {
+            stmt.finalize()
+            throw err
+        } else {
+            stmt.finalize()
+            getCallback(row)
+        }
+    });
+}
+
 var userDAO = {
     createUser: createUser,
     updateUser: updateUser,
     getUser: getUser,
-    getMultiUser: getMultiUser
+    getMultiUser: getMultiUser,
+    getOtherUser: getOtherUser
 }
 
 module.exports = userDAO

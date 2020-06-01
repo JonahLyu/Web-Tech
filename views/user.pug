@@ -1,30 +1,115 @@
-extends layout
-
-block layout-content
-    div.View.WelcomeView
-        h1.Banner Howdy, #{username}!
-        
-        div.Message
-            div.Title
-                h3 your forum info
-            p User Name: #{username}
-            p Gender: #{gender}
-            p D.O.B.: #{birthday}
-            p Phone: #{phone}
-            div.NavButtons
-                a(href="/users/setting")
-                    div.NavButton Edit
-            br
-            //-These buttons are placeholders, and shouldn't be on this page
-            div.NavButtons
-                a(href="/users/newcat")
-                    div.NavButton New Category
-            //-They belong on the forum browsing page
-            br
-            div.NavButtons
-                a(href="/users/listPosts")
-                    div.NavButton Show Posts
+doctype html
+html
+  head
+    meta(charset="utf-8")
+    link(rel="shortcut icon", href="/favicon.ico")
+    meta(name="viewport", content="width=device-width, initial-scale=1, shrink-to-fit=no")
+    meta(name="theme-color", content="#000000")
+    title #{title} | Magic Forum
+    script(src='../jquery.min.js')
+    script(src='../jquery.cookie.js')
+    link#bootstrap-css-css(rel="stylesheet" href="../css/bootstrap5152.css?ver=1.0" type="text/css" media="all")
+    link#responsive-css-css(rel="stylesheet" href="../css/responsive5152.css?ver=1.0" type="text/css" media="all")
+    link#main-css-css(rel="stylesheet" href="../css/main5152.css?ver=1.0" type="text/css" media="all")
+    link#custom-css-css(rel="stylesheet" href="../css/custom5152.html?ver=1.0" type="text/css" media="all")
+  body
+    #thisUID(style="display:none;") #{thisUserID}
+    .header-wrapper
+        header
+          .container
+            .logo-container
+              //- Website Logo
+              a(href="/" title="Home")
+                img(src="../favicon.ico" alt="Home")
+              span.tag-line Magic Forum
+            nav.main-nav
+              .menu-top-menu-container
+                ul#menu-top-menu.clearfix
+                  li
+                    a(href="/") Home
+                  li
+                    a(href="/users/setting") Account
+                  li
+                    a(href="/logout") Log out
+    .search-area-wrapper
+      .search-area.container
+        h3#greeting.search-header
+        //- h3#greeting.search-header Howdy, #{userProfile.nickname}!
+        p.search-tag-line You are browsing my space!
+    .page-container
+        .container
+            .row
+                
+                .span8.main-listing
+                    h2 All Posts
+                    each post in posts
+                        article.format-standard.type-post.hentry.clearfix
+                          header.clearfix
+                            h3.post-title
+                              a(href="/forum/loadPost?id="+post.PostID) #{post.Title}
+                            .post-meta.clearfix
+                              span.date #{post.Date}
+                              span.category
+                                a(href="/forum/loadCategory?id="+post.CatID+"&title="+post.Category title="View all posts in " + post.Category) #{post.Category}
+                              span.comments
+                                a(href="/forum/loadPost?id="+post.PostID title="Comment") #{post.CommentCount} Comments
+                              span.like-count(value=post.PostID) #{post.LikeCount}
+                              span.author
+                                a(href="#" tile="View " + post.Author + "'s profile'") #{post.Author}
+                              if userProfile.user_id == post.UserID
+                                span 
+                                    form.form-inline(action="/forum/deletePost" method="POST")
+                                        input#postid(name="postid", value=post.PostID, type="hidden")
+                                        button#post.btn.btn-small(type="submit" name="submit") delete
+                          p(class="post-preview")
+                            | #{post.Content} 
+                            a.readmore-link(href="/forum/loadPost?id="+post.PostID) Read more
+                .span4
+                    section.widget
+                        .info-widget
+                            .avatar-wrap
+                                img#userAvatar.avatar.avatar-60.photo(alt="" src="/images/support.png" height="60" width="60")
+                            div.Title
+                                h3 Info
+                            .username-wrap
+                                b Username: 
+                                span#username 
+                            .gender-wrap
+                                b Gender: 
+                                span#gender 
+            p Jonah | Aaron
                         
-        div.NavButtons
-            a(href="/logout")
-                div.NavButton Log out
+        script(src="../scripts/posts.js")
+        script(src="https://cdn.bootcdn.net/ajax/libs/blueimp-md5/2.15.0/js/md5.min.js")
+        script.
+            
+            $(document).ready(function(){
+                let userID = $("#thisUID").html()
+                console.log(userID);
+                $.post(
+                    "/users/userInfo",
+                    {userID: userID},
+                    function(data) {
+                        let hash = md5(data.UserID)
+                        let avatarLink = "https://www.gravatar.com/avatar/" + hash + "?d=monsterid"
+                        $("#userAvatar").attr("src", avatarLink);
+                        $("#greeting").html("Welcome to " + data.Username + "'s Page!");
+                        $("#username").html(data.Username);
+                        $("#gender").html(data.Gender);
+                    }
+                );
+                
+                $("span.like-count").click(function(){
+                    var doc = $(this)
+                    var postID = doc.attr("value")
+                    $.post(
+                        "/forum/addPostLike",
+                        {postid: postID},
+                        function(data) {
+                            doc.html(data.likeCount);
+                        }
+                    );
+                }); 
+
+            });  
+             

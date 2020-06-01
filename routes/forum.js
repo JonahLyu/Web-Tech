@@ -66,6 +66,7 @@ router.get('/loadCategory', secured, function(req, res, next) {
     joinDAO.getPostsWithDetailsByCatID(req.query.id, (posts) => {
         forumHelpers.truncPosts(posts, 200);
         // console.log(posts);
+        console.log(req.session.user);
         res.render("posts", {title: req.query.title,
                                 userProfile: req.session.user,
                                 posts: posts,
@@ -127,6 +128,18 @@ router.post('/getComByPostID', secured, function(req, res, next) {
         res.send(comments)
     })
 });
+
+router.get('/loadUser', secured, function(req, res, next) {
+    var userID = req.query.id
+    joinDAO.getPostsWithDetailsByUserID(userID, (posts) => {
+        forumHelpers.truncPosts(posts, 200);
+        res.render("user", {title: "UserPage",
+                                userProfile: req.session.user,
+                                posts: posts,
+                                thisUserID: userID})
+    })
+});
+
 
 
 module.exports = router;
