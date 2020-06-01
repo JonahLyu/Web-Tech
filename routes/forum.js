@@ -79,7 +79,7 @@ router.get('/loadPost', secured, function(req, res, next) {
         catDAO.getCatByID(post.CatID, (cat) => {
             console.log("load post id = " + req.query.id);
             console.log(post);
-            res.render("single", {title: req.query.title,
+            res.render("single", {title: "Post",
                                     userProfile: req.session.user,
                                     post: post,
                                     cat: cat})
@@ -137,6 +137,18 @@ router.get('/loadUser', secured, function(req, res, next) {
                                 userProfile: req.session.user,
                                 posts: posts,
                                 thisUserID: userID})
+    })
+});
+
+router.get('/search', secured, function(req, res, next) {
+    var input = req.query.input
+    joinDAO.search(input, (posts) => {
+        forumHelpers.truncPosts(posts, 200);
+        res.render("search", {title: "Search Result",
+                                userProfile: req.session.user,
+                                posts: posts,
+                                searchInput: input,
+                                resultCount: posts.length})
     })
 });
 

@@ -36,9 +36,31 @@ function getPostsWithDetailsByUserID(userID, callback) {
     });
 }
 
+function search(s, callback) {
+    let input = `%${s}%`
+    let sql = `select posts.*, Username as Author, categories.Title as Category from posts
+                inner join users on users.UserID = posts.UserID
+                inner join categories on categories.CatID = posts.CatID
+                where
+                	posts.Title like ?
+                	or Content like ?
+                	or categories.Title like ?;`
+    var stmt = db.prepare(sql);
+    stmt.all([input, input, input], (err, row) => {
+        if (err) {
+            stmt.finalize();
+            throw err;
+        } else {
+            stmt.finalize();
+            callback(row);
+        }
+    });
+}
+
 var joinDAO = {
     getPostsWithDetailsByCatID : getPostsWithDetailsByCatID,
-    getPostsWithDetailsByUserID : getPostsWithDetailsByUserID
+    getPostsWithDetailsByUserID : getPostsWithDetailsByUserID,
+    search : search
 }
 
 module.exports = joinDAO;
