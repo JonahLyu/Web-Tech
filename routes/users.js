@@ -29,14 +29,16 @@ router.get('/setting', secured, function(req, res, next) {
     userDAO.getUser(userID, (result) => {
       if (!result) {
         res.render("setting", {title: "Setting",
-          userProfile: userProfile});
+          userProfile: userProfile,
+          level: req.session.user.level});
       } else {
         res.render("setting", {title: "Setting",
           userProfile: userProfile,
           username: result.Username,
           gender: result.Gender,
           birthday: result.Birthday,
-          phone: result.Phone});
+          phone: result.Phone,
+          level: req.session.user.level});
       }
     });
     // res.render("setting", {title: "Setting", userProfile: userProfile});
@@ -60,6 +62,7 @@ router.post('/save_setting', secured, function(req, res, next) {
   var gender = req.body.gender;
   var birthday = req.body.birthday;
   var phone = req.body.phonenumber;
+  console.log(req.body.level);
   console.log(req.session.user.level);
   var level = (req.session.user.level) ? req.session.user.level : 1; //default user lever is 1
   let sql = `select * from users where UserID = ?`;

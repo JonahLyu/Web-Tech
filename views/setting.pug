@@ -34,6 +34,13 @@ html(lang='en', dir='ltr')
                         .lgD
                             img(src='/images/png/tablet-screen.png', width='20', height='20', alt='')
                             input#phoneNumber.form-control(type='text', name='phoneNumber', value=phone, placeholder='Phone number')
+                        .lgD
+                            img(src='/images/png/black-user-shape.png', width='20', height='20', alt='')
+                            select.form-control(id='accessLevel', disabled=(level!==3))
+                                option(value='0', selected= true) -- Select --
+                                option(value = 1, selected = (level === 1)) User
+                                option(value = 2, selected = (level === 2)) Moderator
+                                option(value = 3, selected = (level === 3)) Admin
                         .logC
                             button#save_btn.btn.btn-primary Save
                             #checkResult.text-success
@@ -54,6 +61,7 @@ html(lang='en', dir='ltr')
                         var g = $("#gender").val();
                         var dob = $("#date_of_birth").val();
                         var p = $("#phoneNumber").val();
+                        var l = $("#accessLevel").val();
                         //Need to add way to validate phone number
                         //General validation needed
                         if (n == "" || dob == "") {
@@ -72,7 +80,7 @@ html(lang='en', dir='ltr')
                             var page = "/users/save_setting";
                             $.post(
                             page,
-                            {username: n, gender: g, birthday: dob , phonenumber: p},
+                            {username: n, gender: g, birthday: dob , phonenumber: p, level: l},
                             function(result){
                                 $("#save_btn").attr("class","btn btn-success") ;
                                 $("#save_btn").html("success!") ;
