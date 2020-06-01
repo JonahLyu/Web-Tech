@@ -137,9 +137,11 @@ router.get('/loadUser', secured, function(req, res, next) {
     var userID = req.query.id
     joinDAO.getPostsWithDetailsByUserID(userID, (posts) => {
         forumHelpers.truncPosts(posts, 200);
+        var editAccess = (req.session.user.level === 3) || (req.session.user.id === userID);
         res.render("user", {title: "UserPage",
                                 userProfile: req.session.user,
                                 posts: posts,
+                                editAccess: editAccess,
                                 thisUserID: userID})
     })
 });

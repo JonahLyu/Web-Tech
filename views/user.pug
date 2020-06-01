@@ -77,6 +77,10 @@ html
                             .gender-wrap
                                 b Gender: 
                                 span#gender 
+                            if editAccess
+                              .logC
+                                a(href='#')
+                                  button#btn.btn-primary Edit User Details
             p Jonah | Aaron
                         
         script(src="../scripts/posts.js")
