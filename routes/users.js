@@ -91,40 +91,17 @@ router.get('/home',secured, function(req, res, next) {
       if (result) {
         postDAO.getAllPostsByUser(id, (userPosts) => {
           catDAO.getAllCat((allCats) => {
-            forumHelpers.postCount(allCats, (detailCats) => {
-              console.log(detailCats);
-              res.render("home", {title: "Home",
-                                      userProfile: userProfile,
-                                      posts: userPosts,
-                                      cats: detailCats})
-            });
-            // console.log(allCats);
-            // res.render("home", {title: "Home",
-            //                         userProfile: userProfile,
-            //                         posts: userPosts,
-            //                         cats: allCats})
+            console.log(allCats[0]);
+            res.render("home", {title: "Home",
+                                    userProfile: userProfile,
+                                    posts: userPosts,
+                                    cats: allCats})
           });
         });
       } else {
         res.redirect('/users/setting')
       }
     });
-    // postDAO.getAllPostsByUser(id, (userPosts) => {
-    //   catDAO.getAllCat((allCats) => {
-    //     forumHelpers.postCount(allCats, (detailCats) => {
-    //       console.log(detailCats);
-    //       res.render("home", {title: "Home",
-    //                               userProfile: userProfile,
-    //                               posts: userPosts,
-    //                               cats: detailCats})
-    //     });
-    //     // console.log(allCats);
-    //     // res.render("home", {title: "Home",
-    //     //                         userProfile: userProfile,
-    //     //                         posts: userPosts,
-    //     //                         cats: allCats})
-    //   });
-    // });
 });
 
 router.post("/userInfo", secured, (req, res) => {
