@@ -90,12 +90,13 @@ router.get('/home',secured, function(req, res, next) {
     var id = req.session.user.id;
     userDAO.getUser(id, (result) => {
       if (result) {
-        joinDAO.getPopularPostsWithDetails((popularPost) => {
+        joinDAO.getPopularPostsWithDetails((popularPosts) => {
           catDAO.getAllCat((allCats) => {
-            console.log(popularPost);
+            forumHelpers.truncPosts(popularPosts, 200);
+            console.log(popularPosts);
             res.render("home", {title: "Home",
                                     userProfile: userProfile,
-                                    posts: popularPost,
+                                    posts: popularPosts,
                                     cats: allCats})
           });
         });
