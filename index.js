@@ -47,6 +47,21 @@ const session = {
     saveUninitialized: false
 };
 
+/**
+ * Disable browser caching
+ */
+
+app.set('etag', false);
+
+app.use((req, res, next) => {
+    res.set('Cache-Control', 'no-store')
+    next()
+  })
+
+/**
+ * 
+ */
+
 if (app.get("env") === "production") {
     // Serve secure cookies, requires HTTPS
     session.cookie.secure = true;
