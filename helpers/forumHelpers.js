@@ -14,8 +14,11 @@ function truncPosts(posts, maxLength) {
 }
 
 function postCount(cats, callback) {
-    var stmt = db.prepare("select distinct CatID, count(*) over(partition by CatID order by CatID desc) as count from posts");
+    var stmt = db.prepare("select distinct CatID, count(*) over(partition by CatID order by CatID asc) as count from posts order by CatID asc");
     stmt.all((err, counts) => {
+        while(counts[0].CatID < cats[0].CatID) {
+            counts.shift();
+        }
         if (err) {
             stmt.finalize();
             throw err;

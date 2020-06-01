@@ -56,7 +56,7 @@ function clearCat(catID){
 
 
 async function getAllCat(getCallback) { //Needs the callback to allow proper execution, otherwise function doesn't have time to execute
-    var sql = db.prepare(`select * from ` + table);
+    var sql = db.prepare(`select * from ` + table + ' order by CatID asc');
     sql.all((err, row) => {
         if (err) {
             sql.finalize();
