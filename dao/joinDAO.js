@@ -36,6 +36,22 @@ function getPostsWithDetailsByUserID(userID, callback) {
     });
 }
 
+function getPopularPostsWithDetails(callback) {
+    var stmt = db.prepare(`select posts.*, Username as Author, categories.Title as Category from posts
+                            inner join users on users.UserID = posts.UserID
+                            inner join categories on categories.CatID = posts.CatID
+                            where posts.LikeCount = (select max(LikeCount) from posts)`);
+    stmt.all((err, rows) => {
+        if (err) {
+            stmt.finalize();
+            throw err;
+        } else {
+            stmt.finalize();
+            callback(rows);
+        }
+    });
+}
+
 function search(s, callback) {
     let input = `%${s}%`
     let sql = `select posts.*, Username as Author, categories.Title as Category from posts
@@ -60,6 +76,7 @@ function search(s, callback) {
 var joinDAO = {
     getPostsWithDetailsByCatID : getPostsWithDetailsByCatID,
     getPostsWithDetailsByUserID : getPostsWithDetailsByUserID,
+    getPopularPostsWithDetails : getPopularPostsWithDetails,
     search : search
 }
 

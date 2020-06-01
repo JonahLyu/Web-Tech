@@ -41,7 +41,56 @@ html
     .page-container
         .container
             .row
+                //- .span8.main-listing
+                  //- h1 Most Popular Posts
+                  //- each post in posts
+                  //-   article.format-standard.type-post.hentry.clearfix
+                  //-           header.clearfix
+                  //-             h3.post-title
+                  //-               a(href="/forum/loadPost?id="+post.PostID) #{post.Title}
+                  //-             .post-meta.clearfix
+                  //-               span.date #{post.Date}
+                  //-               span.category
+                  //-                 a(href="/forum/loadCategory?id="+post.CatID+"&title="+post.Category title="View all posts in " + post.Category) #{post.Category}
+                  //-               span.comments
+                  //-                 a(href="/forum/loadPost?id="+post.PostID title="Comment") #{post.CommentCount} Comments
+                  //-               span.like-count(value=post.PostID) #{post.LikeCount}
+                  //-               span.author
+                  //-                 a(href="/forum/loadUser?id="+post.UserID tile="View " + post.Author + "'s profile'") #{post.Author}
+                  //-               if userProfile.user_id == post.UserID
+                  //-                 span 
+                  //-                     form.form-inline(action="/forum/deletePost" method="POST")
+                  //-                         input#postid(name="postid", value=post.PostID, type="hidden")
+                  //-                         button#post.btn.btn-small(type="submit" name="submit") delete
+                  //-           p(class="post-preview")
+                  //-             | #{post.Content} 
+                  //-             a.readmore-link(href="/forum/loadPost?id="+post.PostID) Read more
+                //- .span4
                 .span8.main-listing
+                    h1 Most Popular Posts
+                    each post in posts
+                      article.format-standard.type-post.hentry.clearfix
+                              header.clearfix
+                                h3.post-title
+                                  a(href="/forum/loadPost?id="+post.PostID) #{post.Title}
+                                .post-meta.clearfix
+                                  span.date #{post.Date}
+                                  span.category
+                                    a(href="/forum/loadCategory?id="+post.CatID+"&title="+post.Category title="View all posts in " + post.Category) #{post.Category}
+                                  span.comments
+                                    a(href="/forum/loadPost?id="+post.PostID title="Comment") #{post.CommentCount} Comments
+                                  span.like-count(value=post.PostID) #{post.LikeCount}
+                                  span.author
+                                    a(href="/forum/loadUser?id="+post.UserID tile="View " + post.Author + "'s profile'") #{post.Author}
+                                  if userProfile.user_id == post.UserID
+                                    span 
+                                        form.form-inline(action="/forum/deletePost" method="POST")
+                                            input#postid(name="postid", value=post.PostID, type="hidden")
+                                            button#post.btn.btn-small(type="submit" name="submit") delete
+                              p(class="post-preview")
+                                | #{post.Content} 
+                                a.readmore-link(href="/forum/loadPost?id="+post.PostID) Read more
+                    h1 Categories
                     each cat in cats
                         article.format-standard.type-post.hentry.clearfix
                           header.clearfix

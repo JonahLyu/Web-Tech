@@ -3,6 +3,7 @@ var router = express.Router();
 var postDAO = require('../dao/postDAO')
 var userDAO = require('../dao/userDAO')
 var catDAO = require('../dao/catDAO')
+var joinDAO = require('../dao/joinDAO')
 var forumHelpers = require('../helpers/forumHelpers')
 var path = require('path');
 var sqlite3 = require(path.join(__dirname , '../node_modules/sqlite3')).verbose();
@@ -89,12 +90,12 @@ router.get('/home',secured, function(req, res, next) {
     var id = req.session.user.id;
     userDAO.getUser(id, (result) => {
       if (result) {
-        postDAO.getAllPostsByUser(id, (userPosts) => {
+        joinDAO.getPopularPostsWithDetails((popularPost) => {
           catDAO.getAllCat((allCats) => {
-            console.log(allCats[0]);
+            console.log(popularPost);
             res.render("home", {title: "Home",
                                     userProfile: userProfile,
-                                    posts: userPosts,
+                                    posts: popularPost,
                                     cats: allCats})
           });
         });

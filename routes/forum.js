@@ -81,7 +81,7 @@ router.get('/loadPost', secured, function(req, res, next) {
             console.log(post);
             res.render("single", {title: "Post",
                                     userProfile: req.session.user,
-                                    post: post,
+                                    posts: post,
                                     cat: cat})
         })
     })
