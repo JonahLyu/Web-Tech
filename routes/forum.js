@@ -146,9 +146,8 @@ router.post('/createCom', secured, function(req, res, next) {
     var userID = req.session.user.id;
     var postID = req.body.postID
     var content = req.body.content
-    var formattedContent = ((content.replace(/<(.+?)>/gi,"&lt;$1&gt;")).replace(/ /gi,"&nbsp;")).replace(/\n/gi,"<br/>");
     var date = moment().format("MMM Do YY, h:mm:ss a")
-    comDAO.createCom(postID, formattedContent, userID, date)
+    comDAO.createCom(postID, content, userID, date)
     res.redirect('back');
 });
 

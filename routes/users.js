@@ -3,7 +3,6 @@ var router = express.Router();
 var postDAO = require('../dao/postDAO')
 var userDAO = require('../dao/userDAO')
 var catDAO = require('../dao/catDAO')
-var joinDAO = require('../dao/joinDAO')
 var forumHelpers = require('../helpers/forumHelpers')
 var path = require('path');
 var sqlite3 = require(path.join(__dirname , '../node_modules/sqlite3')).verbose();

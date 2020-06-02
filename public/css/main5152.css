@@ -1421,3 +1421,7 @@ a#scroll-top:hover {
     display: inline-block;
   }
 }
+
+p.content{
+    white-space: pre-wrap;
+}

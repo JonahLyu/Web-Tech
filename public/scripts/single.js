@@ -27,7 +27,7 @@ $.post(
                             </p>
                     </div><!-- end .comment-meta -->
                     <div class="comment-body">
-                            <p>${comment.Content}</p>
+                            <p class="content">${comment.Content}</p>
                     </div><!-- end of comment-body -->
             </article>`
 

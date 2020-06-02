@@ -11,7 +11,6 @@ html
     link#bootstrap-css-css(rel="stylesheet" href="../css/bootstrap5152.css?ver=1.0" type="text/css" media="all")
     link#responsive-css-css(rel="stylesheet" href="../css/responsive5152.css?ver=1.0" type="text/css" media="all")
     link#main-css-css(rel="stylesheet" href="../css/main5152.css?ver=1.0" type="text/css" media="all")
-    link#custom-css-css(rel="stylesheet" href="../css/custom5152.html?ver=1.0" type="text/css" media="all")
   body
     #postid(style="display:none") #{post.PostID}
     .header-wrapper
@@ -58,7 +57,7 @@ html
                                     form.form-inline(action="/forum/deleteUserPost" method="POST")
                                         input#postid(name="postid", value=post.PostID, type="hidden")
                                         button#post.btn.btn-small(type="submit" name="submit") delete
-                        pre #{post.Content}
+                        p.content #{post.Content}
                         
                     .like-btn
                         span.like-it(value=post.PostID) #{post.LikeCount}
