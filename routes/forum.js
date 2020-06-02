@@ -47,10 +47,16 @@ router.post('/createPost', secured, function(req, res, next) { //We'll want to a
     // const { _raw, _json, ...userProfile } = req.user
     var userID = req.session.user.id;
     var catID = req.body.category
-    var content = req.body.content
     var title = req.body.title
-    var time = moment().format("MMM Do YY, h:mm:ss a")
-    postDAO.createPost(userID, catID, title, content, time)
+    var content = req.body.content
+    //do not create a post with empty cat or title or content
+    if (catID == -1 || title == null || content == null) {
+        console.log("fail to create a post");
+    }
+    else{
+        var time = moment().format("MMM Do YY, h:mm:ss a")
+        postDAO.createPost(userID, catID, title, content, time)
+    }
     // res.redirect('/users/home')
     res.redirect('back');
 });
