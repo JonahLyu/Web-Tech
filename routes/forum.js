@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+var userDAO = require('../dao/userDAO')
 var postDAO = require('../dao/postDAO')
 var catDAO = require('../dao/catDAO')
 var joinDAO = require('../dao/joinDAO')
@@ -15,6 +16,30 @@ const secured = (req, res, next) => {
     req.session.returnTo = req.originalUrl;
     res.redirect("/login");
 };
+
+router.get('/home',secured, function(req, res, next) {
+    // let sql = `select * from posts where UserID = ? order by PostID desc`;
+    const { _raw, _json, ...userProfile } = req.user
+    var id = req.session.user.id;
+    userDAO.getUser(id, (result) => {
+      if (result) {
+        joinDAO.getPopularPostsWithDetails((popularPosts) => {
+          catDAO.getAllCat((allCats) => {
+            forumHelpers.truncPosts(popularPosts, 200);
+            console.log(result);
+            console.log(req.session.user.level);
+            res.render("home", {title: "Home",
+                                    userProfile: userProfile,
+                                    level: req.session.user.level,
+                                    posts: popularPosts,
+                                    cats: allCats})
+          });
+        });
+      } else {
+        res.redirect('/users/setting')
+      }
+    });
+});
 
 
 //create a new post entry in database
@@ -39,6 +64,17 @@ router.post('/deletePost', secured, function(req, res, next) {
             postDAO.deletePost(post);
         }
         res.redirect('back');
+    })
+});
+
+router.post('/deleteUserPost', secured, function(req, res, next) {
+    var postID = req.body.postid;
+    var userID = req.session.user.id;
+    postDAO.validateCreator(postID, userID, (post, user, bool) => {
+        if (bool || (req.session.user.level === 3)) { //Allow creator or admin to delete post
+            postDAO.deletePost(post);
+        }
+        res.redirect('/');
     })
 });
 
@@ -67,8 +103,6 @@ router.get('/loadCategory', secured, function(req, res, next) {
     // console.log(req.session.user);
     joinDAO.getPostsWithDetailsByCatID(req.query.id, (posts) => {
         forumHelpers.truncPosts(posts, 200);
-        // console.log(posts);
-        console.log(req.session.user);
         res.render("posts", {title: req.query.title,
                                 userProfile: req.session.user,
                                 level: req.session.user.level, //Included seperately to specify we want the elvel from the session
@@ -79,14 +113,15 @@ router.get('/loadCategory', secured, function(req, res, next) {
 
 router.get('/loadPost', secured, function(req, res, next) {
     postDAO.getPostByID(req.query.id, (post) => {
-        catDAO.getCatByID(post.CatID, (cat) => {
-            console.log("load post id = " + req.query.id);
-            console.log(post);
-            res.render("single", {title: "Post",
-                                    userProfile: req.session.user,
-                                    post: post,
-                                    cat: cat})
-        })
+        if (post == null) res.send(404)
+        else{
+            catDAO.getCatByID(post.CatID, (cat) => {
+                res.render("single", {title: "Post",
+                                        userProfile: req.session.user,
+                                        post: post,
+                                        cat: cat})
+            })
+        }
     })
 });
 

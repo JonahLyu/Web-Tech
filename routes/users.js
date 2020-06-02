@@ -20,7 +20,7 @@ const secured = (req, res, next) => {
 
 /* GET users listing. */
 router.get('/', secured, function(req, res, next) {
-    res.redirect('/users/info');
+    res.redirect('/users/home');
 });
 
 router.get('/setting', secured, function(req, res, next) {
@@ -88,29 +88,6 @@ router.get('/newcat',secured, function(req, res, next) {
   res.render("category", {title: "New Category", userProfile: userProfile});
 });
 
-router.get('/home',secured, function(req, res, next) {
-    // let sql = `select * from posts where UserID = ? order by PostID desc`;
-    const { _raw, _json, ...userProfile } = req.user
-    var id = req.session.user.id;
-    userDAO.getUser(id, (result) => {
-      if (result) {
-        joinDAO.getPopularPostsWithDetails((popularPosts) => {
-          catDAO.getAllCat((allCats) => {
-            forumHelpers.truncPosts(popularPosts, 200);
-            console.log(result);
-            console.log(req.session.user.level);
-            res.render("home", {title: "Home",
-                                    userProfile: userProfile,
-                                    level: req.session.user.level,
-                                    posts: popularPosts,
-                                    cats: allCats})
-          });
-        });
-      } else {
-        res.redirect('/users/setting')
-      }
-    });
-});
 
 router.post("/userInfo", secured, (req, res) => {
     var userID = req.body.userID;

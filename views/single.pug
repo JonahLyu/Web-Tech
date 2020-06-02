@@ -55,10 +55,10 @@ html
                                     a(href="#" title="Comment") #{post.CommentCount} Comments
                                 span.like-count(value=post.PostID) #{post.LikeCount}
                                 span 
-                                    form.form-inline(action="/forum/deletePost" method="POST")
+                                    form.form-inline(action="/forum/deleteUserPost" method="POST")
                                         input#postid(name="postid", value=post.PostID, type="hidden")
                                         button#post.btn.btn-small(type="submit" name="submit") delete
-                        p #{post.Content}
+                        pre #{post.Content}
                         
                     .like-btn
                         span.like-it(value=post.PostID) #{post.LikeCount}

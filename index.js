@@ -59,7 +59,7 @@ app.use((req, res, next) => {
   })
 
 /**
- * 
+ *
  */
 
 if (app.get("env") === "production") {
@@ -148,7 +148,7 @@ app.use("/", authRouter);
  };
 
  app.get("/", secured, (req, res) => {
-     res.redirect("/users/home");
+     res.redirect("/forum/home");
  });
 
 app.use('/users', usersRouter);
