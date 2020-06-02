@@ -24,20 +24,29 @@ router.get('/', secured, function(req, res, next) {
 
 router.get('/setting', secured, function(req, res, next) {
     const { _raw, _json, ...userProfile } = req.user;
+    // var userID = req.session.user.id;
     var userID = req.session.user.id;
+    if (req.query.id) { //If we recieve a query at all
+      let access = ((req.session.user.level === 3) || (req.session.user.id === req.query.id)) && (req.query.id != -1) //Restrict access to admins, or people who own the page
+      userID = (access) ? req.query.id : req.session.user.id; //If no access granted send user to their settings page
+    }
     userDAO.getUser(userID, (result) => {
       if (!result) {
         res.render("setting", {title: "Setting",
+          userID: userID,
           userProfile: userProfile,
-          level: req.session.user.level});
+          level: 1,
+          accessLevel: req.session.user.level});
       } else {
         res.render("setting", {title: "Setting",
+          userID: userID,
           userProfile: userProfile,
           username: result.Username,
           gender: result.Gender,
           birthday: result.Birthday,
           phone: result.Phone,
-          level: req.session.user.level});
+          level: result.Level,
+          accessLevel: req.session.user.level});
       }
     });
     // res.render("setting", {title: "Setting", userProfile: userProfile});
@@ -56,27 +65,33 @@ router.post("/info", secured, (req, res) => {
 
 router.post('/save_setting', secured, function(req, res, next) {
   const { _raw, _json, ...userProfile } = req.user;
-  var id = req.session.user.id;
+  let access = ((req.session.user.level === 3) || (req.session.user.id === req.body.user_id)) //Restrict access to admins, or people who own the page
+  if (!access) {
+    res.status(403).send("/forum/home");
+    return next();
+  }
+  var id = req.body.user_id;
   var username = req.body.username;
   var gender = req.body.gender;
   var birthday = req.body.birthday;
   var phone = req.body.phonenumber;
-  console.log(req.body.level);
-  console.log(req.session.user.level);
-  var level = (req.session.user.level) ? req.session.user.level : 1; //default user lever is 1
+  let selfLevelChangeFlag = (req.session.user.id !== req.body.user_id); //Prevents an admin from changing their own level. Prevents case where all admins remove own privileges accidentally, preventing anyone granting these privileges again.
+  var level = (req.session.user.level === 3 && selfLevelChangeFlag) ? req.body.level : req.session.user.level;
+  level = (level) ? level : 1; //Ensures that if level is undefined it is set to default level: 1.
   let sql = `select * from users where UserID = ?`;
-  req.session.user.level = level;
+  req.session.user.level = (req.session.user.level) ? req.session.user.level : level;
   db.all(sql, [id], (err, results) => {
     if (err) {
       throw err;
     }
+    console.log(results);
     if (results.length == 0) {
         userDAO.createUser(id, username, birthday ,gender, phone, level)
-        res.send("success!")
+        res.status(201).send(201);
     }
     else {
         userDAO.updateUser(id, username, birthday ,gender, phone, level)
-        res.send("success!")
+        res.status(201).send(201);
     }
   });
 });
