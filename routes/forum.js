@@ -68,6 +68,7 @@ router.post('/deletePost', secured, function(req, res, next) {
     postDAO.validateCreator(postID, userID, (post, user, bool) => {
         if (bool || (req.session.user.level === 3)) { //Allow creator or admin to delete post
             postDAO.deletePost(post);
+            comDAO.deleteComByPostID(post);
         }
         res.redirect('back');
     })
@@ -79,6 +80,7 @@ router.post('/deleteUserPost', secured, function(req, res, next) {
     postDAO.validateCreator(postID, userID, (post, user, bool) => {
         if (bool || (req.session.user.level === 3)) { //Allow creator or admin to delete post
             postDAO.deletePost(post);
+            comDAO.deleteComByPostID(post);
         }
         res.redirect('/');
     })

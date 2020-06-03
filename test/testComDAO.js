@@ -7,6 +7,8 @@ let userID = 13
 let date = "May 20"
 console.log("test create")
 comDAO.createCom(postID, content, userID, date)
+comDAO.createCom(postID, content, userID, date)
+
 
 console.log("test delete")
 comDAO.deleteCom(4, "13")
@@ -23,3 +25,5 @@ console.log("test get like count")
 comDAO.getComLikeByID(3, (result)=>{
     console.log(result);
 })
+
+comDAO.deleteComByPostID(2)

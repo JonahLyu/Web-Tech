@@ -12,7 +12,7 @@ function Post(id, content, date){
 
 //create a new post entry in database
 function createPost(id, catID, title, content, date){
-    var postID = null;
+    var postID = new Date().getTime();
     var likeCount = 0;
     let sql = `insert into ` + table + ` values (?, ?, ?, ?, ?, ?, ?)`;
 

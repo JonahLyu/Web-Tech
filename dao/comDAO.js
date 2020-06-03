@@ -6,7 +6,7 @@ let table = `comments`
 
 //create a new comment entry in database
 function createCom(postID, content, userID, date){
-    var comID = null;
+    var comID = new Date().getTime();
     var likeCount = 0;
     let sql = `insert into ` + table + ` values (?, ?, ?, ?, ?, ?)`;
 
@@ -21,7 +21,7 @@ function createCom(postID, content, userID, date){
 
 }
 
-//delete a new comment in database with user validation
+//delete a comment in database with user validation
 function deleteCom(comID, userID, modBypass){
     let sql = `select UserID from ` + table + ` where CommentID = ?`;
 
@@ -46,6 +46,20 @@ function deleteCom(comID, userID, modBypass){
         }
         else {
             console.log("comDAO: no access to delete comment " + comID);
+        }
+    });
+}
+
+//delete a comment by postID in database with user validation
+function deleteComByPostID(postID){
+    let sql = `delete from ` + table + ` where PostID = ?`;
+
+    db.all(sql, [postID], (err, result) => {
+        if (err) {
+            throw err;
+        }
+        else {
+            console.log("comDAO: delete all comments of post: " + postID);
         }
     });
 }
@@ -101,7 +115,8 @@ var comDAO = {
     deleteCom: deleteCom,
     getComByPostID: getComByPostID,
     addComLike: addComLike,
-    getComLikeByID: getComLikeByID
+    getComLikeByID: getComLikeByID,
+    deleteComByPostID: deleteComByPostID
 }
 
 
