@@ -120,14 +120,13 @@ router.get('/loadCategory', secured, function(req, res, next) {
 });
 
 router.get('/loadPost', secured, function(req, res, next) {
-    postDAO.getPostByID(req.query.id, (post) => {
+    joinDAO.getPostWithDetailsByPostID(req.query.id, (post) => {
         if (post == null) res.send(404)
         else{
-            catDAO.getCatByID(post.CatID, (cat) => {
-                res.render("single", {title: "Post",
-                                        userProfile: req.session.user,
-                                        post: post,
-                                        cat: cat})
+            console.log(post);
+            res.render("single", {title: "Post",
+                                    userProfile: req.session.user,
+                                    post: post,
             })
         }
     })

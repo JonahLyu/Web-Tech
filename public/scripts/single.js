@@ -1,5 +1,4 @@
 let postID = Number(document.getElementById("postid").innerHTML)
-console.log(postID)
 let commentList = document.querySelector("ol.commentlist")
 //get all comments of a post
 $.post(

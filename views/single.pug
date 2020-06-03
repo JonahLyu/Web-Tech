@@ -49,14 +49,17 @@ html
                             .post-meta.clearfix
                                 span.date #{post.Date}
                                 span.category
-                                    a(href="/forum/loadCategory?id="+cat.CatID+"&title="+cat.Title title="View all posts in " + post.CatID) #{cat.Title}
+                                    a(href="/forum/loadCategory?id="+post.CatID+"&title="+post.Category title="View all posts in " + post.CatID) #{post.Category}
                                 span.comments
                                     a(href="#" title="Comment") #{post.CommentCount} Comments
                                 span.like-count(value=post.PostID) #{post.LikeCount}
-                                span 
-                                    form.form-inline(action="/forum/deleteUserPost" method="POST")
-                                        input#postid(name="postid", value=post.PostID, type="hidden")
-                                        button#post.btn.btn-small(type="submit" name="submit") delete
+                                span.author
+                                    a(href="/forum/loadUser?id="+post.UserID tile="View " + post.Author + "'s profile'") #{post.Author}
+                                if userProfile.user_id == post.UserID || level > 2
+                                    span 
+                                        form.form-inline(action="/forum/deleteUserPost" method="POST")
+                                            input#postid(name="postid", value=post.PostID, type="hidden")
+                                            button#post.btn.btn-small(type="submit" name="submit") delete
                         p.content #{post.Content}
                         
                     .like-btn
@@ -102,6 +105,5 @@ html
             #footer
                 p Jonah | Aaron
                         
-        script(src="../scripts/test.js")
-        script(src="https://cdn.bootcdn.net/ajax/libs/blueimp-md5/2.15.0/js/md5.min.js")
+        script(src="http://www.myersdaily.org/joseph/javascript/md5.js")
         script(src="../scripts/single.js")
