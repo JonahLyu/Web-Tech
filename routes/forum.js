@@ -127,6 +127,7 @@ router.get('/loadPost', secured, function(req, res, next) {
             res.render("single", {title: "Post",
                                     userProfile: req.session.user,
                                     post: post,
+                                    level: req.session.user.level
             })
         }
     })
@@ -163,13 +164,19 @@ router.post('/deleteCom', secured, function(req, res, next) {
     var userID = req.session.user.id
     var bypass = (req.session.user.level >= 2);
     comDAO.deleteCom(comID, userID, bypass);
-    res.redirect('back');
+    // res.redirect('back');
+    res.send(req.get('referer'));
 });
 
 router.post('/getComByPostID', secured, function(req, res, next) {
     var postID = req.body.postID
     var userID = req.session.user.id
     comDAO.getComByPostID(postID, (comments)=>{
+        for (let i = 0; i < comments.length; i++) {
+            if (comments[i].UserID === req.session.user.id || req.session.user.level >= 2) comments[i].deleteButton = true;
+            else comments[i].deleteButton = false;
+        }
+        // console.log(comments);
         res.send(comments)
     })
 });
