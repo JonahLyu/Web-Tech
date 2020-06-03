@@ -103,3 +103,22 @@ function confirmDelete(ComID) {
 
     }
 }
+
+function confirmDeletePost(PostID, CatID, CatTitle) {
+    if (confirm("Are you sure you want to delete this comment? This cannot be undone.")) {
+        $.post(
+            "/forum/deleteUserPost",
+            {
+                postID: PostID,
+                catID: CatID,
+                catTitle: CatTitle
+            },
+            function(data) {
+                // console.log(data);
+                window.location.href = data;
+            }
+        );
+    } else {
+
+    }
+}

@@ -57,9 +57,7 @@ html
                                     a(href="/forum/loadUser?id="+post.UserID tile="View " + post.Author + "'s profile'") #{post.Author}
                                 if userProfile.user_id == post.UserID || level > 2
                                     span 
-                                        form.form-inline(action="/forum/deleteUserPost" method="POST")
-                                            input#postid(name="postid", value=post.PostID, type="hidden")
-                                            button#post.btn.btn-small(type="submit" name="submit") delete
+                                        button#post.btn.btn-small(onclick="confirmDeletePost("+post.PostID+", "+post.CatID+", \""+post.Category+"\")") delete
                         p.content #{post.Content}
                         
                     .like-btn

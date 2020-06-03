@@ -75,14 +75,14 @@ router.post('/deletePost', secured, function(req, res, next) {
 });
 
 router.post('/deleteUserPost', secured, function(req, res, next) {
-    var postID = req.body.postid;
+    var postID = req.body.postID;
     var userID = req.session.user.id;
     postDAO.validateCreator(postID, userID, (post, user, bool) => {
         if (bool || (req.session.user.level === 3)) { //Allow creator or admin to delete post
             postDAO.deletePost(post);
             comDAO.deleteComByPostID(post);
         }
-        res.redirect('/');
+        res.send('/forum/loadCategory?id='+req.body.catID+'&title='+req.body.catTitle);
     })
 });
 
