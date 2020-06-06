@@ -3,3 +3,4 @@ Little To-Do list that can be added to or taken from:
 -Look into measures to sanitise all user input and prevent injection of malicious code via comments, posts, user details, etc. (Escape html chars, prevent xss)
 -Adjust styling of user settings page
 -Add delete user function (Delete from auth0 also)
+-Add error handling
