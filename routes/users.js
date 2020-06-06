@@ -8,6 +8,21 @@ var path = require('path');
 var sqlite3 = require(path.join(__dirname , '../node_modules/sqlite3')).verbose();
 var db = new sqlite3.Database(path.join(__dirname , '../database/user.db'));
 
+const admin = (req, res, next) => {
+  if (req.session.level === 3) {
+    return next();
+  }
+  req.session.returnTo = req.originalUrl;
+  res.redirect("/");
+}
+
+const moderator = (req, res, next) => {
+  if (req.session.level >= 2) {
+    return next();
+  }
+  req.session.returnTo = req.originalUrl;
+  res.redirect("/");
+}
 
 const secured = (req, res, next) => {
     if (req.session.user) {
@@ -94,12 +109,6 @@ router.post('/save_setting', secured, function(req, res, next) {
         res.status(201).send(201);
     }
   });
-});
-
-
-router.get('/newcat',secured, function(req, res, next) {
-  const { _raw, _json, ...userProfile } = req.user;
-  res.render("category", {title: "New Category", userProfile: userProfile});
 });
 
 
