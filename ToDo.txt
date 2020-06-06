@@ -1,9 +1,5 @@
 Little To-Do list that can be added to or taken from:
 -Look into helmet.js middleware, recommended to be used with express for security reasons
 -Look into measures to sanitise all user input and prevent injection of malicious code via comments, posts, user details, etc. (Escape html chars, prevent xss)
--Add ability for admins to update settings of another user
--Find a way to add delete buttons to comments, based on if current user posted comment, and if user is moderator or above
--Comments not being removed from database when post deleted, need to delete all the way down
--Trying to delete post while on page doesn't work
--Add way to get userID of account details being edited by admin
 -Adjust styling of user settings page
+-Add delete user function (Delete from auth0 also)

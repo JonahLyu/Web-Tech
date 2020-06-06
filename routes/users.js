@@ -21,6 +21,21 @@ router.get('/', secured, function(req, res, next) {
     res.redirect('/users/home');
 });
 
+router.get('/listUsers', secured, function(req, res, next) {
+  res.render("user_list", {title: "Users",
+                        userProfile: req.session.user,
+                        level: req.session.user.level
+  })
+});
+
+router.get('/allProfiles', secured, function(req,res,next) { 
+  console.log(req.session.user);
+  userDAO.getAllUser((users) => {
+    //Add delete functionality
+    res.send(users);
+  });
+})
+
 router.get('/setting', secured, function(req, res, next) {
     const { _raw, _json, ...userProfile } = req.user;
     // var userID = req.session.user.id;

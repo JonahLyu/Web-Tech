@@ -47,6 +47,19 @@ function getAccessLevel(userID, callback) {
     })
 }
 
+function getAllUser(callback) {
+    var stmt = db.prepare(`select UserID, Username, Gender from users`);
+    stmt.all((err, rows) => {
+        if (err) {
+            stmt.finalize()
+            throw err
+        } else {
+            stmt.finalize()
+            callback(rows)
+        }
+    });
+}
+
 
 async function getUser(userID, getCallback) { //Needs the callback to allow proper execution, otherwise function doesn't have time to execute
     var stmt = db.prepare(`select * from users where UserID = ?`);
@@ -91,6 +104,7 @@ var userDAO = {
     createUser: createUser,
     updateUser: updateUser,
     getAccessLevel: getAccessLevel,
+    getAllUser: getAllUser,
     getUser: getUser,
     getMultiUser: getMultiUser,
     getOtherUser: getOtherUser

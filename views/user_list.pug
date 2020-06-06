@@ -35,7 +35,7 @@ html
       .search-area.container
         h3#greeting.search-header
         p.search-tag-line Welcome back to your magic forum!
-        form#search-form.search-form.clearfix(method="get" action="/forum/search" autocomplete="off")
+        form#search-form.search-form.clearfix(method="get" action="/users/search" autocomplete="off")
           input#s.search-term.required(type="text" name="input" placeholder="Type your search terms here" title="* Please enter a search term!")
           input.search-btn(type="submit" value="Search")
           #search-error-container
@@ -43,27 +43,10 @@ html
         .container
             .row
                 .span8.main-listing
-                    h2 #{cat.title}
-                    each post in posts
-                        article.format-standard.type-post.hentry.clearfix
-                          header.clearfix
-                            h3.post-title
-                              a(href="/forum/loadPost?id="+post.PostID) #{post.Title}
-                            .post-meta.clearfix
-                              span.date #{post.Date}
-                              span.category
-                                a(href="/forum/loadCategory?id="+post.CatID+"&title="+post.Category title="View all posts in " + post.Category) #{post.Category}
-                              span.comments
-                                a(href="/forum/loadPost?id="+post.PostID title="Comment") #{post.CommentCount} Comments
-                              span.like-count(value=post.PostID) #{post.LikeCount}
-                              span.author
-                                a(href="/forum/loadUser?id="+post.UserID tile="View " + post.Author + "'s profile'") #{post.Author}
-                              if userProfile.user_id == post.UserID || level > 2
-                                span 
-                                  button#post.btn.btn-small(onclick="confirmDelete("+post.PostID+")") delete
-                          p.content
-                            | #{post.Content} 
-                            a.readmore-link(href="/forum/loadPost?id="+post.PostID) Read more
+                    h2 Users:
+                    h3#users-count () Users
+                    ol.userList
+                    //- List users
                 .span4
                     section.widget
                         .info-widget
@@ -83,24 +66,12 @@ html
                             .phone-wrap
                                 b Phone: 
                                 span#phone 
-                    section.widget
-                        .support-widget
-                            h3.title New Post
-                            form(action="/forum/createPost" method="POST")
-                                select#selectCat.form-control(name='category')
-                                    option(value=cat.id, selected= true) #{cat.title}
-                                br
-                                input#title.form-control(type='text', name='title', placeholder='your title')
-                                br
-                                textarea#content.form-control(name="content", rows='5', cols='20', placeholder='your content')
-                                br
-                                button#post.btn.btn-primary(type="submit" name="submit") post
 
             #footer
                 p Jonah | Aaron
                         
-        script(src="../scripts/posts.js")
         script(src="http://www.myersdaily.org/joseph/javascript/md5.js")
+        script(src="../scripts/user_list.js")
         script.
             $(document).ready(function(){
                 $.post(
@@ -116,18 +87,5 @@ html
                         $("#phone").html(data.Phone);
                     }
                 );
-                
-                $("span.like-count").click(function(){
-                    var doc = $(this)
-                    var postID = doc.attr("value")
-                    $.post(
-                        "/forum/addPostLike",
-                        {postid: postID},
-                        function(data) {
-                            doc.html(data.likeCount);
-                        }
-                    );
-                }); 
 
             });  
-             
