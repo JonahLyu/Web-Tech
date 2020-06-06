@@ -8,25 +8,6 @@ var comDAO = require('../dao/comDAO')
 var forumHelpers = require('../helpers/forumHelpers')
 var moment = require('moment')
 
-//Middleware to require admin account
-//May not redirect on post, at least prevents action being taken
-const admin = (req, res, next) => {
-    if (req.session.user.level === 3) {
-      return next();
-    }
-    req.session.returnTo = req.originalUrl;
-    res.redirect("/");
-}
-
-//Middleware to require moderator account
-const moderator = (req, res, next) => {
-    if (req.session.user.level >= 2) {
-      return next();
-    }
-    req.session.returnTo = req.originalUrl;
-    res.redirect("/");
-}
-
 //Middleware to require account
 const secured = (req, res, next) => {
     if (req.session.user) {
@@ -106,24 +87,24 @@ router.post('/deleteUserPost', secured, function(req, res, next) {
     })
 });
 
-router.get('/newcat',secured,admin, function(req, res, next) {
-    const { _raw, _json, ...userProfile } = req.user;
-    req.session.user.level = 1;
-    res.render("category", {title: "New Category", userProfile: userProfile});
-  });
+// router.get('/newcat',secured, function(req, res, next) {
+//     const { _raw, _json, ...userProfile } = req.user;
+//     res.render("category", {title: "New Category", userProfile: userProfile});
+//   });
 
 //create a category in database
-router.post('/createCategory', secured,admin, function(req, res, next) {
+router.post('/createCategory', secured, function(req, res, next) {
     var title = req.body.title
     var description = req.body.description
-    catDAO.createCat(title, description)
-    res.send("success!")
+    if (req.session.user.level === 3) {
+        catDAO.createCat(title, description);
+        // res.redirect("/")
+    }
+    res.redirect("/")
 });
 
-router.post('/deleteCategory', secured,admin, function(req, res, next) {
+router.post('/deleteCategory', secured, function(req, res, next) {
     var catID = req.body.cat_id;
-    // console.log(req.body.cat_id);
-    //Add in admin validation check here,
     if (req.session.user.level === 3) {
         catDAO.clearCat(catID);
         catDAO.deleteCat(catID, () => {

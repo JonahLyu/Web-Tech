@@ -8,22 +8,6 @@ var path = require('path');
 var sqlite3 = require(path.join(__dirname , '../node_modules/sqlite3')).verbose();
 var db = new sqlite3.Database(path.join(__dirname , '../database/user.db'));
 
-const admin = (req, res, next) => {
-  if (req.session.level === 3) {
-    return next();
-  }
-  req.session.returnTo = req.originalUrl;
-  res.redirect("/");
-}
-
-const moderator = (req, res, next) => {
-  if (req.session.level >= 2) {
-    return next();
-  }
-  req.session.returnTo = req.originalUrl;
-  res.redirect("/");
-}
-
 const secured = (req, res, next) => {
     if (req.session.user) {
         return next();

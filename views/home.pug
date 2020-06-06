@@ -26,9 +26,8 @@ html
                     a(href="/") Home
                   li
                     a(href="/users/setting") Account
-                  if level === 3
-                    li
-                      a(href="/forum/newcat") Create Category
+                  li
+                    a(href="#") List Users
                   li
                     a(href="/logout") Log out
     .search-area-wrapper
@@ -120,6 +119,16 @@ html
                                 textarea#content.form-control(name="content", rows='5', cols='20', placeholder='your content')
                                 br
                                 button#post.btn.btn-primary(type="submit" name="submit") post
+                    if level === 3
+                      section.widget
+                        .support-widget
+                            h3.title New Category
+                            form(action="/forum/createCategory" method="POST")
+                                textarea#content.form-control(name="title", rows='1', cols='20', placeholder='Category Name')
+                                br
+                                textarea#content.form-control(name="description", rows='5', cols='20', placeholder='Category Description')
+                                br
+                                button#post.btn.btn-primary(type="submit" name="submit") Create Category
                             //- a.btn(href="/logout")
                             //-     div.NavButton Log out
             #footer
