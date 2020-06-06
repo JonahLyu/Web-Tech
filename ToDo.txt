@@ -4,5 +4,6 @@ Little To-Do list that can be added to or taken from:
 -Adjust styling of user settings page
 -Add delete user function (Delete from auth0 also)
 -Add error handling
+-Update site design
 
 (For some weird reason all of my commits have been under the wrong user name :/ I've just changed it)
