@@ -9,12 +9,12 @@ var db = new sqlite3.Database(path.join(__dirname , '../database/user.db'));
 
 var ManagementClient = require('auth0').ManagementClient;
 
-var management = new ManagementClient({
-  domain: process.env.AUTH0_DOMAIN,
-  clientId: process.env.AUTH0_CLIENT_ID,
-  clientSecret: process.env.AUTH0_CLIENT_SECRET,
-  scope: 'delete:users create:users'
-});
+// var management = new ManagementClient({
+//   domain: process.env.AUTH0_DOMAIN,
+//   clientId: process.env.AUTH0_CLIENT_ID,
+//   clientSecret: process.env.AUTH0_CLIENT_SECRET,
+//   scope: 'delete:users create:users'
+// });
 
 const secured = (req, res, next) => {
     if (req.session.user) {
@@ -127,6 +127,12 @@ router.post("/userInfo", secured, (req, res) => {
 })
 
 router.post("/deleteUser", secured, (req, res) => {
+  var management = new ManagementClient({
+    domain: process.env.AUTH0_DOMAIN,
+    clientId: process.env.AUTH0_CLIENT_ID,
+    clientSecret: process.env.AUTH0_CLIENT_SECRET,
+    scope: 'delete:users create:users'
+  });
   if (req.session.user.level === 3 || req.body.userID === req.session.user.id) {
     management.users.delete({ id: req.body.userID }, function (err) {
       if (err) {
