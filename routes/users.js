@@ -8,6 +8,15 @@ var path = require('path');
 var sqlite3 = require(path.join(__dirname , '../node_modules/sqlite3')).verbose();
 var db = new sqlite3.Database(path.join(__dirname , '../database/user.db'));
 
+var ManagementClient = require('auth0').ManagementClient;
+
+var auth0 = new ManagementClient({
+  domain: process.env.AUTH0_DOMAIN,
+  clientId: process.env.AUTH0_CLIENT_ID,
+  clientSecret: process.env.AUTH0_CLIENT_SECRET,
+  scope: 'delete:users create:users'
+});
+
 const secured = (req, res, next) => {
     if (req.session.user) {
         return next();
@@ -116,6 +125,12 @@ router.post("/userInfo", secured, (req, res) => {
     userDAO.getOtherUser(userID, (result) => {
       res.send(result)
     });
+})
+
+router.post("/deleteUser", secured, (req, res) => {
+  if (req.session.user.level === 3 || req.body.userID === req.session.user.id) {
+    console.log(req.body.userID);
+  }
 })
 
 module.exports = router;

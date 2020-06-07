@@ -82,9 +82,13 @@ html
                               .logC
                                 a(href="/users/setting?id="+userID)
                                   button#btn.btn-primary Edit User Details
+                              br
+                              .logC
+                                button#btn.btn-primary(onclick="confirmDelete(\""+userID+"\")") Delete Account
+
             p Jonah | Aaron
                         
-        script(src="../scripts/posts.js")
+        script(src="../scripts/user.js")
         script(src="http://www.myersdaily.org/joseph/javascript/md5.js")
         script.
             
