@@ -10,7 +10,7 @@ var db = new sqlite3.Database(path.join(__dirname , '../database/user.db'));
 
 var ManagementClient = require('auth0').ManagementClient;
 
-var auth0 = new ManagementClient({
+var management = new ManagementClient({
   domain: process.env.AUTH0_DOMAIN,
   clientId: process.env.AUTH0_CLIENT_ID,
   clientSecret: process.env.AUTH0_CLIENT_SECRET,
@@ -129,7 +129,21 @@ router.post("/userInfo", secured, (req, res) => {
 
 router.post("/deleteUser", secured, (req, res) => {
   if (req.session.user.level === 3 || req.body.userID === req.session.user.id) {
-    console.log(req.body.userID);
+    management.users.delete({ id: req.body.userID }, function (err) {
+      if (err) {
+        console.log(err)
+      }
+      console.log("User deleted");
+      userDAO.deleteUser(req.body.userID);
+      //Delete posts and comments
+      if (req.session.user.level === 3) { //If admin, send to home page
+        res.send("/");
+      } else { //If user force re-log as only time we rach here is when user has deleted own account
+        req.session.user = null;
+        req.session.returnTo = "/";
+        res.send("/login");
+      }
+    });
   }
 })
 

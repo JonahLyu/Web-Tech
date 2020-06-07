@@ -33,6 +33,18 @@ function updateUser(id, username, birthday ,gender, phone, level){
     });
 }
 
+function deleteUser(id) {
+    var stmt = db.prepare(`delete from users where UserID = ?`);
+    stmt.run(id, (err) => {
+        if (err) {
+            stmt.finalize();
+            throw err;
+        } else {
+            console.log("User deleted");
+        }
+    });
+}
+
 function getAccessLevel(userID, callback) {
     var stmt = db.prepare(`select Level from users where UserID = ?`);
     stmt.get(userID, (err, level) => {
@@ -103,6 +115,7 @@ async function getOtherUser(userID, getCallback) { //Needs the callback to allow
 var userDAO = {
     createUser: createUser,
     updateUser: updateUser,
+    deleteUser: deleteUser,
     getAccessLevel: getAccessLevel,
     getAllUser: getAllUser,
     getUser: getUser,
