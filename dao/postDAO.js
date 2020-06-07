@@ -42,6 +42,22 @@ function deletePost(postID){
 
 }
 
+function deletePostByUser(userID){
+    var stmt = db.prepare(`delete from posts where UserID = ?`);
+
+    stmt.all(userID, (err) => {
+        if (err) {
+            stmt.finalize();
+            throw err;
+        }
+        else {
+            stmt.finalize();
+            console.log("Posts deleted");
+        }
+    });
+
+}
+
 function getPopularPost(callback) {
     var stmt = db.prepare(`select * from posts order by LikeCount desc`);
     stmt.get((err, row) => {
@@ -123,6 +139,7 @@ function validateCreator(postID, userID, callback) {
 var postDAO = {
     createPost: createPost,
     deletePost: deletePost,
+    deletePostByUser: deletePostByUser,
     getPopularPost: getPopularPost,
     getAllPostsByUser: getAllPostsByUser,
     getAllPostsByCat: getAllPostsByCat,

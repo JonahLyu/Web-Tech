@@ -1,9 +1,8 @@
 var express = require('express');
 var router = express.Router();
+var comDAO = require('../dao/comDAO')
 var postDAO = require('../dao/postDAO')
 var userDAO = require('../dao/userDAO')
-var catDAO = require('../dao/catDAO')
-var forumHelpers = require('../helpers/forumHelpers')
 var path = require('path');
 var sqlite3 = require(path.join(__dirname , '../node_modules/sqlite3')).verbose();
 var db = new sqlite3.Database(path.join(__dirname , '../database/user.db'));
@@ -135,7 +134,8 @@ router.post("/deleteUser", secured, (req, res) => {
       }
       console.log("User deleted");
       userDAO.deleteUser(req.body.userID);
-      //Delete posts and comments
+      postDAO.deletePostByUser(req.body.userID);
+      comDAO.deleteComByUserID(req.body.userID);
       if (req.session.user.level === 3) { //If admin, send to home page
         res.send("/");
       } else { //If user force re-log as only time we rach here is when user has deleted own account

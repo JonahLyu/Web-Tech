@@ -64,6 +64,20 @@ function deleteComByPostID(postID){
     });
 }
 
+function deleteComByUserID(userID) {
+    var stmt = db.prepare(`delete from comments where UserID = ?`);
+
+    stmt.all(userID, (err) => {
+        if (err) {
+            stmt.finalize();
+            throw err;
+        } else {
+            stmt.finalize();
+            console.log("Comments deleted");
+        }
+    });
+}
+
 function getComByPostID(postID, callback) {
     let sql = `select comments.*, Username from ${table}
                 inner join users on users.UserID = comments.UserID
@@ -116,7 +130,8 @@ var comDAO = {
     getComByPostID: getComByPostID,
     addComLike: addComLike,
     getComLikeByID: getComLikeByID,
-    deleteComByPostID: deleteComByPostID
+    deleteComByPostID: deleteComByPostID,
+    deleteComByUserID: deleteComByUserID
 }
 
 
