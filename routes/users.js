@@ -144,6 +144,8 @@ router.post("/deleteUser", secured, (req, res) => {
         res.send("/login");
       }
     });
+  } else {
+    res.send("/");
   }
 })
 
