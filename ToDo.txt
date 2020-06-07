@@ -1,9 +1,11 @@
 Little To-Do list that can be added to or taken from:
 -Look into helmet.js middleware, recommended to be used with express for security reasons
 -Look into measures to sanitise all user input and prevent injection of malicious code via comments, posts, user details, etc. (Escape html chars, prevent xss)
--Adjust styling of user settings page
--Add delete user function (Delete from auth0 also)
--Add error handling
+-Adjust styling of user settings page and new category page
+-Add error handling (Try catches to routes users and forums redirects and such)
 -Update site design
+-Post svg icons (hover fill animations?)
+-New banner image
+-Limit posts/categories to X per page, add navigation to llok at first 1-5 5-10 etc.
 
 (For some weird reason all of my commits have been under the wrong user name :/ I've just changed it)
