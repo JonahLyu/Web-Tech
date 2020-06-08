@@ -9,7 +9,6 @@ block layout-content
     .search-area-wrapper
       .search-area.container
         h3#greeting.search-header
-        //- h3#greeting.search-header Howdy, #{userProfile.nickname}!
         p.search-tag-line Welcome back to your magic forum!
         form#search-form.search-form.clearfix(method="get" action="/forum/search" autocomplete="off")
           input#s.search-term.required(type="text" name="input" placeholder="Type your search terms here" title="* Please enter a search term!")
@@ -18,7 +17,6 @@ block layout-content
     .page-container
         .container
             .row
-                //- .span4
                 .span8.main-listing
                     h1 Most Popular Posts
                     each post in posts
@@ -37,9 +35,7 @@ block layout-content
                                 a(href="/forum/loadUser?id="+post.UserID tile="View " + post.Author + "'s profile'") #{post.Author}
                               if userProfile.user_id == post.UserID || level > 2
                                 span 
-                                    form#delete.form-inline(action="/forum/deletePost" method="POST")
-                                        input#postid(name="postid", value=post.PostID, type="hidden")
-                                        button#post.btn.btn-mini.btn-info(type="submit" name="submit" title="delete this post") Delete
+                                      button.btn.btn-mini.btn-danger(class="DelPost" value=post.PostID title="Delete this post") Delete
                           p.content
                             | #{post.Content} 
                             a.readmore-link(href="/forum/loadPost?id="+post.PostID) Read more
@@ -61,12 +57,6 @@ block layout-content
                                     button.btn.btn-mini.btn-danger(class="DelCat" value=cat.CatID title="Delete this category") Delete
                             p.content.cat-description
                                 | #{cat.Description} 
-                //- .span8
-                //-   h3.title Categories
-                //-     ul
-                //-       each cat in cats
-                //-         li
-                //-           a(href="/forum/loadCategory?id="+cat.CatID+"&title="+cat.Title) #{cat.Title}
                 .span4
                     section.widget
                         .info-widget

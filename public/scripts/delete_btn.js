@@ -16,6 +16,23 @@ function confirmDeleteCat(catID) {
     }
 }
 
+function confirmDeletePost(PostID) {
+    if (confirm("Are you sure you want to delete this post and all comments? This cannot be undone.")) {
+        $.post(
+            "/forum/deletePost",
+            {
+                postID: PostID
+            },
+            function(data) {
+                // console.log(data);
+                window.location.href = data;
+            }
+        );
+    } else {
+
+    }
+}
+
 "use strict"
 addEventListener('load', setDeleteCategoryEvent);
 
@@ -25,6 +42,12 @@ function setDeleteCategoryEvent() {
         // btn.addEventListener('click', confirmDeleteCat(btn.value));
         btn.addEventListener('click', () => {
             confirmDeleteCat(btn.value);
+        });
+    }
+    btns = document.getElementsByClassName("DelPost");
+    for (let i=0, btn; btn = btns[i]; i++) {
+        btn.addEventListener('click', () => {
+            confirmDeletePost(btn.value);
         });
     }
 }
