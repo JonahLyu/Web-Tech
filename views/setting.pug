@@ -1,99 +1,92 @@
-doctype html
-html(lang='en', dir='ltr')
-    head
-        meta(charset='utf-8')
-        title #{title} | Magic Forum
-        link(rel='stylesheet', type='text/css', href='/stylesheets/setting.css')
-        script(src='../jquery.min.js')
-        link(href='../bootstrap.min.css', rel='stylesheet')
-        script(src='../bootstrap.min.js')
-    body
-            #head.header
-                .title 
-                    a.head(href='/') Magic Forum
-                
-            div.SettingView
-                #wrap.wrap
-                    .logGet
-                        .logD.logDtip
-                            p.p1 Account Setting
-                            //- p user: #{userProfile.nickname}
-                        .lgD
-                            img(src='/images/png/cut-triangle-flag.png', width='20', height='20', alt='')
-                            input#username.form-control(type='text', name='username', value=username, placeholder='Display name')
-                        .lgD
-                            img(src='/images/png/black-user-shape.png', width='20', height='20', alt='')
-                            select.form-control(id='gender')
-                                option(value='0', selected= true) -- Select --
-                                option(value = 'Male', selected = (gender === 'Male')) Male
-                                option(value = 'Female', selected = (gender === 'Female')) Female
-                                option(value = 'Prefer not to say', selected = (gender === 'Prefer not to say')) Prefer not to say
-                        .lgD
-                            img(src='/images/png/visitor-identification.png', width='20', height='20', alt='')
-                            input#date_of_birth.form-control(type='date' name='date_of_birth' value=birthday, placeholder='')
-                        .lgD
-                            img(src='/images/png/tablet-screen.png', width='20', height='20', alt='')
-                            input#phoneNumber.form-control(type='text', name='phoneNumber', value=phone, placeholder='Phone number')
-                        .lgD
-                            img(src='/images/png/black-user-shape.png', width='20', height='20', alt='')
-                            select.form-control(id='accessLevel', disabled=(accessLevel!==3))
-                                option(value = 1, selected = true) User
-                                option(value = 2, selected = (level === 2)) Moderator
-                                option(value = 3, selected = (level === 3)) Admin
-                        .logC
-                            button#save_btn.btn.btn-primary Save
-                            #checkResult.text-success
-                        .logC
-                            a(href='/')
-                                button#btn.btn-primary Back To Home Page
+extends layout.pug
+
+block layout-content
+    link(rel='stylesheet', type='text/css', href='/stylesheets/setting.css')
+    link#bootstrap-css-css(rel="stylesheet" href="../bootstrap.css" type="text/css" media="all")
+    script(src='../bootstrap.min.js')
+        
+    div.SettingView
+        #wrap.wrap
+            .logGet
+                .logD.logDtip
+                    p.p1 Account Setting
+                    //- p user: #{userProfile.nickname}
+                .lgD
+                    img(src='/images/png/cut-triangle-flag.png', width='20', height='20', alt='')
+                    input#username.form-control(type='text', name='username', value=username, placeholder='Display name')
+                .lgD
+                    img(src='/images/png/black-user-shape.png', width='20', height='20', alt='')
+                    select.form-control(id='gender')
+                        option(value='0', selected= true) -- Select --
+                        option(value = 'Male', selected = (gender === 'Male')) Male
+                        option(value = 'Female', selected = (gender === 'Female')) Female
+                        option(value = 'Prefer not to say', selected = (gender === 'Prefer not to say')) Prefer not to say
+                .lgD
+                    img(src='/images/png/visitor-identification.png', width='20', height='20', alt='')
+                    input#date_of_birth.form-control(type='date' name='date_of_birth' value=birthday, placeholder='')
+                .lgD
+                    img(src='/images/png/tablet-screen.png', width='20', height='20', alt='')
+                    input#phoneNumber.form-control(type='text', name='phoneNumber', value=phone, placeholder='Phone number')
+                .lgD
+                    img(src='/images/png/black-user-shape.png', width='20', height='20', alt='')
+                    select.form-control(id='accessLevel', disabled=(accessLevel!==3))
+                        option(value = 1, selected = true) User
+                        option(value = 2, selected = (level === 2)) Moderator
+                        option(value = 3, selected = (level === 3)) Admin
+                .logC
+                    button#save_btn.btn.btn-primary Save
+                    #checkResult.text-success
+                .logC
+                    a(href='/')
+                        button#btn.btn-primary Back To Home Page
 
 
-            #foot.footer
-                .copyright
-                    p Designer: Jonah & Aaron
-                    
-                    
-            script.
-                $(function(){
-                    $("#save_btn").click(function(){
-                        var id = '!{userID}';
-                        var n = $("#username").val();
-                        var g = $("#gender").val();
-                        var dob = $("#date_of_birth").val();
-                        var p = $("#phoneNumber").val();
-                        var l = $("#accessLevel").val();
-                        //Need to add way to validate phone number
-                        //General validation needed
-                        if (n == "" || dob == "") {
-                            $("#save_btn").attr("class","btn btn-danger") ;
-                            if (dob == "") {
-                                $("#save_btn").html("Date is wrong");
-                                $("#date_of_birth").css("background-color","pink");
-                                }
-                            if (n == "") {
-                                $("#save_btn").html("Display name can not be empty");
-                                $("#username").css("background-color","pink");
-                                }
-                            
+    #foot.footer
+        .copyright
+            p Designer: Jonah & Aaron
+            
+            
+    script.
+        $(function(){
+            $("#save_btn").click(function(){
+                var id = '!{userID}';
+                var n = $("#username").val();
+                var g = $("#gender").val();
+                var dob = $("#date_of_birth").val();
+                var p = $("#phoneNumber").val();
+                var l = $("#accessLevel").val();
+                //Need to add way to validate phone number
+                //General validation needed
+                if (n == "" || dob == "") {
+                    $("#save_btn").attr("class","btn btn-danger") ;
+                    if (dob == "") {
+                        $("#save_btn").html("Date is wrong");
+                        $("#date_of_birth").css("background-color","pink");
                         }
-                        else{
-                            var page = "/users/save_setting";
-                            $.post(
-                            page,
-                            {user_id: id, username: n, gender: g, birthday: dob , phonenumber: p, level: l},
-                            function(result){
-                                console.log(result);
-                                if (result.localeCompare("Created") === 0) {
-                                    $("#save_btn").attr("class","btn btn-success") ;
-                                    $("#save_btn").html("success!") ;
-                                    $("#username").css("background-color","white");
-                                    $("#date_of_birth").css("background-color","white");
-                                } else {
-                                    console.log(result);
-                                }
-                            }).fail((result) => {
-                                window.location.href = result.responseText;
-                            });
-                        }    
+                    if (n == "") {
+                        $("#save_btn").html("Display name can not be empty");
+                        $("#username").css("background-color","pink");
+                        }
+                    
+                }
+                else{
+                    var page = "/users/save_setting";
+                    $.post(
+                    page,
+                    {user_id: id, username: n, gender: g, birthday: dob , phonenumber: p, level: l},
+                    function(result){
+                        console.log(result);
+                        if (result.localeCompare("Created") === 0) {
+                            $("#save_btn").attr("class","btn btn-success") ;
+                            $("#save_btn").html("success!") ;
+                            $("#username").css("background-color","white");
+                            $("#date_of_birth").css("background-color","white");
+                        } else {
+                            console.log(result);
+                        }
+                    }).fail((result) => {
+                        window.location.href = result.responseText;
                     });
-                });
+                }    
+            });
+        });
