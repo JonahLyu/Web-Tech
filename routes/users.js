@@ -45,7 +45,8 @@ router.get('/allProfiles', secured, function(req,res,next) {
 })
 
 router.get('/setting', secured, function(req, res, next) {
-    const { _raw, _json, ...userProfile } = req.user;
+    // const { _raw, _json, ...userProfile } = req.user;
+    var userProfile = req.session.user;
     // var userID = req.session.user.id;
     var userID = req.session.user.id;
     if (req.query.id) { //If we recieve a query at all

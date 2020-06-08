@@ -19,7 +19,7 @@ const secured = (req, res, next) => {
 
 router.get('/home',secured, function(req, res, next) {
     // let sql = `select * from posts where UserID = ? order by PostID desc`;
-    const { _raw, _json, ...userProfile } = req.user
+    // const { _raw, _json, ...userProfile } = req.user
     var id = req.session.user.id;
     userDAO.getUser(id, (result) => {
       if (result) {
@@ -29,7 +29,7 @@ router.get('/home',secured, function(req, res, next) {
             console.log(result);
             console.log(req.session.user.level);
             res.render("home", {title: "Home",
-                                    userProfile: userProfile,
+                                    userProfile: req.session.user,
                                     level: req.session.user.level,
                                     posts: popularPosts,
                                     cats: allCats})
