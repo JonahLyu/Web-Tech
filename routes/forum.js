@@ -23,7 +23,7 @@ router.get('/home',secured, function(req, res, next) {
     var id = req.session.user.id;
     userDAO.getUser(id, (result) => {
       if (result) {
-        joinDAO.getPopularPostsWithDetails((popularPosts) => {
+        joinDAO.getRecentPostWithDetails((popularPosts) => {
           catDAO.getAllCat((allCats) => {
             forumHelpers.truncPosts(popularPosts, 200);
             console.log(result);

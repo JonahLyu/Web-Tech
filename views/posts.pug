@@ -31,8 +31,8 @@ block layout-content
                                 a(href="/forum/loadCategory?id="+post.CatID+"&title="+post.Category title="View all posts in " + post.Category) #{post.Category}
                               span.comments
                                 a(href="/forum/loadPost?id="+post.PostID title="Comment") #{post.CommentCount} Comments
-                              span.like-count
-                                a.likeID(value=post.PostID) #{post.LikeCount}
+                                //-   span.like-count
+                                //-     button.likeID(value=post.PostID) #{post.LikeCount}
                               span.author
                                 a(href="/forum/loadUser?id="+post.UserID title="View " + post.Author + "'s profile'") #{post.Author}
                               if userProfile.user_id == post.UserID || level > 2

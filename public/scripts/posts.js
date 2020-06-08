@@ -3,7 +3,7 @@ $(document).ready(function(){
     $("span.like-count").click(function(){
         var doc = $(this)
         // console.log(doc);
-        var postID = doc.find("likeID").value;
+        var postID = doc.children("a.likeID");
         console.log(postID);
         $.post(
             "/forum/addPostLike",

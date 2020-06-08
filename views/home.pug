@@ -18,7 +18,7 @@ block layout-content
         .container
             .row
                 .span8.main-listing
-                    h1 Most Popular Posts
+                    h1 Most Recent Post
                     each post in posts
                         article.type-post.hentry.clearfix.shadow
                           header.clearfix
@@ -30,7 +30,7 @@ block layout-content
                                 a(href="/forum/loadCategory?id="+post.CatID+"&title="+post.Category title="View all posts in " + post.Category) #{post.Category}
                               span.comments
                                 a(href="/forum/loadPost?id="+post.PostID title="Comment") #{post.CommentCount} Comments
-                              span.like-count #{post.LikeCount}
+                              //- span.like-count #{post.LikeCount}
                               span.author
                                 a(href="/forum/loadUser?id="+post.UserID title="View " + post.Author + "'s profile'") #{post.Author}
                               if userProfile.user_id == post.UserID || level > 2
