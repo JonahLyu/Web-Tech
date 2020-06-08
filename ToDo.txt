@@ -8,5 +8,6 @@ Little To-Do list that can be added to or taken from:
 -Make sure no duplicate id #id exist on any page
 -Make sure generated html validates
 -Modify user ids to ignore auth0| section (Update exisiting records to remove this part)
+-Reduce size of settings menu box to accomodate removed back to home button
 
 (For some weird reason all of my commits have been under the wrong user name :/ I've just changed it)
