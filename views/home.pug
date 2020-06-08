@@ -17,7 +17,7 @@ block layout-content
                 .span8.main-listing
                     h1 Most Popular Posts
                     each post in posts
-                        article.type-post.hentry.clearfix
+                        article.type-post.hentry.clearfix.shadow
                           header.clearfix
                             h3.post-title
                                 a(href="/forum/loadPost?id="+post.PostID) #{post.Title}
@@ -40,7 +40,7 @@ block layout-content
                             a.readmore-link(href="/forum/loadPost?id="+post.PostID) Read more
                     h1 Categories
                     each cat in cats
-                        article.type-cat.hentry.clearfix
+                        article.type-cat.hentry.clearfix.shadow
                           header.clearfix
                             .cat-meta
                               span

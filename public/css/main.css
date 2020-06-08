@@ -330,7 +330,7 @@ li.comment > article .avatar {
   margin-bottom: 20px;
 }
 .main-listing article.hentry {
-  margin-bottom: 0;
+  margin-bottom: 10px;
 }
 
 #delete {
@@ -423,6 +423,22 @@ li.comment > article .avatar {
 
 .cat-description {
   margin-top: 22px;
+}
+
+.shadow {
+  padding: 5px 5px 5px 5px;
+  filter: progid:DXImageTransform.Microsoft.Shadow(color='#969696', Direction=135, Strength=5);
+  -moz-box-shadow: 2px 2px 5px #969696;
+  -webkit-box-shadow: 2px 2px 5px #969696;
+  box-shadow: 3px 5px 20px 1px #c0c0c03d;
+}
+
+.shadow:hover {
+  padding: 5px 5px 5px 5px;
+  filter: progid:DXImageTransform.Microsoft.Shadow(color='#969696', Direction=135, Strength=5);
+  -moz-box-shadow: 2px 2px 5px #969696;
+  -webkit-box-shadow: 2px 2px 5px #969696;
+  box-shadow: 3px 5px 20px 1px #5555553d;
 }
 
 /* Footer ------------------------------------------------------------------------------------------------------------*/

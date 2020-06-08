@@ -15,7 +15,7 @@ block layout-content
                 .span8.main-listing
                     h2 #{cat.title}
                     each post in posts
-                        article.format-standard.type-post.hentry.clearfix
+                        article.format-standard.type-post.hentry.clearfix.shadow
                           header.clearfix
                             h3.post-title
                               a(href="/forum/loadPost?id="+post.PostID) #{post.Title}
