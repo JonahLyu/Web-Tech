@@ -13,9 +13,9 @@ let table = `users`
 
 //create a user entry in database
 function createUser(id, username, birthday ,gender, phone, level){
-    sql = `insert into users values (?, ?, ?, ?, ?, ?)`
-    // let hashID = md5(id)
-    db.run(sql, [id, username, birthday ,gender, phone, level], (err, results) => {
+    sql = `insert into users values (?, ?, ?, ?, ?, ?, ?)`
+    let hashID = md5(id)
+    db.run(sql, [hashID, username, birthday ,gender, phone, level, id], (err, results) => {
         if (err) {
             throw err;
         } else {
@@ -24,9 +24,9 @@ function createUser(id, username, birthday ,gender, phone, level){
     });
 
 }
-function updateUser(id, username, birthday ,gender, phone, level){
-    sql = `update users set Username = ?, Birthday = ?, Gender = ?, Phone = ?, Level = ? where UserID = ?`
-    db.run(sql, [username, birthday, gender, phone, level, id], (err, results) => {
+function updateUser(id, username, birthday ,gender, phone, level, authid){
+    sql = `update users set Username = ?, Birthday = ?, Gender = ?, Phone = ?, Level = ?, AuthID = ? where UserID = ?`
+    db.run(sql, [username, birthday, gender, phone, level, authid , id], (err, results) => {
         if (err) {
             throw err;
         } else {

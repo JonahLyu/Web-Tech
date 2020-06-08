@@ -103,7 +103,6 @@ router.post('/save_setting', secured, function(req, res, next) {
   level = (level) ? level : 1; //Ensures that if level is undefined it is set to default level: 1.
   let sql = `select * from users where UserID = ?`;
   req.session.user.level = (req.session.user.level) ? req.session.user.level : level;
-  console.log(id);
   db.all(sql, id, (err, results) => {
     if (err) {
       throw err;
@@ -111,11 +110,12 @@ router.post('/save_setting', secured, function(req, res, next) {
     console.log(id);
     console.log(results);
     if (results.length == 0) {
-        userDAO.createUser(id, username, birthday ,gender, phone, level)
+        //send the original auth id to the createUser function
+        userDAO.createUser(req.session.user.user_id, username, birthday ,gender, phone, level)
         res.status(201).send(201);
     }
     else {
-        userDAO.updateUser(id, username, birthday ,gender, phone, level)
+        userDAO.updateUser(id, username, birthday ,gender, phone, level, req.session.user.user_id)
         res.status(201).send(201);
     }
   });
