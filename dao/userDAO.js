@@ -112,6 +112,17 @@ async function getOtherUser(userID, getCallback) { //Needs the callback to allow
     });
 }
 
+function cleanIDs() {
+    var stmt1 = db.prepare(`select replace(UserID, 'auth0|', '') from users`);
+    var stmt2 = db.prepare(`select replace(UserID, 'google-oauth2|', '') from users`);
+    var stmt3 = db.prepare(`select replace(UserID, 'auth0|', '') from posts`);
+    var stmt4 = db.prepare(`select replace(UserID, 'google-oauth2|', '') from posts`);
+    var stmt5 = db.prepare(`select replace(UserID, 'auth0|', '') from categories`);
+    var stmt6 = db.prepare(`select replace(UserID, 'google-oauth2|', '') from categories`);
+    var stmt7 = db.prepare(`select replace(UserID, 'auth0|', '') from comments`);
+    var stmt8 = db.prepare(`select replace(UserID, 'google-oauth2|', '') from comments`);
+}
+
 var userDAO = {
     createUser: createUser,
     updateUser: updateUser,

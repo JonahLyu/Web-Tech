@@ -13,6 +13,10 @@ function truncPosts(posts, maxLength) {
     return posts;
 }
 
+function truncID(id) {
+    return id.substring(id.indexOf("|") + 1);
+}
+
 // function postCount(cats, callback) {
 //     var stmt = db.prepare("select distinct CatID, count(*) over(partition by CatID order by CatID asc) as count from posts order by CatID asc");
 //     stmt.all((err, counts) => {
@@ -37,7 +41,8 @@ function truncPosts(posts, maxLength) {
 // }
 
 var forumHelpers = {
-    truncPosts : truncPosts
+    truncPosts : truncPosts,
+    truncID : truncID
 }
 
 module.exports = forumHelpers;
