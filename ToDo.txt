@@ -4,6 +4,5 @@ Little To-Do list that can be added to or taken from:
 -New banner image
 -Limit posts/categories to X per page, add navigation to llok at first 1-5 5-10 etc.
 -Make sure generated html validates
--Reduce size of settings menu box to accomodate removed back to home button
 
 (For some weird reason all of my commits have been under the wrong user name :/ I've just changed it)
