@@ -1,4 +1,7 @@
+
 # Magic Forum | Web-Tech Project
+
+<img src="https://github.com/JonahLyu/Web-Tech/blob/master/public/logo.svg" width = "100" height = "100" alt="logo1" align=center style="display:inline;"/> <img src="https://github.com/JonahLyu/Web-Tech/blob/master/public/logo2.svg" width = "100" height = "100" alt="logo2" align=center style="display:inline;"/>
 
 The repositry for coursework of unit Web techonologies.
 
