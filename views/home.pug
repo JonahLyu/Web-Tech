@@ -1,7 +1,7 @@
 extends layout.pug
 
 block extra-head
-  script(src="../scripts/home.js")
+  script(src="../scripts/delete_btn.js" defer)
   script(src="http://www.myersdaily.org/joseph/javascript/md5.js")
   script(src="../scripts/user_widget.js")
 
@@ -58,7 +58,7 @@ block layout-content
                                 a(href="/forum/loadCategory?id="+cat.CatID+"&title="+cat.Title title="Posts") #{cat.PostCount} Posts
                               if level > 2
                                 span 
-                                    button#post.btn.btn-mini.btn-danger(onclick="confirmDelete("+cat.CatID+")" title="Delete this category") Delete
+                                    button.btn.btn-mini.btn-danger(class="DelCat" value=cat.CatID title="Delete this category") Delete
                             p.content.cat-description
                                 | #{cat.Description} 
                 //- .span8
@@ -95,20 +95,20 @@ block layout-content
                                     each cat,index in cats
                                       option(value=cat.CatID,selected=false) #{cat.Title}
                                 br
-                                input#title.form-control(type='text', name='title', placeholder='your title')
+                                input.title.form-control(type='text', name='title', placeholder='your title')
                                 br
-                                textarea#content.form-control(name="content", rows='5', cols='20', placeholder='your content')
+                                textarea.content.form-control(name="content", rows='5', cols='20', placeholder='your content')
                                 br
-                                button#post.btn.btn-primary(type="submit" name="submit") post
+                                button.post.btn.btn-primary(type="submit" name="submit") post
                     if level === 3
                       section.widget
                         .support-widget
                             h3.title New Category
                             form(action="/forum/createCategory" method="POST")
-                                textarea#content.form-control(name="title", rows='1', cols='20', placeholder='Category Name')
+                                textarea.content.form-control(name="title", rows='1', cols='20', placeholder='Category Name')
                                 br
-                                textarea#content.form-control(name="description", rows='5', cols='20', placeholder='Category Description')
+                                textarea.content.form-control(name="description", rows='5', cols='20', placeholder='Category Description')
                                 br
-                                button#post.btn.btn-primary(type="submit" name="submit") Create Category              
+                                button.post.btn.btn-primary(type="submit" name="submit") Create Category              
         
             

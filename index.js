@@ -62,6 +62,7 @@ app.use((req, res, next) => {
  *
  */
 
+app.locals.pretty = true;
 if (app.get("env") === "production") {
     // Serve secure cookies, requires HTTPS
     session.cookie.secure = true;

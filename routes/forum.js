@@ -63,7 +63,7 @@ router.post('/createPost', secured, function(req, res, next) { //We'll want to a
 
 //delete a post in database
 router.post('/deletePost', secured, function(req, res, next) {
-    var postID = req.body.postID;
+    var postID = req.body.postid;
     var userID = req.session.user.id;
     postDAO.validateCreator(postID, userID, (post, user, bool) => {
         if (bool || (req.session.user.level === 3)) { //Allow creator or admin to delete post
