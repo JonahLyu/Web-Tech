@@ -2,7 +2,6 @@ Little To-Do list that can be added to or taken from:
 -Look into helmet.js middleware, recommended to be used with express for security reasons
 -Look into measures to sanitise all user input and prevent injection of malicious code via comments, posts, user details, etc. (Escape html chars, prevent xss)
 -Add error handling (Try catches to routes users and forums redirects and such)
--Update site design
 -Post svg icons (hover fill animations?)
 -New banner image
 -Limit posts/categories to X per page, add navigation to llok at first 1-5 5-10 etc.
