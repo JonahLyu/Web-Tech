@@ -3,6 +3,7 @@
  */
 
 const express = require("express");
+const helmet = require('helmet');
 const path = require("path");
 var fs = require('fs')
 var https = require('https')
@@ -32,6 +33,7 @@ var forumRouter = require('./routes/forum');
  */
 
 const app = express();
+app.use(helmet());
 const port = process.env.PORT || "8000";
 const httpsPort = "8443"
 

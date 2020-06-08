@@ -21,6 +21,7 @@ router.get('/home',secured, function(req, res, next) {
     // let sql = `select * from posts where UserID = ? order by PostID desc`;
     // const { _raw, _json, ...userProfile } = req.user
     var id = req.session.user.id;
+    console.log(id);
     userDAO.getUser(id, (result) => {
       if (result) {
         joinDAO.getRecentPostWithDetails((popularPosts) => {

@@ -14,8 +14,8 @@ let table = `users`
 //create a user entry in database
 function createUser(id, username, birthday ,gender, phone, level){
     sql = `insert into users values (?, ?, ?, ?, ?, ?)`
-    let hashID = md5(id)
-    db.run(sql, [hashID, username, birthday ,gender, phone, level], (err, results) => {
+    // let hashID = md5(id)
+    db.run(sql, [id, username, birthday ,gender, phone, level], (err, results) => {
         if (err) {
             throw err;
         } else {
