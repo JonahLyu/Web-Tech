@@ -33,7 +33,7 @@ block layout-content
                                 a(href="/forum/loadUser?id="+post.UserID tile="View " + post.Author + "'s profile'") #{post.Author}
                               if userProfile.user_id == post.UserID
                                 span 
-                                    form.form-inline(action="/forum/deletePost" method="POST")
+                                    form#delete.form-inline(action="/forum/deletePost" method="POST")
                                         input#postid(name="postid", value=post.PostID, type="hidden")
                                         button#post.btn.btn-mini.btn-info(type="submit" name="submit") delete
                           p.content
