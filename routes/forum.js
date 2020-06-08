@@ -7,6 +7,7 @@ var joinDAO = require('../dao/joinDAO')
 var comDAO = require('../dao/comDAO')
 var forumHelpers = require('../helpers/forumHelpers')
 var moment = require('moment')
+var xss = require('xss')
 
 //Middleware to require account
 const secured = (req, res, next) => {
@@ -48,8 +49,8 @@ router.post('/createPost', secured, function(req, res, next) { //We'll want to a
     // const { _raw, _json, ...userProfile } = req.user
     var userID = req.session.user.id;
     var catID = req.body.category
-    var title = req.body.title
-    var content = req.body.content
+    var title = xss(req.body.title)
+    var content = xss(req.body.content)
     //do not create a post with empty cat or title or content
     if (catID == -1 || title == null || content == null) {
         console.log("fail to create a post");
@@ -169,7 +170,7 @@ router.post('/addComLike', secured, function(req, res, next) {
 router.post('/createCom', secured, function(req, res, next) {
     var userID = req.session.user.id;
     var postID = req.body.postID
-    var content = req.body.content
+    var content = xss(req.body.content)
     var date = moment().format("MMM Do YY, h:mm:ss a")
     comDAO.createCom(postID, content, userID, date)
     res.redirect('back');
@@ -189,6 +190,7 @@ router.post('/getComByPostID', secured, function(req, res, next) {
     var userID = req.session.user.id
     comDAO.getComByPostID(postID, (comments)=>{
         for (let i = 0; i < comments.length; i++) {
+            console.log(comments[i])
             if (comments[i].UserID === req.session.user.id || req.session.user.level >= 2) comments[i].deleteButton = true;
             else comments[i].deleteButton = false;
         }
@@ -213,7 +215,7 @@ router.get('/loadUser', secured, function(req, res, next) {
 });
 
 router.get('/search', secured, function(req, res, next) {
-    var input = req.query.input
+    var input = xss(req.query.input)
     joinDAO.search(input, (posts) => {
         forumHelpers.truncPosts(posts, 200);
         res.render("search", {title: "Search Result",

@@ -87,6 +87,7 @@ router.post("/info", secured, (req, res) => {
 
 
 router.post('/save_setting', secured, function(req, res, next) {
+  //More validation here
   const { _raw, _json, ...userProfile } = req.user;
   let access = ((req.session.user.level === 3) || (req.session.user.id === req.body.user_id)) //Restrict access to admins, or people who own the page
   if (!access) {
@@ -94,10 +95,10 @@ router.post('/save_setting', secured, function(req, res, next) {
     return next();
   }
   var id = req.body.user_id;
-  var username = req.body.username;
+  var username = xss(req.body.username);
   var gender = req.body.gender;
   var birthday = req.body.birthday;
-  var phone = req.body.phonenumber;
+  var phone = xss(req.body.phonenumber); //Validate phone number
   let selfLevelChangeFlag = (req.session.user.id !== req.body.user_id); //Prevents an admin from changing their own level. Prevents case where all admins remove own privileges accidentally, preventing anyone granting these privileges again.
   var level = (req.session.user.level === 3 && selfLevelChangeFlag) ? req.body.level : req.session.user.level;
   level = (level) ? level : 1; //Ensures that if level is undefined it is set to default level: 1.
