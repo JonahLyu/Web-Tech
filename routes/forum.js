@@ -217,6 +217,7 @@ router.get('/search', secured, function(req, res, next) {
         forumHelpers.truncPosts(posts, 200);
         res.render("search", {title: "Search Result",
                                 userProfile: req.session.user,
+                                level: req.session.user.level,
                                 posts: posts,
                                 searchInput: input,
                                 resultCount: posts.length})

@@ -1,5 +1,10 @@
 extends layout.pug
 
+block extra-head
+    script(src="../scripts/delete_btn.js")
+    script(src="http://www.myersdaily.org/joseph/javascript/md5.js")
+    script(src="../scripts/user_widget.js")
+
 block layout-content
     .search-area-wrapper
       .search-area.container
@@ -28,14 +33,13 @@ block layout-content
                                 a(href="/forum/loadCategory?id="+post.CatID+"&title="+post.Category title="View all posts in " + post.Category) #{post.Category}
                               span.comments
                                 a(href="/forum/loadPost?id="+post.PostID title="Comment") #{post.CommentCount} Comments
-                              span.like-count(value=post.PostID) #{post.LikeCount}
+                                //-   span.like-count(value=post.PostID) #{post.LikeCount}
                               span.author
-                                a(href="/forum/loadUser?id="+post.UserID tile="View " + post.Author + "'s profile'") #{post.Author}
-                              if userProfile.user_id == post.UserID
+                                a(href="/forum/loadUser?id="+post.UserID title="View " + post.Author + "'s profile'") #{post.Author}
+                              if userProfile.user_id == post.UserID || level === 3
                                 span 
-                                    form#delete.form-inline(action="/forum/deletePost" method="POST")
-                                        input#postid(name="postid", value=post.PostID, type="hidden")
-                                        button#post.btn.btn-mini.btn-info(type="submit" name="submit") delete
+                                    span 
+                                        button.btn.btn-mini.btn-danger(class="DelPost" value=post.PostID title="Delete this post") Delete
                           p.content
                             | #{post.Content} 
                             a.readmore-link(href="/forum/loadPost?id="+post.PostID) Read more
@@ -58,37 +62,3 @@ block layout-content
                             .phone-wrap
                                 b Phone: 
                                 span#phone 
-
-                        
-        script(src="../scripts/posts.js")
-        script(src="http://www.myersdaily.org/joseph/javascript/md5.js")
-        script.
-            $(document).ready(function(){
-                $.post(
-                    "/users/info",
-                    function(data) {
-                        let hash = md5(data.UserID)
-                        let avatarLink = "https://www.gravatar.com/avatar/" + hash + "?d=monsterid"
-                        $("#userAvatar").attr("src", avatarLink);
-                        $("#greeting").html("Howdy, " + data.Username + "!");
-                        $("#username").html(data.Username);
-                        $("#birthday").html(data.Birthday);
-                        $("#gender").html(data.Gender);
-                        $("#phone").html(data.Phone);
-                    }
-                );
-                
-                $("span.like-count").click(function(){
-                    var doc = $(this)
-                    var postID = doc.attr("value")
-                    $.post(
-                        "/forum/addPostLike",
-                        {postid: postID},
-                        function(data) {
-                            doc.html(data.likeCount);
-                        }
-                    );
-                }); 
-
-            });  
-             
