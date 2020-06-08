@@ -8,6 +8,7 @@ $.post(
         // console.log(data);
         $("#comments-title").html("("+data.length+") Comments");
         data.forEach((comment) => {
+            console.log(comment.Content)
             let deleteButtonHTML = ``;
             if (comment.deleteButton) {
                 // deleteButtonHTML = `<form class="form-inline" action="/forum/deleteCom" method="POST">
