@@ -6,7 +6,7 @@ block layout-content
         h3#greeting.search-header
         p.search-tag-line Welcome back to your magic forum!
         form#search-form.search-form.clearfix(method="get" action="/forum/search" autocomplete="off")
-          input#s.search-term.required(type="text" name="input" placeholder="Type your search terms here" title="* Please enter a search term!")
+          input#s.search-term.required.loading(type="text" name="input" placeholder="Type your search terms here" title="* Please enter a search term!" value=searchInput)
           input.search-btn(type="submit" value="Search")
           #search-error-container
     .page-container
