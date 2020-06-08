@@ -14,7 +14,8 @@ $.post(
                 //                         <input id="postid" name="comID" value=` + comment.CommentID + ` type="hidden">
                 //                         <button class="btn btn-small" id="post" type="submit" name="submit">delete</button>
                 //                     </form>`;
-                deleteButtonHTML = `<button class="btn btn-small" id="comment_delete" onclick="confirmDelete(`+comment.CommentID+`)">delete</button>`;
+                deleteButtonHTML = `<button class="btn btn-mini btn-danger" id="comment_delete" 
+                                    onclick="confirmDelete(`+comment.CommentID+`)" title="Delete this comment">Delete</button>`;
             }
             let hash = md5(comment.UserID)
             let avatarLink = "https://www.gravatar.com/avatar/" + hash + "?d=monsterid"
@@ -28,12 +29,12 @@ $.post(
                             <h5 class="author">
                                 <cite class="fn">
                                     <a href="/forum/loadUser?id=${comment.UserID}" class="url">${comment.Username}</a>
+                                ${deleteButtonHTML}
                             </h5>
                             <p class="date">
                                 <time datetime="2013-02-26T13:18:47+00:00">${comment.Date}</time>
-                            </p>`
-                            + deleteButtonHTML +
-                    `</div><!-- end .comment-meta -->
+                            </p>   
+                    </div><!-- end .comment-meta -->
                     <div class="comment-body">
                             <p class="content">${comment.Content}</p>
                     </div><!-- end of comment-body -->
