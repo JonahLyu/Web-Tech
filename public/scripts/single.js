@@ -18,6 +18,8 @@ $.post(
                                     onclick="confirmDelete(`+comment.CommentID+`)" title="Delete this comment">Delete</button>`;
             }
             let hash = md5(comment.UserID)
+            console.log(md5("hello"));
+            
             let avatarLink = "https://www.gravatar.com/avatar/" + hash + "?d=monsterid"
             var oLi = document.createElement("li")
             oLi.className = `comment even thread-even depth-1`

@@ -2,6 +2,7 @@ var express = require('express');
 var path = require('path');
 var sqlite3 = require(path.join(__dirname , '../node_modules/sqlite3')).verbose();
 var db = new sqlite3.Database(path.join(__dirname , '../database/user.db'));
+const md5 = require('js-md5')
 let table = `users`
 
 // function Post(id, content, date){
@@ -13,7 +14,8 @@ let table = `users`
 //create a user entry in database
 function createUser(id, username, birthday ,gender, phone, level){
     sql = `insert into users values (?, ?, ?, ?, ?, ?)`
-    db.run(sql, [id, username, birthday ,gender, phone, level], (err, results) => {
+    let hashID = md5(id)
+    db.run(sql, [hashID, username, birthday ,gender, phone, level], (err, results) => {
         if (err) {
             throw err;
         } else {

@@ -26,7 +26,7 @@ block layout-content
                                     a(href="#" title="Comment") #{post.CommentCount} Comments
                                 span.like-count(value=post.PostID) #{post.LikeCount}
                                 span.author
-                                    a(href="/forum/loadUser?id="+post.UserID tile="View " + post.Author + "'s profile'") #{post.Author}
+                                    a(href="/forum/loadUser?id="+post.UserID title="View " + post.Author + "'s profile'") #{post.Author}
                                 if userProfile.user_id == post.UserID || level > 2
                                     span 
                                         button#post.btn.btn-mini.btn-info(onclick="confirmDeletePost("+post.PostID+", "+post.CatID+", \""+post.Category+"\")") delete
