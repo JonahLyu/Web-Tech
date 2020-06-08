@@ -675,6 +675,7 @@ ul.articles li.article-entry:last-child {
   font-size: 20px;
   line-height: 30px;
 }
+
 .hentry.type-post h1.post-title {
   font-size: 26px;
   line-height: 36px;
@@ -684,6 +685,15 @@ ul.articles li.article-entry:last-child {
   color: #3B4348;
 }
 
+
+.hentry.type-cat .cat-meta img {
+  margin-bottom: 12px;
+  margin-right: 10px;
+}
+
+.cat-description {
+  margin-top: 22px;
+}
 
 /* Footer ------------------------------------------------------------------------------------------------------------*/
 #footer-wrapper {
