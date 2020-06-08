@@ -17,7 +17,7 @@ block layout-content
                 .span8.main-listing
                     h1 Most Popular Posts
                     each post in posts
-                        article.format-standard.type-post.hentry.clearfix
+                        article.type-post.hentry.clearfix
                           header.clearfix
                             h3.post-title
                                 a(href="/forum/loadPost?id="+post.PostID) #{post.Title}
@@ -40,18 +40,21 @@ block layout-content
                             a.readmore-link(href="/forum/loadPost?id="+post.PostID) Read more
                     h1 Categories
                     each cat in cats
-                        article.format-standard.type-post.hentry.clearfix
+                        article.type-cat.hentry.clearfix
                           header.clearfix
-                            .post-meta.clearfix
+                            .cat-meta
                               span
-                                h3.post-title
+                                img(src="/images/tag.svg" width="32" height="32" alt="")
+                              span
+                                h3(style="display:inline;")
                                   a(href="/forum/loadCategory?id="+cat.CatID+"&title="+cat.Title) #{cat.Title}
+                            .post-meta
                               span.comments
-                                a(href="#" title="Posts") #{cat.PostCount} Posts
+                                a(href="/forum/loadCategory?id="+cat.CatID+"&title="+cat.Title title="Posts") #{cat.PostCount} Posts
                               if level > 2
                                 span 
                                     button#post.btn.btn-mini.btn-danger(onclick="confirmDelete("+cat.CatID+")" title="Delete this category") Delete
-                              p.content
+                            p.content.cat-description
                                 | #{cat.Description} 
                 //- .span8
                 //-   h3.title Categories
