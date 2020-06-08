@@ -6,6 +6,7 @@ var userDAO = require('../dao/userDAO')
 var path = require('path');
 var sqlite3 = require(path.join(__dirname , '../node_modules/sqlite3')).verbose();
 var db = new sqlite3.Database(path.join(__dirname , '../database/user.db'));
+var xss = require('xss');
 
 var ManagementClient = require('auth0').ManagementClient;
 
@@ -54,13 +55,13 @@ router.get('/setting', secured, function(req, res, next) {
       userID = (access) ? req.query.id : req.session.user.id; //If no access granted send user to their settings page
     }
     userDAO.getUser(userID, (result) => {
-      if (!result) {
+      if (!result) { //User sets up own page
         res.render("setting", {title: "Setting",
           userID: userID,
           userProfile: userProfile,
           level: 1,
           accessLevel: req.session.user.level});
-      } else {
+      } else if (result) {
         res.render("setting", {title: "Setting",
           userID: userID,
           userProfile: userProfile,
@@ -70,6 +71,8 @@ router.get('/setting', secured, function(req, res, next) {
           phone: result.Phone,
           level: result.Level,
           accessLevel: req.session.user.level});
+      } else {
+        console.log("Can't edit non-existant profile")
       }
     });
     // res.render("setting", {title: "Setting", userProfile: userProfile});
@@ -110,14 +113,17 @@ router.post('/save_setting', secured, function(req, res, next) {
     }
     console.log(id);
     console.log(results);
-    if (results.length == 0) {
+    if (results.length == 0 && req.session.user.id === req.body.user_id) {
         //send the original auth id to the createUser function
-        userDAO.createUser(req.session.user.user_id, username, birthday ,gender, phone, level)
+        userDAO.createUser(id, username, birthday ,gender, phone, level, req.session.user.user_id)
+        res.status(201).send(201);
+    }
+    else if (results.length != 0){
+        userDAO.updateUser(id, username, birthday ,gender, phone, level)
         res.status(201).send(201);
     }
     else {
-        userDAO.updateUser(id, username, birthday ,gender, phone, level, req.session.user.user_id)
-        res.status(201).send(201);
+      console.log("User needs to create profile first")
     }
   });
 });
@@ -138,22 +144,25 @@ router.post("/deleteUser", secured, (req, res) => {
     scope: 'delete:users create:users'
   });
   if (req.session.user.level === 3 || req.body.userID === req.session.user.id) {
-    management.users.delete({ id: req.body.userID }, function (err) {
-      if (err) {
-        console.log(err)
-      }
-      console.log("User deleted");
-      userDAO.deleteUser(req.body.userID);
-      postDAO.deletePostByUser(req.body.userID);
-      comDAO.deleteComByUserID(req.body.userID);
-      if (req.session.user.level === 3) { //If admin, send to home page
-        res.send("/");
-      } else { //If user force re-log as only time we rach here is when user has deleted own account
-        req.session.user = null;
-        req.session.returnTo = "/";
-        res.send("/login");
-      }
-    });
+    userDAO.getUser(req.body.userID, (user) => {
+      console.log(user.Username);
+      management.users.delete({ id: user.AuthID }, function (err) {
+        if (err) {
+          console.log(err)
+        }
+        console.log("User deleted");
+        userDAO.deleteUser(req.body.userID);
+        postDAO.deletePostByUser(req.body.userID);
+        comDAO.deleteComByUserID(req.body.userID);
+        if (req.session.user.level === 3 && req.body.userID !== req.session.user.id) { //If admin, send to home page
+          res.send("/");
+        } else { //If user force re-log as only time we rach here is when user has deleted own account
+          req.session.user = null;
+          req.session.returnTo = "/";
+          res.send("/login");
+        }
+      });
+    })
   } else {
     res.send("/");
   }

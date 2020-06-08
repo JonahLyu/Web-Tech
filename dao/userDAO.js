@@ -1,5 +1,7 @@
 var express = require('express');
 var path = require('path');
+var express = require('express');
+var path = require('path');
 var sqlite3 = require(path.join(__dirname , '../node_modules/sqlite3')).verbose();
 var db = new sqlite3.Database(path.join(__dirname , '../database/user.db'));
 const md5 = require('js-md5')
@@ -12,10 +14,10 @@ let table = `users`
 // }
 
 //create a user entry in database
-function createUser(id, username, birthday ,gender, phone, level){
+function createUser(id, username, birthday ,gender, phone, level, authid){
     sql = `insert into users values (?, ?, ?, ?, ?, ?, ?)`
-    let hashID = md5(id)
-    db.run(sql, [hashID, username, birthday ,gender, phone, level, id], (err, results) => {
+    // let hashID = md5(id)
+    db.run(sql, [id, username, birthday ,gender, phone, level, authid], (err, results) => {
         if (err) {
             throw err;
         } else {
@@ -25,8 +27,8 @@ function createUser(id, username, birthday ,gender, phone, level){
 
 }
 function updateUser(id, username, birthday ,gender, phone, level, authid){
-    sql = `update users set Username = ?, Birthday = ?, Gender = ?, Phone = ?, Level = ?, AuthID = ? where UserID = ?`
-    db.run(sql, [username, birthday, gender, phone, level, authid , id], (err, results) => {
+    sql = `update users set Username = ?, Birthday = ?, Gender = ?, Phone = ?, Level = ? where UserID = ?`
+    db.run(sql, [username, birthday, gender, phone, level, id], (err, results) => {
         if (err) {
             throw err;
         } else {
