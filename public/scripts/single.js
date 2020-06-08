@@ -14,14 +14,14 @@ $.post(
                 //                         <input id="postid" name="comID" value=` + comment.CommentID + ` type="hidden">
                 //                         <button class="btn btn-small" id="post" type="submit" name="submit">delete</button>
                 //                     </form>`;
-                deleteButtonHTML = `<button class="btn btn-mini btn-danger" id="comment_delete" 
+                deleteButtonHTML = `<button class="btn btn-mini btn-danger"
                                     onclick="confirmDelete(`+comment.CommentID+`)" title="Delete this comment">Delete</button>`;
             }
             let hash = md5(comment.UserID)
             let avatarLink = "https://www.gravatar.com/avatar/" + hash + "?d=monsterid"
             var oLi = document.createElement("li")
             oLi.className = `comment even thread-even depth-1`
-            oLi.innerHTML = `<article id="comment-2">
+            oLi.innerHTML = `<article>
                     <a href="/forum/loadUser?id=${comment.UserID}">
                         <img alt="" src=${avatarLink} class="avatar avatar-60 photo" height="60" width="60">
                     </a>
