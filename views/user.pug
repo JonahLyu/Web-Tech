@@ -31,7 +31,7 @@ block layout-content
                                 span 
                                     form.form-inline(action="/forum/deletePost" method="POST")
                                         input#postid(name="postid", value=post.PostID, type="hidden")
-                                        button#post.btn.btn-small(type="submit" name="submit") delete
+                                        button#post.btn.btn-mini.btn-info(type="submit" name="submit") delete
                           p.content
                             | #{post.Content} 
                             a.readmore-link(href="/forum/loadPost?id="+post.PostID) Read more

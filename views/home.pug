@@ -32,9 +32,9 @@ block layout-content
                                 a(href="/forum/loadUser?id="+post.UserID tile="View " + post.Author + "'s profile'") #{post.Author}
                               if userProfile.user_id == post.UserID || level > 2
                                 span 
-                                    form.form-inline(action="/forum/deletePost" method="POST")
+                                    form#delete.form-inline(action="/forum/deletePost" method="POST")
                                         input#postid(name="postid", value=post.PostID, type="hidden")
-                                        button#post.btn.btn-small(type="submit" name="submit") delete
+                                        button#post.btn.btn-mini.btn-info(type="submit" name="submit" title="delete this post") Delete
                           p.content
                             | #{post.Content} 
                             a.readmore-link(href="/forum/loadPost?id="+post.PostID) Read more
@@ -42,15 +42,17 @@ block layout-content
                     each cat in cats
                         article.format-standard.type-post.hentry.clearfix
                           header.clearfix
-                            h3.post-title
-                              a(href="/forum/loadCategory?id="+cat.CatID+"&title="+cat.Title) #{cat.Title}
-                          span.comments
-                            a(href="#" title="Posts") #{cat.PostCount} Posts
-                          if level > 2
-                            span 
-                                button#post.btn.btn-small(onclick="confirmDelete("+cat.CatID+")") delete
-                          p.content
-                            | #{cat.Description} 
+                            .post-meta.clearfix
+                              span
+                                h3.post-title
+                                  a(href="/forum/loadCategory?id="+cat.CatID+"&title="+cat.Title) #{cat.Title}
+                              span.comments
+                                a(href="#" title="Posts") #{cat.PostCount} Posts
+                              if level > 2
+                                span 
+                                    button#post.btn.btn-mini.btn-danger(onclick="confirmDelete("+cat.CatID+")" title="Delete this category") Delete
+                              p.content
+                                | #{cat.Description} 
                 //- .span8
                 //-   h3.title Categories
                 //-     ul

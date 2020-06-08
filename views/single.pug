@@ -29,7 +29,7 @@ block layout-content
                                     a(href="/forum/loadUser?id="+post.UserID tile="View " + post.Author + "'s profile'") #{post.Author}
                                 if userProfile.user_id == post.UserID || level > 2
                                     span 
-                                        button#post.btn.btn-small(onclick="confirmDeletePost("+post.PostID+", "+post.CatID+", \""+post.Category+"\")") delete
+                                        button#post.btn.btn-mini.btn-info(onclick="confirmDeletePost("+post.PostID+", "+post.CatID+", \""+post.Category+"\")") delete
                         p.content #{post.Content}
                         
                     .like-btn

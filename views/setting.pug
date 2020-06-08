@@ -1,16 +1,14 @@
 extends layout.pug
 
 block layout-content
-    link(rel='stylesheet', type='text/css', href='/stylesheets/setting.css')
-    link#bootstrap-css-css(rel="stylesheet" href="../bootstrap.css" type="text/css" media="all")
-    script(src='../bootstrap.min.js')
+    link(rel='stylesheet', type='text/css', href='/css/setting.css')
+    link#bocssotstrap-css-(rel="stylesheet" href="../bootstrap.css" type="text/css" media="all")
         
     div.SettingView
         #wrap.wrap
             .logGet
                 .logD.logDtip
                     p.p1 Account Setting
-                    //- p user: #{userProfile.nickname}
                 .lgD
                     img(src='/images/png/cut-triangle-flag.png', width='20', height='20', alt='')
                     input#username.form-control(type='text', name='username', value=username, placeholder='Display name')
@@ -34,11 +32,11 @@ block layout-content
                         option(value = 2, selected = (level === 2)) Moderator
                         option(value = 3, selected = (level === 3)) Admin
                 .logC
-                    button#save_btn.btn.btn-primary Save
+                    button#save_btn.btn.btn-danger Save
                     #checkResult.text-success
                 .logC
                     a(href='/')
-                        button#btn.btn-primary Back To Home Page
+                        button#btn.btn Back To Home Page
             
     script.
         $(function(){

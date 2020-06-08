@@ -30,7 +30,7 @@ block layout-content
                                 a(href="/forum/loadUser?id="+post.UserID tile="View " + post.Author + "'s profile'") #{post.Author}
                               if userProfile.user_id == post.UserID || level > 2
                                 span 
-                                  button#post.btn.btn-small(onclick="confirmDelete("+post.PostID+")") delete
+                                  button#post.btn.btn-mini.btn-info(onclick="confirmDelete("+post.PostID+")") delete
                           p.content
                             | #{post.Content} 
                             a.readmore-link(href="/forum/loadPost?id="+post.PostID) Read more
