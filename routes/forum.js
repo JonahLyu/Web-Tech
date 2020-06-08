@@ -141,11 +141,19 @@ router.get('/loadPost', secured, function(req, res, next) {
 });
 
 router.post('/addPostLike', secured, function(req, res, next) {
-    var postID = req.body.postid
-    postDAO.addPostLike(postID)
-    postDAO.getPostByID(postID, (post) => {
-        res.json({likeCount: post.LikeCount})
-    })
+    try {
+        if (!req.body.postid) throw "Post ID undefined"
+        var postID = req.body.postid
+        postDAO.addPostLike(postID)
+        postDAO.getPostByID(postID, (post) => {
+            if (!post) {
+                throw "Post was undefined";
+            }
+            res.json({likeCount: post.LikeCount})
+        })
+    } catch(err) {
+        console.log(err);
+    }
 });
 
 //comment routes

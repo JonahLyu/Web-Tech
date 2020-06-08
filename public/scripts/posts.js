@@ -1,16 +1,17 @@
-function confirmDelete(PostID) {
-    if (confirm("Are you sure you want to delete this post and all comments? This cannot be undone.")) {
+$(document).ready(function(){
+    
+    $("span.like-count").click(function(){
+        var doc = $(this)
+        // console.log(doc);
+        var postID = doc.find("likeID").value;
+        console.log(postID);
         $.post(
-            "/forum/deletePost",
-            {
-                postID: PostID
-            },
+            "/forum/addPostLike",
+            {postid: postID},
             function(data) {
-                // console.log(data);
-                window.location.href = data;
+                doc.html(data.likeCount);
             }
         );
-    } else {
+    }); 
 
-    }
-}
+}); 

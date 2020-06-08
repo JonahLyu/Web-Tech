@@ -49,8 +49,8 @@ router.get("/callback", (req, res, next) => {
             delete req.session.returnTo;
             const { _raw, _json, ...userProfile } = req.user;
             req.session.user = userProfile;
-            req.session.user.fullID = req.session.user.id;
-            req.session.user.id = helper.truncID(req.session.user.id);
+            // req.session.user.fullID = req.session.user.id;
+            // req.session.user.id = helper.truncID(req.session.user.id);
             userDAO.getAccessLevel(req.session.user.id, (level) => {
                 req.session.user.level = level.Level;
                 res.redirect(returnTo || "/");
