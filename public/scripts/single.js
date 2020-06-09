@@ -8,7 +8,6 @@ $.post(
         // console.log(data);
         $("#comments-title").html("("+data.length+") Comments");
         data.forEach((comment) => {
-            console.log(comment.Content)
             let deleteButtonHTML = ``;
             if (comment.deleteButton) {
                 // deleteButtonHTML = `<form class="form-inline" action="/forum/deleteCom" method="POST">
@@ -21,7 +20,7 @@ $.post(
             let hash = md5(comment.UserID)
             let avatarLink = "https://www.gravatar.com/avatar/" + hash + "?d=monsterid"
             var oLi = document.createElement("li")
-            oLi.className = `comment even thread-even depth-1`
+            oLi.className = `comment even thread-even depth-1 paged`
             oLi.innerHTML = `<article class="comment-shadow">
                     <a href="/forum/loadUser?id=${comment.UserID}">
                         <img alt="" src=${avatarLink} class="avatar avatar-60 photo" height="60" width="60">
@@ -44,6 +43,7 @@ $.post(
             commentList.appendChild(oLi)
         });
         addComBtns();
+        setUpPaging();
     }
 );
 

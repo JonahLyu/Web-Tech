@@ -4,6 +4,7 @@ block extra-head
     script(src="https://www.myersdaily.org/joseph/javascript/md5.js")
     script(src="../scripts/single.js" defer)
     script(src="../scripts/delete_btn.js" defer)
+    script(src="../scripts/page_nav.js" defer)
 
 block layout-content
     #postid.hide #{post.PostID}
@@ -44,6 +45,10 @@ block layout-content
                     section#comments
                         h3#comments-title () Comments
                         ol.commentlist
+                        br
+                        span 
+                            button.btn.btn-large.btn-info(class="prev") Prev
+                            button.btn.btn-large.btn-info(class="next") Next
                         //- start of respond
                         #respond
                             br
