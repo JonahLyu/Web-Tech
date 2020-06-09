@@ -47,13 +47,14 @@ block layout-content
                             .gender-wrap
                                 b Gender: 
                                 span#gender 
+                            br
                             if editAccess
                               .logC
                                 a(href="/users/setting?id="+userID)
-                                  button#btn.btn-primary Edit User Details
+                                  button.btn.btn-warn Edit User Details
                               br
                               .logC
-                                button#btn.btn-primary(onclick="confirmDelete(\""+userID+"\")") Delete Account
+                                button.btn.btn-danger(onclick="confirmDelete(\""+userID+"\")") Delete Account
         script(src="https://www.myersdaily.org/joseph/javascript/md5.js")         
         script(src="../scripts/user.js")
         script(src="../scripts/like.js")
