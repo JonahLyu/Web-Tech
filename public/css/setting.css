@@ -27,13 +27,21 @@ a.head{
 	position: relative;
 }
 #wrap .logGet{
-    font-family: "Courier New";
+  font-family: "Courier New";
 	height: 570px;
 	width: 400px;
 	position: absolute;
 	background-color: #FFFFFF;
 	margin-top: 50px;
 	left: 10%;
+}
+
+.logGet .shadow:hover {
+  padding: 5px 5px 5px 5px;
+  filter: progid:DXImageTransform.Microsoft.Shadow(color='#969696', Direction=135, Strength=5);
+  -moz-box-shadow: 2px 2px 5px #969696;
+  -webkit-box-shadow: 2px 2px 5px #969696;
+  box-shadow: 3px 5px 20px 1px #5555553d;
 }
 
 .logGet .logD.logDtip .p1 {

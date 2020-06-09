@@ -1,15 +1,8 @@
 extends layout.pug
 
 block extra-head
+    script(src="../scripts/loading.js")
     script(src="../scripts/settings.js" defer)
-    //- <!-- cdn for modernizr, if you haven't included it already -->
-    script(src="http://cdn.jsdelivr.net/webshim/1.12.4/extras/modernizr-custom.js")
-    //- <!-- polyfiller file to detect and load polyfills -->
-    script(src="http://cdn.jsdelivr.net/webshim/1.12.4/polyfiller.js")
-    script.
-        webshims.setOptions('waitReady', false);
-        webshims.setOptions('forms-ext', {types: 'date'});
-        webshims.polyfill('forms forms-ext');
 
 block layout-content
     link(rel='stylesheet', type='text/css', href='/css/setting.css')
@@ -17,7 +10,7 @@ block layout-content
         
     div.SettingView
         #wrap.wrap
-            .logGet
+            .logGet.shadow
                 .logD.logDtip
                     p.p1 Account Setting
                 .lgD.hide

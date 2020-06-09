@@ -154,8 +154,15 @@ app.use("/", authRouter);
      res.redirect("/forum/home");
  });
 
+ 
+
 app.use('/users', usersRouter);
 app.use('/forum', forumRouter);
+
+app.get('*', function(req, res){
+  res.status(404);
+  res.render('error', {title: "Error", error: "Can not find a page"});
+});
 
 // error handler
 app.use(function(err, req, res, next) {
