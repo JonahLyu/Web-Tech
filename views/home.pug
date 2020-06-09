@@ -3,6 +3,7 @@ extends layout.pug
 block extra-head
 
   script(src="../scripts/delete_btn.js" defer)
+  script(src="../scripts/page_nav.js" defer)
   script(src="https://www.myersdaily.org/joseph/javascript/md5.js")
   script(src="../scripts/user_widget.js")
   script(src="../scripts/like.js")
@@ -53,7 +54,7 @@ block layout-content
                     br
                     h2 Categories
                     each cat in cats
-                        article.type-cat.hentry.clearfix.shadow
+                        article.type-cat.hentry.clearfix.shadow.paged
                           header.clearfix
                             h3.cat-title
                               a(href="/forum/loadCategory?id="+cat.CatID) #{cat.Title}
@@ -65,6 +66,9 @@ block layout-content
                                     button.btn.btn-mini.btn-danger(class="DelCat" value=cat.CatID title="Delete this category") Delete
                             p.content.cat-description
                                 | #{cat.Description} 
+                    span 
+                      button.btn.btn-mini.btn-info(class="prev") Prev
+                      button.btn.btn-mini.btn-info(class="next") Next
                 .span4
                     a(href="/forum/loadUser?id="+userProfile.id title="Go to your own page")
                       section.widget.wiget-shadow
@@ -106,8 +110,4 @@ block layout-content
                             form(action="/forum/createCategory" method="POST")
                                 textarea.content.form-control(name="title", rows='1', cols='20', placeholder='Category Name')
                                 br
-                                textarea.content.form-control(name="description", rows='5', cols='20', placeholder='Category Description')
-                                br
-                                button.post.btn.btn-primary(type="submit" name="submit") Create Category              
-
     
