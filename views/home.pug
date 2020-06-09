@@ -17,8 +17,8 @@ block extra-head
 
 
 block layout-content
-    #large-header.large-header(style="height: 282px;")
-      canvas#demo-canvas(width=auto height="282px")  
+    #large-header.large-header.topper
+      canvas#demo-canvas(width=auto height=280)  
       .search-area.container.main-title
         h3#greeting.search-header
         p.search-tag-line Welcome back to your magic forum!
@@ -38,7 +38,7 @@ block layout-content
                             .post-meta.clearfix
                               span.date #{post.Date}
                               span.category
-                                a(href="/forum/loadCategory?id="+post.CatID+"&title="+post.Category title="View all posts in " + post.Category) #{post.Category}
+                                a(href="/forum/loadCategory?id="+post.CatID title="View all posts in " + post.Category) #{post.Category}
                               span.comments
                                 a(href="/forum/loadPost?id="+post.PostID title="Comment") #{post.CommentCount} Comments
                               span.like-count(data-postid=post.PostID) #{post.LikeCount}

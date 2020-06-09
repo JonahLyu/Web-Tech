@@ -26,7 +26,7 @@ block layout-content
                             .post-meta.clearfix
                                 span.date #{post.Date}
                                 span.category
-                                    a(href="/forum/loadCategory?id="+post.CatID+"&title="+post.Category title="View all posts in " + post.CatID) #{post.Category}
+                                    a(href="/forum/loadCategory?id="+post.CatID title="View all posts in " + post.CatID) #{post.Category}
                                 span.comments
                                     a(href="#" title="Comment") #{post.CommentCount} Comments
                                 span.like-count #{post.LikeCount}

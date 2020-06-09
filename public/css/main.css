@@ -7,6 +7,10 @@ a:hover {
   text-decoration: none;
 }
 
+.topper{
+  height: 280em;
+}
+
 .hide {
   display: none;
 }
