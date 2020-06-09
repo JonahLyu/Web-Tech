@@ -59,7 +59,11 @@ router.post('/createPost', secured, function(req, res, next) { //We'll want to a
     }
     else{
         var time = moment().format("MMM Do YY, h:mm:ss a")
-        postDAO.createPost(userID, catID, title, content, time)
+        try {
+            postDAO.createPost(userID, catID, title, content, time)
+        } catch (err) {
+            console.log(err);
+        }
     }
     // res.redirect('/users/home')
     res.redirect('back');

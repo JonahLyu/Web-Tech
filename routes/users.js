@@ -39,10 +39,15 @@ router.get('/listUsers', secured, function(req, res, next) {
 
 router.get('/allProfiles', secured, function(req,res,next) { 
   console.log(req.session.user);
-  userDAO.getAllUser((users) => {
-    //Add delete functionality
-    res.send(users);
-  });
+  try {
+    // throw err;
+    userDAO.getAllUser((users) => {
+      //Add delete functionality
+      res.send(users);
+    });
+  } catch (err) {
+    res.redirect('/forum/home');
+  }
 })
 
 router.get('/setting', secured, function(req, res, next) {
