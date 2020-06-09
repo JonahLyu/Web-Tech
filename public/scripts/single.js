@@ -15,8 +15,8 @@ $.post(
                 //                         <input id="postid" name="comID" value=` + comment.CommentID + ` type="hidden">
                 //                         <button class="btn btn-small" id="post" type="submit" name="submit">delete</button>
                 //                     </form>`;
-                deleteButtonHTML = `<button class="btn btn-mini btn-danger"
-                                    onclick="confirmDelete(`+comment.CommentID+`)" title="Delete this comment">Delete</button>`;
+                deleteButtonHTML = `<button class="btn btn-mini btn-danger DelCom"
+                                    value=${comment.CommentID} title="Delete this comment">Delete</button>`;
             }
             let hash = md5(comment.UserID)
             let avatarLink = "https://www.gravatar.com/avatar/" + hash + "?d=monsterid"
@@ -43,6 +43,7 @@ $.post(
 
             commentList.appendChild(oLi)
         });
+        addComBtns();
     }
 );
 
@@ -88,39 +89,3 @@ $(document).ready(function(){
     });
 });
 
-function confirmDelete(ComID) {
-    console.log(ComID);
-    if (confirm("Are you sure you want to delete this comment? This cannot be undone.")) {
-        $.post(
-            "/forum/deleteCom",
-            {
-                comID: ComID
-            },
-            function(data) {
-                // console.log(data);
-                window.location.href = data;
-            }
-        );
-    } else {
-
-    }
-}
-
-function confirmDeletePost(PostID, CatID, CatTitle) {
-    if (confirm("Are you sure you want to delete this comment? This cannot be undone.")) {
-        $.post(
-            "/forum/deleteUserPost",
-            {
-                postID: PostID,
-                catID: CatID,
-                catTitle: CatTitle
-            },
-            function(data) {
-                // console.log(data);
-                window.location.href = data;
-            }
-        );
-    } else {
-
-    }
-}

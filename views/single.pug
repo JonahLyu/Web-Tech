@@ -1,7 +1,12 @@
 extends layout.pug
 
+block extra-head
+    script(src="https://www.myersdaily.org/joseph/javascript/md5.js")
+    script(src="../scripts/single.js" defer)
+    script(src="../scripts/delete_btn.js" defer)
+
 block layout-content
-    #postid(style="display:none") #{post.PostID}
+    #postid.hide #{post.PostID}
     .search-area-wrapper
       .search-area.container
         h3#greeting.search-header
@@ -29,7 +34,7 @@ block layout-content
                                     a(href="/forum/loadUser?id="+post.UserID title="View " + post.Author + "'s profile'") #{post.Author}
                                 if userProfile.user_id == post.UserID || level > 2
                                     span 
-                                        button#post.btn.btn-mini.btn-info(onclick="confirmDeletePost("+post.PostID+", "+post.CatID+", \""+post.Category+"\")") delete
+                                        button#post.btn.btn-mini.btn-danger(class="DelPost" value=post.PostID title="Delete this post") delete
                         p.content #{post.Content}
                         
                     .like-btn
@@ -74,8 +79,5 @@ block layout-content
                                 b Phone: 
                                 span#phone 
                         
-        script(src="https://www.myersdaily.org/joseph/javascript/md5.js")
-        script(src="../scripts/single.js")
-
-        script.
-            console.log("Hi")
+        //- script(src="https://www.myersdaily.org/joseph/javascript/md5.js")
+        //- script(src="../scripts/single.js")
