@@ -8,7 +8,7 @@ a:hover {
 }
 
 .topper{
-  height: 280em;
+  height: 282px;
 }
 
 .hide {
@@ -57,7 +57,7 @@ blockquote p {
 #large-header {
 	background: url("../images/banner_background.jpg") center top no-repeat;
   background-size: 100%;
-  height: 200px;
+  height: 282px;
 }
 
 .main-title {
