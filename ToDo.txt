@@ -6,5 +6,7 @@ Little To-Do list that can be added to or taken from:
 -Make sure generated html validates
 -Remove onclick from all remaining pages
 -Move scripts to header
+-https ssl
+-Add script to only run 8000 port server
 
 (For some weird reason all of my commits have been under the wrong user name :/ I've just changed it)
