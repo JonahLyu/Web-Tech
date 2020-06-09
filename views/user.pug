@@ -24,9 +24,9 @@ block layout-content
                                 a(href="/forum/loadCategory?id="+post.CatID+"&title="+post.Category title="View all posts in " + post.Category) #{post.Category}
                               span.comments
                                 a(href="/forum/loadPost?id="+post.PostID title="Comment") #{post.CommentCount} Comments
-                              span.like-count(value=post.PostID) #{post.LikeCount}
+                              span.like-count(data-postid=post.PostID) #{post.LikeCount}
                               span.author
-                                a(href="#" tile="View " + post.Author + "'s profile'") #{post.Author}
+                                a(href="#" title="View " + post.Author + "'s profile'") #{post.Author}
                               if userProfile.user_id == post.UserID
                                 span 
                                     form#delete.form-inline(action="/forum/deletePost" method="POST")
@@ -55,38 +55,10 @@ block layout-content
                               br
                               .logC
                                 button#btn.btn-primary(onclick="confirmDelete(\""+userID+"\")") Delete Account
-                        
+        script(src="http://www.myersdaily.org/joseph/javascript/md5.js")         
         script(src="../scripts/user.js")
-        script(src="http://www.myersdaily.org/joseph/javascript/md5.js")
-        script.
+        script(src="../scripts/like.js")
+        
             
-            $(document).ready(function(){
-                let userID = $("#thisUID").html()
-                console.log(userID);
-                $.post(
-                    "/users/userInfo",
-                    {userID: userID},
-                    function(data) {
-                        let hash = md5(data.UserID)
-                        let avatarLink = "https://www.gravatar.com/avatar/" + hash + "?d=monsterid"
-                        $("#userAvatar").attr("src", avatarLink);
-                        $("#greeting").html("Welcome to " + data.Username + "'s Page!");
-                        $("#username").html(data.Username);
-                        $("#gender").html(data.Gender);
-                    }
-                );
-                
-                $("span.like-count").click(function(){
-                    var doc = $(this)
-                    var postID = doc.attr("value")
-                    $.post(
-                        "/forum/addPostLike",
-                        {postid: postID},
-                        function(data) {
-                            doc.html(data.likeCount);
-                        }
-                    );
-                }); 
-
-            });  
+            
              

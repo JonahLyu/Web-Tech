@@ -14,3 +14,32 @@ function confirmDelete(UserID) {
 
     }
 }
+
+$(document).ready(function(){
+    let userID = $("#thisUID").html()
+    $.post(
+        "/users/userInfo",
+        {userID: userID},
+        function(data) {
+            let hash = md5(data.UserID)
+            let avatarLink = "https://www.gravatar.com/avatar/" + hash + "?d=monsterid"
+            $("#userAvatar").attr("src", avatarLink);
+            $("#greeting").html("Welcome to " + data.Username + "'s Page!");
+            $("#username").html(data.Username);
+            $("#gender").html(data.Gender);
+        }
+    );
+    
+    $("span.like-count").click(function(){
+        var doc = $(this)
+        var postID = doc.attr("value")
+        $.post(
+            "/forum/addPostLike",
+            {postid: postID},
+            function(data) {
+                doc.html(data.likeCount);
+            }
+        );
+    }); 
+
+});  
