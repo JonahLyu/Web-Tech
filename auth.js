@@ -54,10 +54,16 @@ router.get("/callback", (req, res, next) => {
             req.session.user = userProfile;
             // req.session.user.fullID = req.session.user.id;
             // req.session.user.id = helper.truncID(req.session.user.id);
-            userDAO.getAccessLevel(req.session.user.id, (level) => {
-                req.session.user.level = level.Level;
+            try {
+                userDAO.getAccessLevel(req.session.user.id, (level) => {
+                    req.session.user.level = level.Level;
+                    res.redirect(returnTo || "/");
+                });
+            } catch (err) {
+                console.log(err);
+                req.session.user.level = 1;
                 res.redirect(returnTo || "/");
-            });
+            }
             // res.redirect(returnTo || "/");
         });
     })(req, res, next);
