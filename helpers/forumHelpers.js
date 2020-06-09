@@ -17,6 +17,10 @@ function truncID(id) {
     return id.substring(id.indexOf("|") + 1);
 }
 
+function removeSpaces(str) {
+    return str.replace(/\s+/g, '');
+}
+
 // function postCount(cats, callback) {
 //     var stmt = db.prepare("select distinct CatID, count(*) over(partition by CatID order by CatID asc) as count from posts order by CatID asc");
 //     stmt.all((err, counts) => {

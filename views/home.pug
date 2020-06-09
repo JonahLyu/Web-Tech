@@ -3,7 +3,8 @@ extends layout.pug
 block extra-head
 
   script(src="../scripts/delete_btn.js" defer)
-  script(src="http://www.myersdaily.org/joseph/javascript/md5.js")
+  script(src="../scripts/page_nav.js" defer)
+  script(src="https://www.myersdaily.org/joseph/javascript/md5.js")
   script(src="../scripts/user_widget.js")
   script(src="../scripts/like.js")
   //-search bar animation
@@ -17,8 +18,8 @@ block extra-head
 
 
 block layout-content
-    #large-header.large-header(style="height: 282px;")
-      canvas#demo-canvas(width=auto height="282px")  
+    #large-header.large-header
+      canvas#demo-canvas
       .search-area.container.main-title
         h3#greeting.search-header
         p.search-tag-line Welcome back to your magic forum!
@@ -38,7 +39,7 @@ block layout-content
                             .post-meta.clearfix
                               span.date #{post.Date}
                               span.category
-                                a(href="/forum/loadCategory?id="+post.CatID+"&title="+post.Category title="View all posts in " + post.Category) #{post.Category}
+                                a(href="/forum/loadCategory?id="+post.CatID title="View all posts in " + post.Category) #{post.Category}
                               span.comments
                                 a(href="/forum/loadPost?id="+post.PostID title="Comment") #{post.CommentCount} Comments
                               span.like-count(data-postid=post.PostID) #{post.LikeCount}
@@ -53,18 +54,21 @@ block layout-content
                     br
                     h2 Categories
                     each cat in cats
-                        article.type-cat.hentry.clearfix.shadow
+                        article.type-cat.hentry.clearfix.shadow.paged
                           header.clearfix
                             h3.cat-title
-                              a(href="/forum/loadCategory?id="+cat.CatID+"&title="+cat.Title) #{cat.Title}
+                              a(href="/forum/loadCategory?id="+cat.CatID) #{cat.Title}
                             .post-meta
                               span.comments
-                                a(href="/forum/loadCategory?id="+cat.CatID+"&title="+cat.Title title="Posts") #{cat.PostCount} Posts
+                                a(href="/forum/loadCategory?id="+cat.CatID title="Posts") #{cat.PostCount} Posts
                               if level > 2
                                 span 
                                     button.btn.btn-mini.btn-danger(class="DelCat" value=cat.CatID title="Delete this category") Delete
                             p.content.cat-description
                                 | #{cat.Description} 
+                    span 
+                      button.btn.btn-large.btn-info(class="prev") Prev
+                      button.btn.btn-large.btn-info(class="next") Next
                 .span4
                     a(href="/forum/loadUser?id="+userProfile.id title="Go to your own page")
                       section.widget.wiget-shadow
@@ -106,8 +110,4 @@ block layout-content
                             form(action="/forum/createCategory" method="POST")
                                 textarea.content.form-control(name="title", rows='1', cols='20', placeholder='Category Name')
                                 br
-                                textarea.content.form-control(name="description", rows='5', cols='20', placeholder='Category Description')
-                                br
-                                button.post.btn.btn-primary(type="submit" name="submit") Create Category              
-
     

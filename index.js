@@ -45,7 +45,7 @@ const httpsPort = "8443"
  */
 
 const session = {
-    secret: "LoxodontaElephasMammuthusPalaeoloxodonPrimelephas",
+    secret: process.env.SESSION_SECRET,
     cookie: {},
     store: new redisStore({host:'redis', port:6379, client:client, ttl:260}),
     resave: false,
@@ -83,7 +83,9 @@ const strategy = new Auth0Strategy(
       clientID: process.env.AUTH0_CLIENT_ID,
       clientSecret: process.env.AUTH0_CLIENT_SECRET,
       callbackURL:
-        process.env.AUTH0_CALLBACK_URL || "http://localhost:8000/callback" || "https://localhost:8000/callback"
+
+      process.env.AUTH0_CALLBACK_URL || "https://localhost:8443/callback" || "http://localhost:3000/callback" || "https://localhost:3000/callback"
+
     },
     function(accessToken, refreshToken, extraParams, profile, done) {
       /**

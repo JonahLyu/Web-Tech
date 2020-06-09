@@ -7,12 +7,20 @@ a:hover {
   text-decoration: none;
 }
 
+.topper{
+  height: 280em !important;
+}
+
 .hide {
   display: none;
 }
 
 .info {
   display: inline;
+}
+
+.clean-list {
+  list-style-type: none;
 }
 
 blockquote {
@@ -53,7 +61,7 @@ blockquote p {
 #large-header {
 	background: url("../images/banner_background.jpg") center top no-repeat;
   background-size: 100%;
-  height: 200px;
+  height: 282px;
 }
 
 .main-title {
@@ -115,8 +123,8 @@ blockquote p {
   height: 40px;
 
   position: absolute;
-  margin-top: 285px;
-  margin-left: 25%;
+  margin-top: 240px;
+  margin-left: 135px;
 }
 
 .double-bounce1, .double-bounce2 {
@@ -476,23 +484,23 @@ li.comment > article .avatar {
   line-height: 22px;
 }
 .hentry .post-meta .date {
-  background: url("../images/calendar-icon.png") no-repeat left center;
+  background: url("../images/png/calendar-icon.png") no-repeat left center;
 }
 .hentry .post-meta .category {
-  background: url("../images/category-icon.png") no-repeat left center;
+  background: url("../images/png/category-icon.png") no-repeat left center;
 }
 .hentry .post-meta .author {
-  background: url("../images/user.png") no-repeat left center;
+  background: url("../images/png/user.png") no-repeat left center;
 }
 .hentry .post-meta .comments {
-  background: url("../images/comment.png") no-repeat left center;
+  background: url("../images/png/comment.png") no-repeat left center;
 }
 .hentry .post-meta .like-count {
   float: right;
-  background: url("../images/like.png") no-repeat 4px 6px;
+  background: url("../images/png/like.png") no-repeat 4px 6px;
 }
 .hentry .post-meta .like-count:hover {
-  background: url("../images/like.png") no-repeat 4px -24px;
+  background: url("../images/png/like.png") no-repeat 4px -24px;
   color: #395996;
 }
 
@@ -502,23 +510,23 @@ li.comment > article .avatar {
   line-height: 20px;
   padding: 5px 13px;
   padding-left: 25px;
-  background: #fafafa url("../images/like-btn.png") no-repeat 10px -20px;
+  background: #fafafa url("../images/png/like-btn.png") no-repeat 10px -20px;
   cursor: pointer;
   -webkit-border-radius: 3px;
   -moz-border-radius: 3px;
-  border-radius: 3px;
-  color: #8cd24e;
+  border-radius: 10px;
+  color: #e73734;
 }
 .like-btn .like-it:hover {
-  background: #b6b6b6 url("../images/like-btn.png") no-repeat 10px 10px;
+  background: #E73734 url("../images/png/like-btn.png") no-repeat 10px 10px;
   color: #fff;
 }
 .like-btn .like-it.already-voted {
   cursor: default;
 }
 .like-btn .like-it.already-voted:hover {
-  background: #fafafa url("../images/like-btn.png") no-repeat 10px -20px;
-  color: #8cd24e;
+  background: #fafafa url("../images/png/like-btn.png") no-repeat 10px -20px;
+  color: #e73734;
 }
 
 .hentry.type-post .post-title {
@@ -559,7 +567,7 @@ li.comment > article .avatar {
 }
 
 .shadow {
-  padding: 5px 5px 5px 5px;
+  padding: 5px 25px 5px 25px;
   filter: progid:DXImageTransform.Microsoft.Shadow(color='#969696', Direction=135, Strength=5);
   -moz-box-shadow: 2px 2px 5px #969696;
   -webkit-box-shadow: 2px 2px 5px #969696;
@@ -567,7 +575,7 @@ li.comment > article .avatar {
 }
 
 .shadow:hover {
-  padding: 5px 5px 5px 5px;
+  padding: 5px 25px 5px 25px;
   filter: progid:DXImageTransform.Microsoft.Shadow(color='#969696', Direction=135, Strength=5);
   -moz-box-shadow: 2px 2px 5px #969696;
   -webkit-box-shadow: 2px 2px 5px #969696;
@@ -642,7 +650,7 @@ a#scroll-top {
   height: 42px;
   width: 42px;
   line-height: 42px;
-  background: #131517 url("../images/scroll-top.png") center center no-repeat;
+  background: #131517 url("../images/png/scroll-top.png") center center no-repeat;
   opacity: 0.8;
   -moz-opacity: 0.8;
   -webkit-opacity: 0.8;

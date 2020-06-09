@@ -33,6 +33,41 @@ function confirmDeletePost(PostID) {
     }
 }
 
+function confirmDeleteCom(ComID) {
+    console.log(ComID);
+    if (confirm("Are you sure you want to delete this comment? This cannot be undone.")) {
+        $.post(
+            "/forum/deleteCom",
+            {
+                comID: ComID
+            },
+            function(data) {
+                // console.log(data);
+                window.location.href = data;
+            }
+        );
+    } else {
+
+    }
+}
+
+function confirmDeleteAcc(UserID) {
+    if (confirm("Are you absolutely sure you want to delete this account? This cannot be undone.")) {
+        $.post(
+            "/users/deleteUser",
+            {
+                userID: UserID
+            },
+            function(data) {
+                // console.log(data);
+                window.location.href = data;
+            }
+        );
+    } else {
+
+    }
+}
+
 "use strict"
 addEventListener('load', setDeleteCategoryEvent);
 
@@ -48,6 +83,29 @@ function setDeleteCategoryEvent() {
     for (let i=0, btn; btn = btns[i]; i++) {
         btn.addEventListener('click', () => {
             confirmDeletePost(btn.value);
+        });
+    }
+    // btns = document.getElementsByClassName("DelCom");
+    // for (let i=0, btn; btn = btns[i]; i++) {
+    //     console.log("Hi");
+    //     btn.addEventListener('click', () => {
+    //         confirmDeleteCom(btn.value);
+    //     });
+    // }
+    btns = document.getElementsByClassName("DelAcc");
+    for (let i=0, btn; btn = btns[i]; i++) {
+        btn.addEventListener('click', () => {
+            confirmDeleteAcc(btn.value);
+        });
+    }
+}
+
+function addComBtns() {
+    var btns = document.getElementsByClassName("DelCom");
+    for (let i=0, btn; btn = btns[i]; i++) {
+        console.log("Hi");
+        btn.addEventListener('click', () => {
+            confirmDeleteCom(btn.value);
         });
     }
 }

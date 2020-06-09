@@ -117,15 +117,16 @@ router.post('/deleteCategory', secured, function(req, res, next) {
 
 
 router.get('/loadCategory', secured, function(req, res, next) {
-    // console.log(req.session.user);
-    joinDAO.getPostsWithDetailsByCatID(req.query.id, (posts) => {
-        forumHelpers.truncPosts(posts, 200);
-        res.render("posts", {title: req.query.title,
-                                userProfile: req.session.user,
-                                level: req.session.user.level, //Included seperately to specify we want the elvel from the session
-                                posts: posts,
-                                cat: req.query})
-    })
+    catDAO.getCatTitle(req.query.id, (catTitle) => {
+        joinDAO.getPostsWithDetailsByCatID(req.query.id, (posts) => {
+            forumHelpers.truncPosts(posts, 200);
+            res.render("posts", {title: catTitle,
+                                    userProfile: req.session.user,
+                                    level: req.session.user.level, //Included seperately to specify we want the elvel from the session
+                                    posts: posts,
+                                    cat: req.query})
+        })
+    });
 });
 
 router.get('/loadPost', secured, function(req, res, next) {

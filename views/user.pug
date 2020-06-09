@@ -1,5 +1,11 @@
 extends layout.pug
 
+block extra-head
+  script(src="https://www.myersdaily.org/joseph/javascript/md5.js")         
+  script(src="../scripts/user.js" defer)
+  script(src="../scripts/like.js" defer)
+  script(src="../scripts/delete_btn.js" defer)
+
 block layout-content
     #thisUID(style="display:none;") #{thisUserID}
     .search-area-wrapper(style="background: #353b65 url('../images/user_background.jpg') center top no-repeat;")
@@ -20,17 +26,15 @@ block layout-content
                             .post-meta.clearfix
                               span.date #{post.Date}
                               span.category
-                                a(href="/forum/loadCategory?id="+post.CatID+"&title="+post.Category title="View all posts in " + post.Category) #{post.Category}
+                                a(href="/forum/loadCategory?id="+post.CatID title="View all posts in " + post.Category) #{post.Category}
                               span.comments
                                 a(href="/forum/loadPost?id="+post.PostID title="Comment") #{post.CommentCount} Comments
                               span.like-count(data-postid=post.PostID) #{post.LikeCount}
                               span.author
                                 a(href="#" title="View " + post.Author + "'s profile'") #{post.Author}
-                              if userProfile.user_id == post.UserID
+                              if editAccess
                                 span 
-                                    form#delete.form-inline(action="/forum/deletePost" method="POST")
-                                        input#postid(name="postid", value=post.PostID, type="hidden")
-                                        button#post.btn.btn-mini.btn-info(type="submit" name="submit") delete
+                                    button.btn.btn-mini.btn-danger(class="DelPost" value=post.PostID title="Delete this post") Delete
                           p.content
                             | #{post.Content} 
                             a.readmore-link(href="/forum/loadPost?id="+post.PostID) Read more
@@ -48,15 +52,17 @@ block layout-content
                                 b Gender: 
                                 span#gender 
                             if editAccess
-                              .logC
-                                a(href="/users/setting?id="+userID)
-                                  button#btn.btn-primary Edit User Details
                               br
                               .logC
-                                button#btn.btn-primary(onclick="confirmDelete(\""+userID+"\")") Delete Account
-        script(src="http://www.myersdaily.org/joseph/javascript/md5.js")         
-        script(src="../scripts/user.js")
-        script(src="../scripts/like.js")
+                                a(href="/users/setting?id="+userID)
+                                  button.btn.btn-warn Edit User Details
+                              br
+                              .logC
+                                button.btn.btn-danger(class="DelAcc" value=userID) Delete Account
+
+        //- script(src="https://www.myersdaily.org/joseph/javascript/md5.js")         
+        //- script(src="../scripts/user.js")
+        //- script(src="../scripts/like.js")
         
             
             
