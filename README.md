@@ -27,11 +27,6 @@ Add `.env` in the root directory
 ```shell
 vim .env
 ```
-## Docker Start
-```shell
-docker build -t lvjike/magicforum .
-docker-compose up
-```
 
 ## Quick Start
 ```shell
