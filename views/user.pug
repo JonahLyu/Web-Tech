@@ -1,5 +1,11 @@
 extends layout.pug
 
+block extra-head
+  script(src="https://www.myersdaily.org/joseph/javascript/md5.js")         
+  script(src="../scripts/user.js" defer)
+  script(src="../scripts/like.js" defer)
+  script(src="../scripts/delete_btn.js" defer)
+
 block layout-content
     #thisUID(style="display:none;") #{thisUserID}
     .search-area-wrapper(style="background: #353b65 url('../images/user_background.jpg') center top no-repeat;")
@@ -26,11 +32,9 @@ block layout-content
                               span.like-count(data-postid=post.PostID) #{post.LikeCount}
                               span.author
                                 a(href="#" title="View " + post.Author + "'s profile'") #{post.Author}
-                              if userProfile.user_id == post.UserID
+                              if editAccess
                                 span 
-                                    form#delete.form-inline(action="/forum/deletePost" method="POST")
-                                        input#postid(name="postid", value=post.PostID, type="hidden")
-                                        button#post.btn.btn-mini.btn-info(type="submit" name="submit") delete
+                                    button.btn.btn-mini.btn-danger(class="DelPost" value=post.PostID title="Delete this post") Delete
                           p.content
                             | #{post.Content} 
                             a.readmore-link(href="/forum/loadPost?id="+post.PostID) Read more
@@ -54,9 +58,10 @@ block layout-content
                               br
                               .logC
                                 button#btn.btn-primary(onclick="confirmDelete(\""+userID+"\")") Delete Account
-        script(src="https://www.myersdaily.org/joseph/javascript/md5.js")         
-        script(src="../scripts/user.js")
-        script(src="../scripts/like.js")
+
+        //- script(src="https://www.myersdaily.org/joseph/javascript/md5.js")         
+        //- script(src="../scripts/user.js")
+        //- script(src="../scripts/like.js")
         
             
             

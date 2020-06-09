@@ -8,7 +8,7 @@ a:hover {
 }
 
 .topper{
-  height: 280em;
+  height: 280em !important;
 }
 
 .hide {
