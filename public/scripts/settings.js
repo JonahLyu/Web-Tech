@@ -26,14 +26,18 @@ $(function(){
             page,
             {user_id: id, username: n, gender: g, birthday: dob , phonenumber: p, level: l},
             function(result){
-                console.log(result);
-                if (result.localeCompare("Created") === 0) {
+                if (result.localeCompare("OK") === 0) {
                     $("#save_btn").attr("class","btn btn-success") ;
                     $("#save_btn").html("success!") ;
                     $("#username").css("background-color","white");
                     $("#date_of_birth").css("background-color","white");
                 } else {
-                    console.log(result);
+                    $("#save_btn").attr("class","btn btn-success") ;
+                    $("#save_btn").html("Going To Forum...") ;
+                    $("#username").css("background-color","white");
+                    $("#date_of_birth").css("background-color","white");
+                    //the new created user will direct to the home when first save
+                    window.location.href = "/"
                 }
             }).fail((result) => {
                 window.location.href = result.responseText;

@@ -120,7 +120,7 @@ router.post('/save_setting', secured, function(req, res, next) {
     }
     else if (results.length != 0){
         userDAO.updateUser(id, username, birthday ,gender, phone, level)
-        res.status(201).send(201);
+        res.status(201).send(200);
     }
     else {
       console.log("User needs to create profile first")
