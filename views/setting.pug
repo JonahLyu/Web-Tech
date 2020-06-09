@@ -16,7 +16,7 @@ block layout-content
                 .lgD.hide
                     p#id #{userID}
                 .lgD
-                    img(src='/images/png/cut-triangle-flag.png', width='20', height='20', alt='')
+                    img(src='/images/png/map-point-flag.png', width='20', height='20', alt='')
                     input#username.form-control(type='text', name='username', value=username, placeholder='Display name')
                 .lgD
                     img(src='/images/png/black-user-shape.png', width='20', height='20', alt='')
@@ -26,13 +26,13 @@ block layout-content
                         option(value = 'Female', selected = (gender === 'Female')) Female
                         option(value = 'Prefer not to say', selected = (gender === 'Prefer not to say')) Prefer not to say
                 .lgD
-                    img(src='/images/png/visitor-identification.png', width='20', height='20', alt='')
+                    img(src='/images/png/day-1-calendar.png', width='20', height='20', alt='')
                     input#date_of_birth.form-control(type='date' name='date_of_birth' value=birthday)
                 .lgD
-                    img(src='/images/png/tablet-screen.png', width='20', height='20', alt='')
+                    img(src='/images/png/large-smartphone.png', width='20', height='20', alt='')
                     input#phoneNumber.form-control(type='text', name='phoneNumber', value=phone, placeholder='Phone number')
                 .lgD
-                    img(src='/images/png/black-user-shape.png', width='20', height='20', alt='')
+                    img(src='/images/png/closed.png', width='20', height='20', alt='')
                     select.form-control(id='accessLevel', disabled=(accessLevel!==3))
                         option(value = 1, selected = (level === 1)) User
                         option(value = 2, selected = (level === 2)) Moderator
