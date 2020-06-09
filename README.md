@@ -30,7 +30,7 @@ vim .env
 
 ## Quick Start
 ```shell
-bash start_server.sh
+bash start_server_final.sh
 ```
 
 
@@ -60,9 +60,3 @@ npm run ui
 ```
 Visit `localhost:3000` to see updates in real time.
 
-
-**Auth0 site login (confidential)**
-
-My uni e-mail num is 17092
-
-pass: MagicForum12
