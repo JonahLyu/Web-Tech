@@ -42,7 +42,7 @@ const httpsPort = "8443"
  */
 
 const session = {
-    secret: "LoxodontaElephasMammuthusPalaeoloxodonPrimelephas",
+    secret: process.env.SESSION_SECRET,
     cookie: {},
     store: new redisStore({host:'localhost', port:6379, client:client, ttl:260}),
     resave: false,
