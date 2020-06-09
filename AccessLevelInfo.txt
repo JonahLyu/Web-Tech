@@ -1,0 +1,13 @@
+Admin (3):
+-Can add categories
+-Can delete Categories, Posts, Comments (Maybe users?)
+-Can edit other users details
+-Can alter access level of other users
+
+Moderator (2):
+-Can add categories
+-Can delete Comments
+
+User (1):
+-Can post normally
+-Can delete own posts

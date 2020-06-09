@@ -1,1 +1,37 @@
-p #{error}
+block variables
+doctype html
+html
+  head
+    meta(charset="utf-8")
+    link(rel="shortcut icon", href="/favicon.ico")
+    title Error| Magic Forum
+    script(src='../scripts/error-loading.js')
+    script(src='../jquery.min.js')
+    link#bootstrap-css-css(rel="stylesheet" href="/css/bootstrap.css" type="text/css" media="all")
+    link#responsive-css-css(rel="stylesheet" href="/css/responsive.css" type="text/css" media="all")
+    link#main-css-css(rel="stylesheet" href="/css/main.css" type="text/css" media="all")
+    block extra-head
+  body
+    block layout-header
+      .header-wrapper
+        header
+          .container
+            .logo-container
+              a(href="/" title="Home")
+                img(src="../logo.svg" width="32" height="32" alt="")
+                span.tag-line Magic Forum
+    
+    block layout-error
+        .error-wrapper(style="height:400px; ")
+            .container(style="margin-top: 200px;")
+                h3 #{error}
+
+    block layout-footer
+      a(href="#top" id="scroll-top" style="display: inline;") 
+      #footer-bottom-wrapper
+        #footer-bottom.container
+          .logo-container
+            a(href="/" title="Home")
+              img(src="../logo2.svg" width="32" height="32" alt="")
+            span.tag-line Magic Forum 2020 | Jonah Lyu & Aaron Robey
+

@@ -14,6 +14,9 @@ const passport = require("passport");
 const util = require("util");
 const url = require("url");
 const querystring = require("querystring");
+const userDAO = require("./dao/userDAO");
+const helper = require("./helpers/forumHelpers")
+const md5 = require('js-md5')
 
 require("dotenv").config();
 
@@ -46,8 +49,16 @@ router.get("/callback", (req, res, next) => {
             const returnTo = req.session.returnTo;
             delete req.session.returnTo;
             const { _raw, _json, ...userProfile } = req.user;
+            userProfile.id = md5(userProfile.id)
+            console.log(userProfile);
             req.session.user = userProfile;
-            res.redirect(returnTo || "/");
+            // req.session.user.fullID = req.session.user.id;
+            // req.session.user.id = helper.truncID(req.session.user.id);
+            userDAO.getAccessLevel(req.session.user.id, (level) => {
+                req.session.user.level = level.Level;
+                res.redirect(returnTo || "/");
+            });
+            // res.redirect(returnTo || "/");
         });
     })(req, res, next);
 });

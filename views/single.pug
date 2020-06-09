@@ -1,40 +1,15 @@
-doctype html
-html
-  head
-    meta(charset="utf-8")
-    link(rel="shortcut icon", href="/favicon.ico")
-    meta(name="viewport", content="width=device-width, initial-scale=1, shrink-to-fit=no")
-    meta(name="theme-color", content="#000000")
-    title #{title} | Magic Forum
-    script(src='../jquery.min.js')
-    script(src='../jquery.cookie.js')
-    link#bootstrap-css-css(rel="stylesheet" href="../css/bootstrap5152.css?ver=1.0" type="text/css" media="all")
-    link#responsive-css-css(rel="stylesheet" href="../css/responsive5152.css?ver=1.0" type="text/css" media="all")
-    link#main-css-css(rel="stylesheet" href="../css/main5152.css?ver=1.0" type="text/css" media="all")
-    link#custom-css-css(rel="stylesheet" href="../css/custom5152.html?ver=1.0" type="text/css" media="all")
-  body
-    .header-wrapper
-        header
-          .container
-            .logo-container
-              //- Website Logo
-              a(href="/" title="Home")
-                img(src="../favicon.ico" alt="Home")
-              span.tag-line Magic Forum
-            nav.main-nav
-              .menu-top-menu-container
-                ul#menu-top-menu.clearfix
-                  li
-                    a(href="/") Home
-                  li
-                    a(href="/users/setting") Account
-                  li
-                    a(href="/logout") Log out
+extends layout.pug
+
+block layout-content
+    #postid(style="display:none") #{post.PostID}
     .search-area-wrapper
       .search-area.container
         h3#greeting.search-header
-        //- h3#greeting.search-header Howdy, #{userProfile.nickname}!
         p.search-tag-line Welcome back to your magic forum!
+        form#search-form.search-form.clearfix(method="get" action="/forum/search" autocomplete="off")
+          input#s.search-term.required(type="text" name="input" placeholder="Type your search terms here" title="* Please enter a search term!")
+          input.search-btn(type="submit" value="Search")
+          #search-error-container
     .page-container
         .container
             .row
@@ -46,18 +21,44 @@ html
                             .post-meta.clearfix
                                 span.date #{post.Date}
                                 span.category
-                                    a(href="#" title="View all posts in " + post.CatID) #{cat.Title}
+                                    a(href="/forum/loadCategory?id="+post.CatID+"&title="+post.Category title="View all posts in " + post.CatID) #{post.Category}
                                 span.comments
                                     a(href="#" title="Comment") #{post.CommentCount} Comments
-                                span.like-count(value=post.PostID) #{post.LikeCount}
-                                span 
-                                    form.form-inline(action="/forum/deletePost" method="POST")
-                                        input#postid(name="postid", value=post.PostID, type="hidden")
-                                        button#post.btn.btn-small(type="submit" name="submit") delete
-                        p #{post.Content}
+                                span.like-count #{post.LikeCount}
+                                span.author
+                                    a(href="/forum/loadUser?id="+post.UserID title="View " + post.Author + "'s profile'") #{post.Author}
+                                if userProfile.user_id == post.UserID || level > 2
+                                    span 
+                                        button#post.btn.btn-mini.btn-info(onclick="confirmDeletePost("+post.PostID+", "+post.CatID+", \""+post.Category+"\")") delete
+                        p.content #{post.Content}
+                        
+                    .like-btn
+                        span.like-it #{post.LikeCount}
+                        
+                    br
+                    section#comments
+                        h3#comments-title () Comments
+                        ol.commentlist
+                        //- start of respond
+                        #respond
+                            br
+                            h3 Leave a Reply
+                            form#commentform(action="/forum/createCom" method="post")
+                                p.comment-notes
+                                    | Leave a comment here!
+                                div
+                                    label(for="comment") Comment
+                                    textarea#comment.span8(name="content" cols="58" rows="5")
+                                div
+                                    input(type="hidden" name="postID" value=post.PostID)
+                                    button#submit.btn(name="submit" type="submit") Post Comment
+                        //- end of respond
                 .span4
-                    section.widget
-                        .info-widget
+                    a(href="/forum/loadUser?id="+userProfile.id title="Go to your own page")
+                      section.widget.wiget-shadow
+                        #userInfo.info-widget
+                            .avatar-wrap
+                                img#userAvatar.avatar.avatar-60.photo(alt="" src="/images/support.png" height="60" width="60")
                             div.Title
                                 h3 Your info
                             .username-wrap
@@ -72,34 +73,9 @@ html
                             .phone-wrap
                                 b Phone: 
                                 span#phone 
-                    
-
-            #footer
-                p Jonah | Aaron
                         
-        script(src="../scripts/test.js")
+        script(src="http://www.myersdaily.org/joseph/javascript/md5.js")
+        script(src="../scripts/single.js")
+
         script.
-            $(document).ready(function(){
-                $.post(
-                    "/users/info",
-                    function(data) {
-                        $("#greeting").html("Howdy, " + data.Username + "!");
-                        $("#username").html(data.Username);
-                        $("#birthday").html(data.Birthday);
-                        $("#gender").html(data.Gender);
-                        $("#phone").html(data.Phone);
-                    }
-                );
-                
-                $("span.like-count").click(function(){
-                    var doc = $(this)
-                    var postID = doc.attr("value")
-                    $.post(
-                        "/forum/addPostLike",
-                        {postid: postID},
-                        function(data) {
-                            doc.html(data.likeCount);
-                        }
-                    );
-                }); 
-            });  
+            console.log("Hi")

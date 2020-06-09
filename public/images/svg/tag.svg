@@ -1,0 +1,47 @@
+
+	<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="35" height="35" viewBox="0 0 100 100">
+
+
+		<defs>
+			false
+			
+	<linearGradient id="background-gradient" x1="0" y1="0" y2="1" x2="0" >
+		<stop stop-color="#fff" offset="0%"/>
+		<stop stop-color="#000" offset="100%"/>
+	</linearGradient>
+
+			
+			
+			<g transform="scale(3.3222590941082637) translate(0.09999999403953552 0.04999847710132599)" id="picture"><path d="M11.5 30h-.2c-.2-.1-.3-.3-.3-.5V19H.5c-.2 0-.4-.1-.5-.3s0-.4.1-.5l18-18c.1-.1.3-.2.4-.2h11c.3 0 .5.2.5.5v11c0 .1-.1.3-.1.4l-18 18c-.1 0-.3.1-.4.1zM1.7 18h9.8c.3 0 .5.2.5.5v9.8l17-17V1H18.7l-17 17z M23 10c-1.7 0-3-1.3-3-3s1.3-3 3-3 3 1.3 3 3-1.3 3-3 3zm0-5c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/></g>
+			
+	<linearGradient id="picture-gradient" x1="0" y1="0" y2="1" x2="0" >
+		<stop stop-color="#888888" offset="0%"/>
+		<stop stop-color="#888888" offset="100%"/>
+	</linearGradient>
+
+		</defs>
+
+		
+
+			<use xlink:href="#background" fill="url(#background-gradient)" />
+
+		
+
+			<g mask="url(#mask)">
+				<g transform="
+				        translate(
+                                50 50
+)
+                            translate(0 0)  scale(0.6750000000000002)  
+                            translate(
+                                -50 -50
+)">
+						<use xlink:href="#picture" fill="url(#picture-gradient)"  />
+				</g>
+			</g>
+
+		
+
+
+
+	</svg>

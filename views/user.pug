@@ -1,30 +1,63 @@
-extends layout
+extends layout.pug
 
 block layout-content
-    div.View.WelcomeView
-        h1.Banner Howdy, #{username}!
+    #thisUID(style="display:none;") #{thisUserID}
+    .search-area-wrapper(style="background: #353b65 url('../images/user_background.jpg') center top no-repeat;")
+      .search-area.container
+        h3#greeting.search-header
+        p.search-tag-line You are browsing my space!
+    .page-container
+        .container
+            .row
+                
+                .span8.main-listing
+                    h2 All Posts
+                    each post in posts
+                        article.format-standard.type-post.hentry.clearfix.shadow
+                          header.clearfix
+                            h3.post-title
+                              a(href="/forum/loadPost?id="+post.PostID) #{post.Title}
+                            .post-meta.clearfix
+                              span.date #{post.Date}
+                              span.category
+                                a(href="/forum/loadCategory?id="+post.CatID+"&title="+post.Category title="View all posts in " + post.Category) #{post.Category}
+                              span.comments
+                                a(href="/forum/loadPost?id="+post.PostID title="Comment") #{post.CommentCount} Comments
+                              span.like-count(data-postid=post.PostID) #{post.LikeCount}
+                              span.author
+                                a(href="#" title="View " + post.Author + "'s profile'") #{post.Author}
+                              if userProfile.user_id == post.UserID
+                                span 
+                                    form#delete.form-inline(action="/forum/deletePost" method="POST")
+                                        input#postid(name="postid", value=post.PostID, type="hidden")
+                                        button#post.btn.btn-mini.btn-info(type="submit" name="submit") delete
+                          p.content
+                            | #{post.Content} 
+                            a.readmore-link(href="/forum/loadPost?id="+post.PostID) Read more
+                .span4
+                    section.widget
+                        .info-widget
+                            .avatar-wrap
+                                img#userAvatar.avatar.avatar-60.photo(alt="" src="/images/support.png" height="60" width="60")
+                            div.Title
+                                h3 Info
+                            .username-wrap
+                                b Username: 
+                                span#username 
+                            .gender-wrap
+                                b Gender: 
+                                span#gender 
+                            if editAccess
+                              .logC
+                                a(href="/users/setting?id="+userID)
+                                  button#btn.btn-primary Edit User Details
+                              br
+                              .logC
+                                button#btn.btn-primary(onclick="confirmDelete(\""+userID+"\")") Delete Account
+        script(src="http://www.myersdaily.org/joseph/javascript/md5.js")         
+        script(src="../scripts/user.js")
+        script(src="../scripts/like.js")
         
-        div.Message
-            div.Title
-                h3 your forum info
-            p User Name: #{username}
-            p Gender: #{gender}
-            p D.O.B.: #{birthday}
-            p Phone: #{phone}
-            div.NavButtons
-                a(href="/users/setting")
-                    div.NavButton Edit
-            br
-            //-These buttons are placeholders, and shouldn't be on this page
-            div.NavButtons
-                a(href="/users/newcat")
-                    div.NavButton New Category
-            //-They belong on the forum browsing page
-            br
-            div.NavButtons
-                a(href="/users/listPosts")
-                    div.NavButton Show Posts
-                        
-        div.NavButtons
-            a(href="/logout")
-                div.NavButton Log out
+            
+            
+             

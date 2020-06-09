@@ -1,0 +1,47 @@
+
+	<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="35" height="35" viewBox="0 0 100 100">
+
+
+		<defs>
+			false
+			
+	<linearGradient id="background-gradient" x1="0" y1="0" y2="1" x2="0" >
+		<stop stop-color="#fff" offset="0%"/>
+		<stop stop-color="#000" offset="100%"/>
+	</linearGradient>
+
+			
+			
+			<g transform="scale(3.3333333333333335) translate(0 0.05000019073486328)" id="picture"><path d="M17.1 9.6c-.2.2-.2.5 0 .7.1.1.2.1.4.1s.3 0 .4-.1l3.4-3.4c.5.3 1.1.6 1.7.6 1.7 0 3-1.3 3-3s-1.3-3-3-3-3 1.3-3 3c0 .6.2 1.2.6 1.7l-3.5 3.4zM5 6.6c.2-.1.4-.3.3-.5s-.2-.5-.4-.5l-1.4-.1c-.2 0-.5.2-.5.4l-3 20c0 .1 0 .3.1.4.1.1.2.2.4.2l4.8.4c.1 0 .3-.1.4-.2.1-.1.2-.3.1-.4L4 8.2c-.1-.7.3-1.4 1-1.6z M28 5.5c0-.1-.1-.3-.2-.3-.1-.2-.2-.2-.4-.2h-.1c-.2 0-.4.2-.4.4-.4 1.8-2 3.1-3.9 3.1-.4 0-.8-.1-1.3-.2-.2-.1-.4 0-.5.1l-2.7 2.7c-.6.6-1.6.6-2.1 0-.2-.3-.4-.7-.4-1.1s.2-.8.4-1.1l2-2c.2-.2.2-.4.1-.6 0-.1-.2-.3-.5-.2L5.4 7.5c-.2 0-.4.3-.4.5l2 20c0 .3.2.4.5.4l22-2c.1 0 .3-.1.3-.2s.2-.1.2-.2L28 5.5z"/></g>
+			
+	<linearGradient id="picture-gradient" x1="0" y1="0" y2="1" x2="0" >
+		<stop stop-color="#eeae33" offset="0%"/>
+		<stop stop-color="#E73734" offset="100%"/>
+	</linearGradient>
+
+		</defs>
+
+		
+
+			<use xlink:href="#background" fill="url(#background-gradient)" />
+
+		
+
+			<g mask="url(#mask)">
+				<g transform="
+				        translate(
+                                50 50
+)
+                            translate(0 0)  scale(0.6500000000000001)  
+                            translate(
+                                -50 -50
+)">
+						<use xlink:href="#picture" fill="url(#picture-gradient)"  />
+				</g>
+			</g>
+
+		
+
+
+
+	</svg>

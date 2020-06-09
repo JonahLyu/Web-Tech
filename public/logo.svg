@@ -1,0 +1,55 @@
+
+	<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="128" height="128" viewBox="0 0 100 100">
+
+
+		<defs>
+			<g id="background">
+<path fill="url(#background-gradient)" stroke="none" d=" M 85.4 85.4 Q 100 70.7 100 50 100 29.3 85.4 14.7 70.8 0 50 0 29.3 0 14.7 14.7 0 29.3 0 50 0 70.7 14.7 85.4 29.3 100 50 100 70.8 100 85.4 85.4 Z"/>
+</g><mask id="mask">
+<path fill="#FFFFFF" stroke="none" d=" M 85.4 85.4 Q 100 70.7 100 50 100 29.3 85.4 14.7 70.8 0 50 0 29.3 0 14.7 14.7 0 29.3 0 50 0 70.7 14.7 85.4 29.3 100 50 100 70.8 100 85.4 85.4 Z"/>
+</mask><g id="middle-1">
+<path fill="#000000" fill-opacity="0.1" stroke="none" d=" M 85.4 85.4 Q 100 70.7 100 50 100 29.3 85.4 14.7 70.8 0 50 0 29.3 0 14.7 14.7 0 29.3 0 50 0 70.7 14.7 85.4 29.3 100 50 100 70.8 100 85.4 85.4 M 50 12 Q 65.8 12 76.9 23.1 88.1 34.3 88.1 50 88.1 65.7 76.9 76.9 65.8 88 50 88 34.3 88 23.1 76.9 12 65.8 12 50 12 34.3 23.1 23.1 34.3 12 50 12 Z"/>
+</g><g id="middle-2">
+<path fill="#FFFFFF" fill-opacity="0.3" stroke="none" d=" M 68.8 31.3 Q 61 23.5 50 23.5 39.1 23.5 31.3 31.3 23.5 39.1 23.5 50 23.5 61 31.3 68.8 39 76.5 50 76.5 61 76.5 68.8 68.8 76.6 61 76.6 50 76.6 39 68.8 31.3 Z"/>
+</g>
+			
+	<linearGradient id="background-gradient" x1="0" y1="0" y2="1" x2="0" >
+		<stop stop-color="#ff974d" offset="0%"/>
+		<stop stop-color="#dd002a" offset="100%"/>
+	</linearGradient>
+
+			
+			
+			<g transform="scale(3.3333333333333335)" id="picture"><path d="M29.5 15H28v-1.5c0-.3-.2-.5-.5-.5H26v-2.5c0-.3-.2-.5-.5-.5H23V8h2.5c.3 0 .5-.2.5-.5v-3c0-.3-.2-.5-.5-.5h-3c-.3 0-.5.2-.5.5V7h-2.5c-.3 0-.5.2-.5.5V10h-8V7.5c0-.3-.2-.5-.5-.5H8V4.5c0-.3-.2-.5-.5-.5h-3c-.3 0-.5.2-.5.5v3c0 .3.2.5.5.5H7v2H4.5c-.3 0-.5.2-.5.5V13H2.5c-.3 0-.5.2-.5.5V15H.5c-.3 0-.5.2-.5.5v8c0 .3.2.5.5.5h3c.3 0 .5-.2.5-.5V19h1v4.5c0 .3.2.5.5.5H8v1.5c0 .3.2.5.5.5h5c.3 0 .5-.2.5-.5v-2c0-.3-.2-.5-.5-.5H9v-2h12v2h-4.5c-.3 0-.5.2-.5.5v2c0 .3.2.5.5.5h5c.3 0 .5-.2.5-.5V24h2.5c.3 0 .5-.2.5-.5V19h1v4.5c0 .3.2.5.5.5h3c.3 0 .5-.2.5-.5v-8c0-.3-.2-.5-.5-.5zm-18.5.5c0 .3-.2.5-.5.5h-2c-.3 0-.5-.2-.5-.5v-2c0-.3.2-.5.5-.5h2c.3 0 .5.2.5.5v2zm11 0c0 .3-.2.5-.5.5h-2c-.3 0-.5-.2-.5-.5v-2c0-.3.2-.5.5-.5h2c.3 0 .5.2.5.5v2z"/></g>
+			
+	<linearGradient id="picture-gradient" x1="0" y1="0" y2="1" x2="0" >
+		<stop stop-color="#ffffff" offset="0%"/>
+		<stop stop-color="#ffffff" offset="100%"/>
+	</linearGradient>
+
+		</defs>
+
+		
+
+			<use xlink:href="#background" fill="url(#background-gradient)" />
+
+		<use xlink:href="#middle-1" /><use xlink:href="#middle-2" />
+
+			<g mask="url(#mask)">
+				<g transform="
+				        translate(
+                                50 50
+)
+                            translate(0 0)  scale(0.5)  
+                            translate(
+                                -50 -50
+)">
+						<use xlink:href="#picture" fill="url(#picture-gradient)"  />
+				</g>
+			</g>
+
+		
+
+
+
+	</svg>

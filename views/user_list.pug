@@ -1,0 +1,58 @@
+extends layout.pug
+
+block layout-content
+    .search-area-wrapper
+      .search-area.container
+        h3#greeting.search-header
+        p.search-tag-line Welcome back to your magic forum!
+        form#search-form.search-form.clearfix(method="get" action="/forum/search" autocomplete="off")
+          input#s.search-term.required(type="text" name="input" placeholder="Type your search terms here" title="* Please enter a search term!")
+          input.search-btn(type="submit" value="Search")
+          #search-error-container
+    .page-container
+        .container
+            .row
+                .span8.main-listing
+                    h2 Users:
+                    h3#users-count () Users
+                    ol.userList
+                    //- List users
+                .span4
+                    section.widget
+                        .info-widget
+                            .avatar-wrap
+                                img#userAvatar.avatar.avatar-60.photo(alt="" src="/images/support.png" height="60" width="60")
+                            div.Title
+                                h3 Your info
+                            .username-wrap
+                                b Username: 
+                                span#username 
+                            .gender-wrap
+                                b Gender: 
+                                span#gender 
+                            .birthday-wrap
+                                b Birthday: 
+                                span#birthday 
+                            .phone-wrap
+                                b Phone: 
+                                span#phone 
+                        
+        script(src="http://www.myersdaily.org/joseph/javascript/md5.js")
+        script(src="../scripts/user_list.js")
+        script.
+            $(document).ready(function(){
+                $.post(
+                    "/users/info",
+                    function(data) {
+                        let hash = md5(data.UserID)
+                        let avatarLink = "https://www.gravatar.com/avatar/" + hash + "?d=monsterid"
+                        $("#userAvatar").attr("src", avatarLink);
+                        $("#greeting").html("Howdy, " + data.Username + "!");
+                        $("#username").html(data.Username);
+                        $("#birthday").html(data.Birthday);
+                        $("#gender").html(data.Gender);
+                        $("#phone").html(data.Phone);
+                    }
+                );
+
+            });  

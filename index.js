@@ -3,6 +3,7 @@
  */
 
 const express = require("express");
+const helmet = require('helmet');
 const path = require("path");
 var fs = require('fs')
 var https = require('https')
@@ -35,6 +36,7 @@ var forumRouter = require('./routes/forum');
  */
 
 const app = express();
+app.use(helmet());
 const port = process.env.PORT || "8000";
 const httpsPort = "8443"
 
@@ -50,6 +52,22 @@ const session = {
     saveUninitialized: false
 };
 
+/**
+ * Disable browser caching
+ */
+
+app.set('etag', false);
+
+app.use((req, res, next) => {
+    res.set('Cache-Control', 'no-store')
+    next()
+  })
+
+/**
+ *
+ */
+
+app.locals.pretty = true;
 if (app.get("env") === "production") {
     // Serve secure cookies, requires HTTPS
     session.cookie.secure = true;
@@ -136,11 +154,18 @@ app.use("/", authRouter);
  };
 
  app.get("/", secured, (req, res) => {
-     res.redirect("/users/home");
+     res.redirect("/forum/home");
  });
+
+ 
 
 app.use('/users', usersRouter);
 app.use('/forum', forumRouter);
+
+app.get('*', function(req, res){
+  res.status(404);
+  res.render('error', {title: "Error", error: "Can not find a page"});
+});
 
 // error handler
 app.use(function(err, req, res, next) {
