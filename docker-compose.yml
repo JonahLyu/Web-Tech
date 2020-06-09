@@ -7,7 +7,7 @@ services:
       - "6379:6379"
   forum-server:
     build: .
-    image: 'lvjike/magicforum'
+    image: 'magicforum'
     ports:
       - "8000:8000"
       - "8443:8443"
