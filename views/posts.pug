@@ -73,7 +73,7 @@ block layout-content
                             h3.title New Post
                             form(action="/forum/createPost" method="POST")
                                 select#selectCat.form-control(name='category')
-                                    option(value=cat.id, selected= true) #{cat.title}
+                                    option(value=cat.id, selected= true) #{title}
                                 br
                                 input#title.form-control(type='text', name='title', placeholder='your title')
                                 br
