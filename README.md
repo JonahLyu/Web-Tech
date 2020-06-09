@@ -27,6 +27,11 @@ Add `.env` in the root directory
 ```shell
 vim .env
 ```
+## Docker Start
+```shell
+docker build -t lvjike/magicforum .
+docker-compose up
+```
 
 ## Quick Start
 ```shell
@@ -60,9 +65,3 @@ npm run ui
 ```
 Visit `localhost:3000` to see updates in real time.
 
-
-**Auth0 site login (confidential)**
-
-My uni e-mail num is 17092
-
-pass: MagicForum12
