@@ -563,7 +563,7 @@ li.comment > article .avatar {
 }
 
 .shadow {
-  padding: 5px 5px 5px 5px;
+  padding: 5px 25px 5px 25px;
   filter: progid:DXImageTransform.Microsoft.Shadow(color='#969696', Direction=135, Strength=5);
   -moz-box-shadow: 2px 2px 5px #969696;
   -webkit-box-shadow: 2px 2px 5px #969696;
@@ -571,7 +571,7 @@ li.comment > article .avatar {
 }
 
 .shadow:hover {
-  padding: 5px 5px 5px 5px;
+  padding: 5px 25px 5px 25px;
   filter: progid:DXImageTransform.Microsoft.Shadow(color='#969696', Direction=135, Strength=5);
   -moz-box-shadow: 2px 2px 5px #969696;
   -webkit-box-shadow: 2px 2px 5px #969696;
