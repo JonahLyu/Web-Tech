@@ -51,12 +51,8 @@ block layout-content
                     each cat in cats
                         article.type-cat.hentry.clearfix.shadow
                           header.clearfix
-                            .cat-meta
-                              span
-                                img(src="/images/tag.svg" width="32" height="32" alt="")
-                              h3.info
-                                span
-                                  a(href="/forum/loadCategory?id="+cat.CatID+"&title="+cat.Title) #{cat.Title}
+                            h3.cat-title
+                              a(href="/forum/loadCategory?id="+cat.CatID+"&title="+cat.Title) #{cat.Title}
                             .post-meta
                               span.comments
                                 a(href="/forum/loadCategory?id="+cat.CatID+"&title="+cat.Title title="Posts") #{cat.PostCount} Posts

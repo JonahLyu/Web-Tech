@@ -452,10 +452,14 @@ li.comment > article .avatar {
 }
 
 .hentry.type-post .post-title {
+  background: url("../images/svg/post.svg") no-repeat 0px 0px;
   padding-left: 35px;
-  background: url("../images/standard-large.png") no-repeat 0 3px;
   font-size: 20px;
   line-height: 30px;
+}
+
+.hentry.type-post .post-title:hover {
+  background: url("../images/svg/postfill.svg") no-repeat 0px 0px;
 }
 
 .hentry.type-post h1.post-title {
@@ -467,11 +471,18 @@ li.comment > article .avatar {
   color: #3B4348;
 }
 
-
-.hentry.type-cat .cat-meta img {
-  margin-bottom: 12px;
-  margin-right: 10px;
+.hentry.type-cat .cat-title {
+  background: url("../images/svg/tag.svg") no-repeat 0px 0px;
+  padding-left: 35px;
+  font-size: 20px;
+  line-height: 30px;
 }
+
+.hentry.type-cat .cat-title:hover {
+  background: url("../images/svg/tagfill.svg") no-repeat 0px 0px;
+}
+
+
 
 .cat-description {
   margin-top: 22px;
