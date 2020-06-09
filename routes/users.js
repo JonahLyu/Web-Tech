@@ -26,9 +26,6 @@ const secured = (req, res, next) => {
 };
 
 /* GET users listing. */
-router.get('/', secured, function(req, res, next) {
-    res.redirect('/users/home');
-});
 
 router.get('/listUsers', secured, function(req, res, next) {
   res.render("user_list", {title: "Users",
