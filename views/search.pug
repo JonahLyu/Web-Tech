@@ -44,7 +44,8 @@ block layout-content
                             | #{post.Content} 
                             a.readmore-link(href="/forum/loadPost?id="+post.PostID) Read more
                 .span4
-                    section.widget
+                    a(href="/forum/loadUser?id="+userProfile.id title="Go to your own page")
+                      section.widget.wiget-shadow
                         .info-widget
                             .avatar-wrap
                                 img#userAvatar.avatar.avatar-60.photo(alt="" src="/images/support.png" height="60" width="60")

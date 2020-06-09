@@ -574,6 +574,21 @@ li.comment > article .avatar {
   box-shadow: 3px 5px 20px 1px #5555553d;
 }
 
+.wiget-shadow {
+  filter: progid:DXImageTransform.Microsoft.Shadow(color='#969696', Direction=135, Strength=5);
+  -moz-box-shadow: 2px 2px 5px #969696;
+  -webkit-box-shadow: 2px 2px 5px #969696;
+  box-shadow: 3px 5px 20px 1px #c0c0c03d;
+}
+
+.wiget-shadow:hover {
+  filter: progid:DXImageTransform.Microsoft.Shadow(color='#969696', Direction=135, Strength=5);
+  -moz-box-shadow: 2px 2px 5px #969696;
+  -webkit-box-shadow: 2px 2px 5px #969696;
+  box-shadow: 3px 5px 20px 1px #5555553d;
+}
+
+
 /* Footer ------------------------------------------------------------------------------------------------------------*/
 #footer-wrapper {
   width: 100%;

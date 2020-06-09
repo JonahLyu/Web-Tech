@@ -63,25 +63,26 @@ block layout-content
                             p.content.cat-description
                                 | #{cat.Description} 
                 .span4
-                    section.widget
-                        .info-widget
-                            .avatar-wrap
-                                img#userAvatar.avatar.avatar-60.photo(alt="" src="/images/support.png" height="60" width="60")
-                            div.Title
-                                h3 Your info
-                            .username-wrap
-                                b Username: 
-                                span#username 
-                            .gender-wrap
-                                b Gender: 
-                                span#gender 
-                            .birthday-wrap
-                                b Birthday: 
-                                span#birthday 
-                            .phone-wrap
-                                b Phone: 
-                                span#phone 
-                    section.widget
+                    a(href="/forum/loadUser?id="+userProfile.id title="Go to your own page")
+                      section.widget.wiget-shadow
+                          .info-widget
+                              .avatar-wrap
+                                  img#userAvatar.avatar.avatar-60.photo(alt="" src="/images/support.png" height="60" width="60")
+                              div.Title
+                                  h3 Your info
+                              .username-wrap
+                                  b Username: 
+                                  span#username 
+                              .gender-wrap
+                                  b Gender: 
+                                  span#gender 
+                              .birthday-wrap
+                                  b Birthday: 
+                                  span#birthday 
+                              .phone-wrap
+                                  b Phone: 
+                                  span#phone 
+                    section.widget.wiget-shadow
                         .support-widget
                             h3.title New Post
                             form(action="/forum/createPost" method="POST")
@@ -96,7 +97,7 @@ block layout-content
                                 br
                                 button.post.btn.btn-primary(type="submit" name="submit") post
                     if level === 3
-                      section.widget
+                      section.widget.wiget-shadow
                         .support-widget
                             h3.title New Category
                             form(action="/forum/createCategory" method="POST")
