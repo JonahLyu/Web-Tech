@@ -54,8 +54,7 @@ block layout-content
                             if editAccess
                               br
                               .logC
-                                a(href="/users/setting?id="+userID)
-                                  button.btn.btn-warn Edit User Details
+                                a.btn.btn-warn(href="/users/setting?id="+userID) Edit User Details
                               br
                               .logC
                                 button.btn.btn-danger(class="DelAcc" value=userID) Delete Account

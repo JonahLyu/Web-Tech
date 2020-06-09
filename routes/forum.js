@@ -84,7 +84,7 @@ router.post('/deletePost', secured, function(req, res, next) {
                 comDAO.deleteComByPostID(post);
             }
             // res.redirect('back');
-            res.send(req.get('referer'));
+            res.send('/forum/home');
         })
     } catch(err) {
         console.log("Error deleting post");

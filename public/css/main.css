@@ -7,6 +7,11 @@ a:hover {
   text-decoration: none;
 }
 
+.no-padding {
+  margin: 0;
+  padding: 0;
+}
+
 .topper{
   height: 280em !important;
 }

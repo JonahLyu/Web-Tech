@@ -110,4 +110,6 @@ block layout-content
                             form(action="/forum/createCategory" method="POST")
                                 textarea.content.form-control(name="title", rows='1', cols='20', placeholder='Category Name')
                                 br
-    
+                                textarea.content.form-control(name="description", rows='5', cols='20', placeholder='Category Description')
+                                br
+                                button.post.btn.btn-primary(type="submit" name="submit") Create Category   

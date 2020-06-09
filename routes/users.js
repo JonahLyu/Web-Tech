@@ -58,8 +58,8 @@ router.get('/setting', secured, function(req, res, next) {
       let access = ((req.session.user.level === 3) || (req.session.user.id === req.query.id)) && (req.query.id != -1) //Restrict access to admins, or people who own the page
       userID = (access) ? req.query.id : req.session.user.id; //If no access granted send user to their settings page
     } else {
-      res.redirect('/forum/home');
-      return next();
+      // res.redirect('/forum/home');
+      // return next();
     }
     try {
       userDAO.getUser(userID, (result) => {
@@ -203,7 +203,7 @@ router.post("/deleteUser", secured, (req, res) => {
         });
       })
     } catch (err) {
-      res.send("/logout");
+      res.send("/login");
     }
   } else {
     res.send("/");
