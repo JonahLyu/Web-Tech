@@ -35,11 +35,13 @@ block layout-content
                     .like-btn
                         span.like-it #{post.LikeCount}
                         
+                    br
                     section#comments
                         h3#comments-title () Comments
                         ol.commentlist
                         //- start of respond
                         #respond
+                            br
                             h3 Leave a Reply
                             form#commentform(action="/forum/createCom" method="post")
                                 p.comment-notes

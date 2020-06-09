@@ -361,9 +361,9 @@ form.search-form input.search-btn:hover {
 }
 .commentlist li.comment {
   border: none;
-  border-top: 1px solid #F2F2F2;
+  border-top: 2px solid #F2F2F2;
   list-style: none;
-  margin: 10px 0 0;
+  margin: 20px 0 0;
   padding: 20px 0 0;
 }
 .commentlist li.comment article {
@@ -582,6 +582,21 @@ li.comment > article .avatar {
 }
 
 .wiget-shadow:hover {
+  filter: progid:DXImageTransform.Microsoft.Shadow(color='#969696', Direction=135, Strength=5);
+  -moz-box-shadow: 2px 2px 5px #969696;
+  -webkit-box-shadow: 2px 2px 5px #969696;
+  box-shadow: 3px 5px 20px 1px #5555553d;
+}
+
+.comment-shadow {
+  padding: 20px 20px 20px 20px;
+  filter: progid:DXImageTransform.Microsoft.Shadow(color='#969696', Direction=135, Strength=5);
+  -moz-box-shadow: 2px 2px 5px #969696;
+  -webkit-box-shadow: 2px 2px 5px #969696;
+  box-shadow: 3px 5px 20px 1px #c0c0c03d;
+}
+
+.comment-shadow:hover {
   filter: progid:DXImageTransform.Microsoft.Shadow(color='#969696', Direction=135, Strength=5);
   -moz-box-shadow: 2px 2px 5px #969696;
   -webkit-box-shadow: 2px 2px 5px #969696;

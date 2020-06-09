@@ -6,10 +6,10 @@ block extra-head
     script(src="../scripts/user_widget.js")
 
 block layout-content
-    .search-area-wrapper
+    .search-area-wrapper(style="background: #353b65 url('../images/search_background.jpg') center bottom no-repeat;")
       .search-area.container
         h3#greeting.search-header
-        p.search-tag-line Welcome back to your magic forum!
+        p.search-tag-line This is a powerful search engine!
         form#search-form.search-form.clearfix(method="get" action="/forum/search" autocomplete="off")
           input#s.search-term.required.loading(type="text" name="input" placeholder="Type your search terms here" title="* Please enter a search term!" value=searchInput)
           input.search-btn(type="submit" value="Search")

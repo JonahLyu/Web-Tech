@@ -2,10 +2,9 @@ extends layout.pug
 
 block layout-content
     #thisUID(style="display:none;") #{thisUserID}
-    .search-area-wrapper
+    .search-area-wrapper(style="background: #353b65 url('../images/user_background.jpg') center top no-repeat;")
       .search-area.container
         h3#greeting.search-header
-        //- h3#greeting.search-header Howdy, #{userProfile.nickname}!
         p.search-tag-line You are browsing my space!
     .page-container
         .container

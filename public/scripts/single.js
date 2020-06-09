@@ -22,19 +22,19 @@ $.post(
             let avatarLink = "https://www.gravatar.com/avatar/" + hash + "?d=monsterid"
             var oLi = document.createElement("li")
             oLi.className = `comment even thread-even depth-1`
-            oLi.innerHTML = `<article>
+            oLi.innerHTML = `<article class="comment-shadow">
                     <a href="/forum/loadUser?id=${comment.UserID}">
                         <img alt="" src=${avatarLink} class="avatar avatar-60 photo" height="60" width="60">
                     </a>
-                    <div class="comment-meta">
-                            <h5 class="author">
-                                <cite class="fn">
-                                    <a href="/forum/loadUser?id=${comment.UserID}" class="url">${comment.Username}</a>
-                                ${deleteButtonHTML}
-                            </h5>
-                            <p class="date">
-                                <time datetime="2013-02-26T13:18:47+00:00">${comment.Date}</time>
-                            </p>   
+                    <div>
+                        <h5 class="author">
+                            <cite class="fn">
+                                <a href="/forum/loadUser?id=${comment.UserID}" class="url">${comment.Username}</a>
+                            ${deleteButtonHTML}
+                        </h5>
+                        <p class="date">
+                            <time datetime="2013-02-26T13:18:47+00:00">${comment.Date}</time>
+                        </p>   
                     </div><!-- end .comment-meta -->
                     <div class="comment-body">
                             <p class="content">${comment.Content}</p>

@@ -19,7 +19,7 @@ $.get(
             let avatarLink = "https://www.gravatar.com/avatar/" + hash + "?d=monsterid"
             var oLi = document.createElement("li")
             oLi.className = `comment even thread-even depth-1`
-            oLi.innerHTML = `<article id="comment-2">
+            oLi.innerHTML = `<article>
                     <a href="/forum/loadUser?id=${user.UserID}">
                         <img alt="" src=${avatarLink} class="avatar avatar-60 photo" height="60" width="60">
                     </a>
