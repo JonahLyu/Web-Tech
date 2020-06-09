@@ -56,10 +56,10 @@ block layout-content
                         article.type-cat.hentry.clearfix.shadow
                           header.clearfix
                             h3.cat-title
-                              a(href="/forum/loadCategory?id="+cat.CatID+"&title="+cat.Title) #{cat.Title}
+                              a(href="/forum/loadCategory?id="+cat.CatID) #{cat.Title}
                             .post-meta
                               span.comments
-                                a(href="/forum/loadCategory?id="+cat.CatID+"&title="+cat.Title title="Posts") #{cat.PostCount} Posts
+                                a(href="/forum/loadCategory?id="+cat.CatID title="Posts") #{cat.PostCount} Posts
                               if level > 2
                                 span 
                                     button.btn.btn-mini.btn-danger(class="DelCat" value=cat.CatID title="Delete this category") Delete

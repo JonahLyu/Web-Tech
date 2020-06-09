@@ -54,6 +54,19 @@ function clearCat(catID){
 
 }
 
+function getCatTitle(catID, callback) {
+    var stmt = db.prepare(`select Title from categories where CatID = ?`);
+    stmt.get(catID, (err, title) => {
+        if (err) {
+            stmt.finalize();
+            throw err;
+        } else {
+            stmt.finalize();
+            callback(title.Title);
+        }
+    });
+}
+
 
 async function getAllCat(getCallback) { //Needs the callback to allow proper execution, otherwise function doesn't have time to execute
     var sql = db.prepare(`select * , (select count(*) from posts where posts.CatID = categories.CatID) as PostCount from ` + table + ' order by CatID asc');
@@ -87,6 +100,7 @@ var catDAO = {
     createCat: createCat,
     deleteCat: deleteCat,
     clearCat: clearCat,
+    getCatTitle: getCatTitle,
     getAllCat: getAllCat,
     getCatByID: getCatByID
 }
