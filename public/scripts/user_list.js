@@ -18,8 +18,8 @@ $.get(
             let hash = md5(user.UserID)
             let avatarLink = "https://www.gravatar.com/avatar/" + hash + "?d=monsterid"
             var oLi = document.createElement("li")
-            oLi.className = `comment even thread-even depth-1`
-            oLi.innerHTML = `<article>
+            oLi.className = `comment even thread-even depth-1 clean-list paged`
+            oLi.innerHTML = `<article class="comment-shadow">
                     <a href="/forum/loadUser?id=${user.UserID}">
                         <img alt="" src=${avatarLink} class="avatar avatar-60 photo" height="60" width="60">
                     </a>
@@ -37,5 +37,6 @@ $.get(
 
             userList.appendChild(oLi)
         });
+        setUpPaging();
     }
 );
