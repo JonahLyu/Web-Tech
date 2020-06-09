@@ -26,7 +26,7 @@ block layout-content
         .container
             .row
                 .span8.main-listing
-                    h1 Most Recent Post
+                    h2 Most Recent Post
                     each post in posts
                         article.type-post.hentry.clearfix.shadow
                           header.clearfix
@@ -47,7 +47,8 @@ block layout-content
                           p.content
                             | #{post.Content} 
                             a.readmore-link(href="/forum/loadPost?id="+post.PostID) Read more
-                    h1 Categories
+                    br
+                    h2 Categories
                     each cat in cats
                         article.type-cat.hentry.clearfix.shadow
                           header.clearfix
