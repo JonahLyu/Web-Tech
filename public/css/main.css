@@ -452,14 +452,14 @@ li.comment > article .avatar {
 }
 
 .hentry.type-post .post-title {
-  background: url("../images/svg/post.svg") no-repeat 0px 0px;
+  background: url("../images/svg/post.svg") no-repeat 0px -2px;
   padding-left: 35px;
   font-size: 20px;
   line-height: 30px;
 }
 
 .hentry.type-post .post-title:hover {
-  background: url("../images/svg/postfill.svg") no-repeat 0px 0px;
+  background: url("../images/svg/postfill.svg") no-repeat 0px -2px;
 }
 
 .hentry.type-post h1.post-title {
